@@ -14,12 +14,12 @@ let
     );
 in
 {
-  flake = {
+  flake = rec {
     unit = {
       home = import_all ./home;
       sys = import_all ./sys;
     };
-    homeModules = with self.unit.home; {
+    homeModules = with unit.home; rec {
       core = {
         # List of core packages used in command line
         imports = [
@@ -30,6 +30,7 @@ in
           ({ pkgs, ... }: {
             home.stateVersion = "23.11";
             home.packages = with pkgs; [
+              git-crypt
               bat
               vim
               xh
@@ -49,7 +50,7 @@ in
       desktop = {
         # List of desktop, mostly GUI packages
         imports = [
-          self.homeModules.core
+          core
           alacritty
           vscode
           i3
@@ -72,7 +73,7 @@ in
       server = {
         # List of server packages
         imports = [
-          self.homeModules.core
+          core
         ];
       };
     };

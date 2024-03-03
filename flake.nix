@@ -1,4 +1,6 @@
 {
+  description = "My Nix configuration";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
@@ -20,6 +22,7 @@
       ];
 
       flake = {
+        secrets = with builtins; fromJSON (readFile "${self}/secrets/secrets.json");
         nixosConfigurations = {
           atlas = self.nixos-flake.lib.mkLinuxSystem machine/atlas;
         };

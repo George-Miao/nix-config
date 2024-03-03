@@ -1,11 +1,12 @@
 { flake, ... }:
 
-let unit = flake.inputs.self.unit;
-
+let
+  unit = flake.inputs.self.unit;
+  nixos = flake.inputs.self.nixosModules;
 in
 {
   imports = [
-    flake.inputs.self.nixosModules.desktop
+    nixos.desktop
     unit.sys.btrfs
     unit.sys.nvidia
 
