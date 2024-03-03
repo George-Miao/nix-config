@@ -56,6 +56,7 @@ in
           rofi
           picom
           gpg-agent
+          gtk
           ({ pkgs, ... }: {
             home.packages = with pkgs; [
               gh
