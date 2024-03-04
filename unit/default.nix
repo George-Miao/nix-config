@@ -30,7 +30,11 @@ in
           ({ pkgs, ... }: {
             home.stateVersion = "23.11";
             home.packages = with pkgs; [
+              rust-bin.stable.latest.default
               git-crypt
+              gcc
+              pkg-config
+              openssl
               bat
               vim
               xh
