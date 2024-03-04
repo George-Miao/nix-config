@@ -1,4 +1,8 @@
-{self, ...}: {
+{
+  self,
+  config,
+  ...
+}: {
   flake = {
     nixosModules = {
       desktop.imports = [
@@ -7,7 +11,7 @@
         self.unit.sys.x
         self.nixosModules.home-manager
         {
-          home-manager.users.pop = {
+          home-manager.users.${config.user} = {
             imports = [self.homeModules.desktop];
             home.sessionVariables = {
               BROWSER = "firefox";

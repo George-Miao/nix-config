@@ -26,6 +26,7 @@
       systems = ["x86_64-linux" "aarch64-linux"];
       imports = [
         nixos-flake.flakeModule
+        ./config.nix
         ./unit
         ./system/darwin
         ./system/nixos-desktop
