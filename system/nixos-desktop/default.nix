@@ -1,4 +1,4 @@
-{ self, ... }: {
+{self, ...}: {
   flake = {
     nixosModules = {
       desktop.imports = [
@@ -8,7 +8,7 @@
         self.nixosModules.home-manager
         {
           home-manager.users.pop = {
-            imports = [ self.homeModules.desktop ];
+            imports = [self.homeModules.desktop];
             home.sessionVariables = {
               BROWSER = "firefox";
               TERMINAL = "alacritty";

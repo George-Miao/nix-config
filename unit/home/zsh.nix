@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -6,18 +6,13 @@
 
     antidote = {
       enable = true;
-      plugins = [
-        "chisui/zsh-nix-shell"
-      ];
+      plugins = ["chisui/zsh-nix-shell"];
     };
 
     oh-my-zsh = {
       enable = true;
       theme = "agnoster";
-      plugins = [
-        "git"
-        "sudo"
-      ];
+      plugins = ["git" "sudo"];
     };
   };
 }

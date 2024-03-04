@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   services.picom = {
     enable = true;
 
@@ -6,10 +6,7 @@
     # vSync = true;
 
     shadow = true;
-    shadowOffsets = [
-      (-7)
-      (-7)
-    ];
+    shadowOffsets = [(-7) (-7)];
     shadowExclude = [
       "! name~=''"
       "window_type = 'popup_menu'"

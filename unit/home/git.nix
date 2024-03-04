@@ -1,13 +1,11 @@
-{ flake, ... }: {
+{flake, ...}: {
   programs.git = {
     enable = true;
 
     userName = "George Miao";
     userEmail = "gm@miao.dev";
 
-    difftastic = {
-      enable = true;
-    };
+    difftastic = {enable = true;};
 
     signing = {
       key = null;

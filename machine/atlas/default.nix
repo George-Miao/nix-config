@@ -1,10 +1,7 @@
-{ flake, ... }:
-
-let
+{flake, ...}: let
   unit = flake.inputs.self.unit;
   nixos = flake.inputs.self.nixosModules;
-in
-{
+in {
   imports = [
     nixos.desktop
     unit.sys.btrfs
@@ -13,9 +10,7 @@ in
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.pop.imports = [
-    ./autorandr.nix
-  ];
+  home-manager.users.pop.imports = [./autorandr.nix];
 
   system.stateVersion = "23.11";
 

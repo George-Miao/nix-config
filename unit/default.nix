@@ -1,19 +1,12 @@
-{ self, ... }:
-
-with builtins;
-
-let
+{self, ...}:
+with builtins; let
   basename = name: substring 0 (stringLength name - 4) name;
-  import_all = dir: listToAttrs
-    (map
-      (file: {
-        name = basename file;
-        value = import (dir + "/${file}");
-      })
-      (filter (x: x != "default.nix") (attrNames (readDir dir)))
-    );
-in
-{
+  import_all = dir:
+    listToAttrs (map (file: {
+      name = basename file;
+      value = import (dir + "/${file}");
+    }) (filter (x: x != "default.nix") (attrNames (readDir dir))));
+in {
   flake = rec {
     unit = {
       home = import_all ./home;
@@ -27,10 +20,12 @@ in
           starship
           zsh
           gpg
-          ({ pkgs, ... }: {
+          ({pkgs, ...}: {
             home.stateVersion = "23.11";
             home.packages = with pkgs; [
-              rust-bin.stable.latest.default
+              (rust-bin.stable.latest.default.override {
+                extensions = ["rust-src"];
+              })
               git-crypt
               gcc
               pkg-config
@@ -47,9 +42,7 @@ in
           })
         ];
 
-        home.sessionVariables = {
-          EDITOR = "vim";
-        };
+        home.sessionVariables = {EDITOR = "vim";};
       };
       desktop = {
         # List of desktop, mostly GUI packages
@@ -63,23 +56,21 @@ in
           picom
           gpg-agent
           gtk
-          ({ pkgs, ... }: {
+          ({pkgs, ...}: {
             home.packages = with pkgs; [
               gh
               telegram-desktop
               firefox
               pavucontrol
               nil
-              nixpkgs-fmt
+              alejandra
             ];
           })
         ];
       };
       server = {
         # List of server packages
-        imports = [
-          core
-        ];
+        imports = [core];
       };
     };
   };

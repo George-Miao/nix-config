@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   programs.rofi = {
     enable = true;
     font = "Cascadia Code 12";
