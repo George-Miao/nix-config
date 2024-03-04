@@ -1,5 +1,17 @@
-{lib, ...}: {
-  xsession.windowManager.i3 = {
+{
+  lib,
+  flake,
+  pkgs,
+  ...
+}: {
+  services.xserver = {
+    enable = true;
+
+    displayManager.defaultSession = "none+i3";
+    windowManager.i3.enable = true;
+  };
+
+  home-manager.users.${flake.config.user}.xsession.windowManager.i3 = {
     enable = true;
 
     config = {

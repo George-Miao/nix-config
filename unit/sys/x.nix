@@ -9,9 +9,6 @@
       runXdgAutostartIfNone = true;
     };
 
-    displayManager.defaultSession = "none+i3";
-    windowManager.i3.enable = true;
-
     xkb = {
       layout = "us";
       options = "eurosign:e,caps:escape";

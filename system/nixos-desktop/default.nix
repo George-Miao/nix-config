@@ -9,6 +9,7 @@
         ../shared
         ./fonts.nix
         self.unit.sys.x
+        self.unit.sys.i3
         self.nixosModules.home-manager
         {
           home-manager.users.${config.user} = {

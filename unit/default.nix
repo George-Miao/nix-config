@@ -26,6 +26,7 @@ in {
               (rust-bin.stable.latest.default.override {
                 extensions = ["rust-src"];
               })
+              file
               git-crypt
               gcc
               pkg-config
@@ -51,14 +52,15 @@ in {
           fcitx5
           alacritty
           vscode
-          i3
           rofi
           picom
           gpg-agent
           gtk
+          wallpaper
           ({pkgs, ...}: {
             home.packages = with pkgs; [
               gh
+              xdg-utils
               telegram-desktop
               firefox
               pavucontrol
