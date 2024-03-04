@@ -3,7 +3,7 @@
     enable = true;
 
     backend = "glx";
-    # vSync = true;
+    vSync = true;
 
     shadow = true;
     shadowOffsets = [(-7) (-7)];
@@ -40,24 +40,24 @@
       "80:class_g *?= 'Rofi'"
     ];
     settings = {
-      blur = {
-        size = 12;
-        deviation = 5.0;
-        background = true;
-        background-frame = false;
-        background-fixed = false;
-        kern = "3x3box";
-        method = "dual_kawase";
-        strength = 10;
-        background-exclude = [
-          "window_type = 'dock'"
-          "window_type = 'popup_menu'"
-          "window_type = 'desktop'"
-          "_GTK_FRAME_EXTENTS@:c"
-          "WM_WINDOW_ROLE@:s *= 'Popup'"
-          "class_g = 'TelegramDesktop'"
-        ];
-      };
+      fading = true;
+      shadow-radius = 7;
+      blur-size = 12;
+      blur-deviation = 5.0;
+      blur-background = true;
+      blur-background-frame = false;
+      blur-background-fixed = false;
+      blur-kern = "3x3box";
+      blur-method = "dual_kawase";
+      blur-strength = 20;
+      blur-background-exclude = [
+        "window_type = 'dock'"
+        "window_type = 'popup_menu'"
+        "window_type = 'desktop'"
+        "_GTK_FRAME_EXTENTS@:c"
+        "WM_WINDOW_ROLE@:s *= 'Popup'"
+        "class_g = 'TelegramDesktop'"
+      ];
     };
   };
 }
