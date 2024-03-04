@@ -53,10 +53,8 @@ in {
           alacritty
           vscode
           rofi
-          picom
           gpg-agent
           gtk
-          wallpaper
           ({pkgs, ...}: {
             home.packages = with pkgs; [
               gh

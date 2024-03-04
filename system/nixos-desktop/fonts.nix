@@ -9,6 +9,8 @@
       source-han-sans
       source-han-serif
       liberation_ttf
+      font-awesome
+      powerline-fonts
       mplus-outline-fonts.githubRelease
     ];
 

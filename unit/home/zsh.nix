@@ -7,6 +7,7 @@
     shellAliases = {
       "c" = "clear";
       "sys" = "sudo systemctl";
+      "sysu" = "systemctl --user";
       "rebuild" = "sudo nixos-rebuild switch --flake /home/${flake.config.user}/.nix-config";
     };
 

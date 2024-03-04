@@ -5,6 +5,7 @@
 }: {
   gtk = {
     enable = true;
+
     theme = {
       name = "Catppuccin-Macchiato-Compact-Pink-Dark";
       package = pkgs.catppuccin-gtk.override {
@@ -13,6 +14,16 @@
         tweaks = ["rimless" "black"];
         variant = "macchiato";
       };
+    };
+
+    iconTheme = {
+      package = pkgs.gnome.adwaita-icon-theme;
+      name = "Adwaita";
+    };
+
+    font = {
+      name = "Sans";
+      size = 11;
     };
   };
 

@@ -10,7 +10,7 @@ in {
     ./hardware-configuration.nix
   ];
 
-  home-manager.users.${flake.config.user}.imports = [./autorandr.nix];
+  home-manager.users.${flake.config.user}.imports = [./hyprland.nix];
 
   system.stateVersion = "23.11";
 
