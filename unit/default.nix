@@ -51,6 +51,7 @@ in
         # List of desktop, mostly GUI packages
         imports = [
           core
+          fcitx5
           alacritty
           vscode
           i3
@@ -61,7 +62,7 @@ in
           ({ pkgs, ... }: {
             home.packages = with pkgs; [
               gh
-              arandr
+              telegram-desktop
               firefox
               pavucontrol
               nil

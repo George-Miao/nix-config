@@ -13,6 +13,10 @@ in
     ./hardware-configuration.nix
   ];
 
+  home-manager.users.pop.imports = [
+    ./autorandr.nix
+  ];
+
   system.stateVersion = "23.11";
 
   nixpkgs.hostPlatform = "x86_64-linux";
