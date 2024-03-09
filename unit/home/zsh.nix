@@ -8,7 +8,8 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
-      "rebuild" = "sudo nixos-rebuild switch --flake /home/${flake.config.user}/.nix-config";
+      "rebuild" = "sudo nixos-rebuild switch --flake $HOME/.nix-config";
+      "rb" = "rebuild";
     };
 
     antidote = {
