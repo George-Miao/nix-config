@@ -26,6 +26,7 @@ in {
               (rust-bin.stable.latest.default.override {
                 extensions = ["rust-src"];
               })
+              htop
               file
               git-crypt
               gcc

@@ -8,8 +8,9 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
-      "rebuild" = "sudo nixos-rebuild switch --flake $HOME/.nix-config";
-      "rb" = "rebuild";
+      "rb" = "sudo nixos-rebuild switch --flake $HOME/.nix-config";
+      "rbf" = "sudo nixos-rebuild switch --fast --flake $HOME/.nix-config";
+      "codei" = "code-insiders";
     };
 
     antidote = {
