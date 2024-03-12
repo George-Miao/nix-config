@@ -1,4 +1,9 @@
 {flake, ...}: {
+  programs.zoxide = {
+    enable = true;
+    options = ["--cmd" "j"];
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
