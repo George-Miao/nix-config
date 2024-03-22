@@ -44,6 +44,9 @@ input @ {
         qt6.qtwayland
         libsForQt5.qt5.qtwayland
         xdg-desktop-portal-wlr
+        grim
+        slurp
+        wl-clipboard
       ];
 
       pointerCursor = {
@@ -66,6 +69,7 @@ input @ {
       settings = with builtins; {
         "$mod" = "SUPER";
         input = {
+          sensitivity = -0.6;
           repeat_delay = 200;
           repeat_rate = 50;
         };
@@ -77,6 +81,7 @@ input @ {
           [
             "CTRL, Q, killactive"
             "ALT, space, exec, rofi -show combi"
+            "$mod CTRL, s, exec, grim -g \"$(slurp -d)\" - | wl-copy"
             "$mod, return, exec, alacritty"
             "$mod, F, togglefloating"
             "$mod, left, movefocus, l"

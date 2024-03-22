@@ -7,7 +7,7 @@ in {
     unit.sys.btrfs
     unit.sys.nvidia
 
-    ./hardware-configuration.nix
+    ./hardware.nix
   ];
 
   home-manager.users.${flake.config.user}.imports = [./hyprland.nix];
@@ -18,9 +18,19 @@ in {
 
   networking.hostName = "atlas";
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.device = "/dev/nvme0n1";
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      efiSupport = true;
+      enable = true;
+      devices = ["nodev"];
+      # device = "/dev/nvme0n1p1";
+      useOSProber = true;
+    };
+  };
 
   time.timeZone = "Asia/Shanghai";
 }
