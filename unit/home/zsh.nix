@@ -13,8 +13,7 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
-      "rb" = "sudo nixos-rebuild switch --flake $HOME/.nix-config";
-      "rbf" = "sudo nixos-rebuild switch --fast --flake $HOME/.nix-config";
+      "rb" = "nix run $HOME'/.nix-config#activate'";
       "codei" = "code-insiders";
     };
 

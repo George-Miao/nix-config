@@ -7,6 +7,7 @@
     nixosModules = {
       desktop.imports = [
         ../shared
+        ../shared/nixos.nix
         ./fonts.nix
         # self.unit.sys.x
         # self.unit.sys.i3

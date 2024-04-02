@@ -27,6 +27,10 @@ in {
               (rust-bin.stable.latest.default.override {
                 extensions = ["rust-src"];
               })
+              gh
+              xdg-utils
+              nil
+              alejandra
               htop
               file
               git-crypt
@@ -59,13 +63,9 @@ in {
           gtk
           ({pkgs, ...}: {
             home.packages = with pkgs; [
-              gh
-              xdg-utils
               telegram-desktop
               firefox
               pavucontrol
-              nil
-              alejandra
             ];
           })
         ];
