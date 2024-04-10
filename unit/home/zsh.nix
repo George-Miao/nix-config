@@ -13,7 +13,7 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
-      "rb" = "nix run $HOME'/.nix-config#activate'";
+      "rb" = "(cd $HOME/.nix-config && nix run '.#activate')";
       "codei" = "code-insiders";
     };
 

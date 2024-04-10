@@ -15,7 +15,7 @@
         self.nixosModules.home-manager
         {
           home-manager.users.${config.user} = {
-            imports = [self.homeModules.desktop];
+            imports = [self.homeModules.local self.homeModules.gui];
             home.sessionVariables = {
               BROWSER = "firefox";
               TERMINAL = "alacritty";

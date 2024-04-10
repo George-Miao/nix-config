@@ -1,4 +1,4 @@
-{self, ...}:
+input @ {self, ...}:
 with builtins; let
   basename = name: substring 0 (stringLength name - 4) name;
   import_all = dir:
@@ -12,67 +12,76 @@ in {
       home = import_all ./home;
       sys = import_all ./sys;
     };
-    homeModules = with unit.home; rec {
-      core = {
-        # List of core packages used in command line
-        imports = [
+    homeModules = rec {
+      # List of core packages used in command line
+      core = {pkgs, ...}: {
+        imports = with unit.home; [
           git
           starship
           zsh
           gpg
           direnv
-          ({pkgs, ...}: {
-            home.stateVersion = "23.11";
-            home.packages = with pkgs; [
-              (rust-bin.stable.latest.default.override {
-                extensions = ["rust-src"];
-              })
-              gh
-              xdg-utils
-              nil
-              alejandra
-              htop
-              file
-              git-crypt
-              gcc
-              pkg-config
-              openssl
-              bat
-              vim
-              xh
-              wget
-              curl
-              fd
-              ouch
-              ripgrep
-            ];
-          })
         ];
 
-        home.sessionVariables = {EDITOR = "vim";};
+        home = {
+          stateVersion = "23.11";
+          packages = with pkgs; [
+            (rust-bin.stable.latest.default.override {
+              extensions = ["rust-src"];
+            })
+            xdg-utils
+            htop
+            file
+            git-crypt
+            openssl
+            bat
+            vim
+            xh
+            wget
+            curl
+            fd
+            ouch
+            ripgrep
+          ];
+
+          sessionVariables = {EDITOR = "vim";};
+        };
       };
-      desktop = {
-        # List of desktop, mostly GUI packages
+
+      # List of packages used for local environment, include PC's and Macs
+      local = {pkgs, ...}: {
+        imports = [core];
+        home.packages = with pkgs; [
+          rclone
+          gh
+          nil
+          alejandra
+          htop
+          gcc
+          pkg-config
+        ];
+      };
+
+      # List of packages server used for servers
+      server = {pkgs, ...}: {
+        imports = [core];
+      };
+
+      # List of GUI packages
+      gui = {pkgs, ...}: {
         imports = [
-          core
           fcitx5
           alacritty
           vscode
           rofi
           gpg-agent
           gtk
-          ({pkgs, ...}: {
-            home.packages = with pkgs; [
-              telegram-desktop
-              firefox
-              pavucontrol
-            ];
-          })
         ];
-      };
-      server = {
-        # List of server packages
-        imports = [core];
+        home.packages = with pkgs; [
+          telegram-desktop
+          firefox
+          pavucontrol
+        ];
       };
     };
   };

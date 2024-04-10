@@ -16,7 +16,7 @@ in {
 
         home-manager = {
           users.${user} = {
-            imports = [self.homeModules.core];
+            imports = [self.homeModules.local];
             home.username = user;
             home.homeDirectory = "/Users/${user}";
           };
