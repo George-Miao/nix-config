@@ -43,9 +43,11 @@
         ./system/nixos-server
       ];
 
-      flake = {
-        secrets = with builtins;
-          fromJSON (readFile "${self}/secrets/secrets.json");
+      flake = with builtins; {
+        secrets = fromJSON (readFile "${self}/secrets/secrets.json");
+        consts = {
+          gpg = readFile "${self}/pub.gpg";
+        };
         nixosConfigurations = {
           atlas = self.nixos-flake.lib.mkLinuxSystem machine/atlas;
         };

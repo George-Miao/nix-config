@@ -16,6 +16,10 @@ This is my personal NixOS configuration.
   - `/system/nixos-server`: NixOS server config
 - `/machine`: Machine-specific configuration
 
+## Secrets
+
+Secrets are managed with `git-crypt`
+
 ## Config flow
 `flake.nix` imports all units and systems, which would then be exported as flake. Next, depend on which machine the activate script (`nix run .#activate`) is running on, the corresponding machine configuration will be activated and pull in the system and unit configurations it needs.
 
