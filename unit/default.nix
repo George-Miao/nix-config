@@ -26,9 +26,10 @@ in {
         home = {
           stateVersion = "23.11";
           packages = with pkgs; [
-            (rust-bin.stable.latest.default.override {
-              extensions = ["rust-src"];
-            })
+            (rust-bin.selectLatestNightlyWith (toolchain:
+              toolchain.default.override {
+                extensions = ["rust-src"];
+              }))
             xdg-utils
             htop
             file
@@ -50,8 +51,17 @@ in {
 
       # List of packages used for local environment, include PC's and Macs
       local = {pkgs, ...}: {
-        imports = [core];
+        imports = with unit.home; [
+          core
+          typst
+        ];
         home.packages = with pkgs; [
+          dua
+          biome
+          bitwarden-cli
+          websocat
+          jq
+          jless
           rclone
           gh
           nil
