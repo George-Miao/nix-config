@@ -16,7 +16,16 @@ in {
 
         home-manager = {
           users.${user} = {
-            imports = [self.homeModules.local];
+            imports = [
+              self.homeModules.local
+              ({pkgs, ...}: {
+                home.packages = [
+                  pkgs.darwin.apple_sdk.frameworks.SystemConfiguration
+                  pkgs.darwin.apple_sdk.frameworks.Security
+                  pkgs.tart
+                ];
+              })
+            ];
             home.username = user;
             home.homeDirectory = "/Users/${user}";
           };

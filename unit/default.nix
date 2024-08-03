@@ -30,7 +30,9 @@ in {
               toolchain.default.override {
                 extensions = ["rust-src"];
               }))
+            rnr
             xdg-utils
+            tree
             htop
             file
             git-crypt
@@ -56,6 +58,8 @@ in {
           typst
         ];
         home.packages = with pkgs; [
+          libiconv
+          cargo-release
           dua
           biome
           bitwarden-cli
