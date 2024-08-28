@@ -2,6 +2,8 @@
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
+      corefonts
+      vistafonts
       cascadia-code
       noto-fonts
       noto-fonts-cjk
