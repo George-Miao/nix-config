@@ -80,7 +80,7 @@ input @ {
         bind =
           [
             "CTRL, Q, killactive"
-            "ALT, space, exec, rofi -show combi"
+            "ALT, space, exec, fuzzel"
             "$mod CTRL, s, exec, grim -g \"$(slurp -d)\" - | wl-copy"
             "$mod, return, exec, alacritty"
             "$mod, F, togglefloating"

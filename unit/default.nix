@@ -88,7 +88,7 @@ in {
           fcitx5
           alacritty
           vscode
-          rofi
+          fuzzel
           gpg-agent
           gtk
         ];
