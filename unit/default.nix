@@ -84,7 +84,7 @@ in {
 
       # List of GUI packages
       gui = {pkgs, ...}: {
-        imports = [
+        imports = with unit.home; [
           fcitx5
           alacritty
           vscode

@@ -50,6 +50,7 @@
         };
         nixosConfigurations = {
           atlas = self.nixos-flake.lib.mkLinuxSystem machine/atlas;
+          Everest = self.nixos-flake.lib.mkLinuxSystem machine/Everest;
         };
         darwinConfigurations = {
           Fuji = self.nixos-flake.lib.mkMacosSystem machine/Fuji;

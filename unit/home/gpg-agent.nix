@@ -1,8 +1,8 @@
-{...}: {
+{pkgs, ...}: {
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
-    pinentryFlavor = "gtk2";
+    pinentryPackage = pkgs.pinentry-gtk2;
   };
 }
