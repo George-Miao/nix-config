@@ -3,6 +3,6 @@
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
-    pinentryPackage = pkgs.pinentry-gtk2;
+    pinentryPackage = pkgs.pinentry-qt;
   };
 }

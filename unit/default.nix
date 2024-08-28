@@ -57,6 +57,7 @@ in {
         imports = with unit.home; [
           core
           typst
+          # dropbox
         ];
         home.packages = with pkgs; [
           libiconv

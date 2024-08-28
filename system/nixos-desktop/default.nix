@@ -12,6 +12,8 @@
         # self.unit.sys.x
         # self.unit.sys.i3
         self.unit.sys.hyprland
+        self.unit.sys.printer
+        self.unit.sys.dropbox
         self.nixosModules.home-manager
         {
           home-manager.users.${config.user} = {
