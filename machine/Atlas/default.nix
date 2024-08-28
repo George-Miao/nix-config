@@ -14,7 +14,7 @@ in {
 
   system.stateVersion = "23.11";
 
-  networking.hostName = "atlas";
+  networking.hostName = "Atlas";
 
   boot.loader = {
     efi = {

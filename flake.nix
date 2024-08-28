@@ -49,7 +49,7 @@
           gpg = readFile "${self}/pub.gpg";
         };
         nixosConfigurations = {
-          atlas = self.nixos-flake.lib.mkLinuxSystem machine/atlas;
+          Atlas = self.nixos-flake.lib.mkLinuxSystem machine/Atlas;
           Everest = self.nixos-flake.lib.mkLinuxSystem machine/Everest;
         };
         darwinConfigurations = {
