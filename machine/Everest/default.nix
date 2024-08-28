@@ -5,6 +5,8 @@ in {
   imports = [
     nixos.desktop
     unit.sys.btrfs
+    unit.sys.amdgpu
+    unit.sys.steam
 
     ./hardware.nix
   ];

@@ -7,7 +7,6 @@ in {
 
   networking.hostName = "Fuji";
 
-  nixpkgs.config.allowUnfree = true;
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   services.nix-daemon.enable = true;

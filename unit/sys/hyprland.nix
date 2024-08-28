@@ -25,6 +25,9 @@ input @ {
 
     # Electron apps, VSCode in particular, need this to run smoothly on Wayland
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
+
+    # Hint apps to use wayland
+    NIXOS_OZONE_WL = "1";
   };
 
   systemd.services.greetd.serviceConfig = {
@@ -68,6 +71,9 @@ input @ {
       ];
       settings = with builtins; {
         "$mod" = "SUPER";
+        xwayland = {
+          force_zero_scaling = true;
+        };
         input = {
           sensitivity = -0.6;
           repeat_delay = 200;
@@ -80,10 +86,14 @@ input @ {
         bind =
           [
             "CTRL, Q, killactive"
+            "CTRL, W, killactive"
             "ALT, space, exec, fuzzel"
-            "$mod CTRL, s, exec, grim -g \"$(slurp -d)\" - | wl-copy"
             "$mod, return, exec, alacritty"
+            "$mod, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
             "$mod, F, togglefloating"
+            "$mod, Y, setfloating"
+            "$mod, Y, resizeactive, exact 50% 50%"
+            "$mod, Y, moveactive, exact 25% 25%"
             "$mod, left, movefocus, l"
             "$mod, right, movefocus, r"
             "$mod, up, movefocus, u"
