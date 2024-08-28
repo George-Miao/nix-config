@@ -86,14 +86,13 @@ input @ {
         bind =
           [
             "CTRL, Q, killactive"
-            "CTRL, W, killactive"
             "ALT, space, exec, fuzzel"
             "$mod, return, exec, alacritty"
             "$mod, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
             "$mod, F, togglefloating"
             "$mod, Y, setfloating"
             "$mod, Y, resizeactive, exact 50% 50%"
-            "$mod, Y, moveactive, exact 25% 25%"
+            "$mod, Y, centerwindow"
             "$mod, left, movefocus, l"
             "$mod, right, movefocus, r"
             "$mod, up, movefocus, u"
