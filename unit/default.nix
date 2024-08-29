@@ -21,6 +21,7 @@ in {
           zsh
           gpg
           direnv
+          yazi
         ];
 
         home = {

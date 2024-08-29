@@ -9,6 +9,7 @@ in {
     unit.sys.steam
 
     ./hardware.nix
+    ./samba.nix
   ];
 
   home-manager.users.${flake.config.user}.imports = [./hyprland.nix];
