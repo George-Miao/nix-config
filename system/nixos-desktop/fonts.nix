@@ -2,6 +2,7 @@
   fonts = {
     fontDir.enable = true;
     packages = with pkgs; [
+      ubuntu_font_family
       corefonts
       vistafonts
       cascadia-code
@@ -14,14 +15,15 @@
       font-awesome
       powerline-fonts
       mplus-outline-fonts.githubRelease
+      (nerdfonts.override {fonts = ["Noto"];})
     ];
 
     fontconfig = {
       defaultFonts = {
         emoji = ["Noto Color Emoji"];
         monospace = ["Cascadia Code"];
-        sansSerif = ["Source Han Sans SC" "DejaVu Sans"];
-        serif = ["Source Han Serif SC" "DejaVu Serif"];
+        sansSerif = ["Noto Sans" "Source Han Sans SC"];
+        serif = ["Noto Serif" "Source Han Serif SC"];
       };
     };
   };

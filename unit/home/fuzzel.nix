@@ -1,4 +1,12 @@
-{...}: {
+{pkgs, ...}: {
+  # Wayland Clipboard
+  home.packages = with pkgs; [
+    wl-clipboard
+  ];
+
+  # Clipboard history manager
+  services.cliphist.enable = true;
+
   programs.fuzzel = {
     enable = true;
     settings = {
@@ -27,4 +35,9 @@
       };
     };
   };
+
+  # Keybind for wayland
+  wayland.windowManager.hyprland.settings.bind = [
+    "$mod, v, exec, cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
+  ];
 }
