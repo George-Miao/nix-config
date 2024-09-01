@@ -31,6 +31,7 @@ in {
               toolchain.default.override {
                 extensions = ["rust-src"];
               }))
+            dig
             pv
             rnr
             xdg-utils
