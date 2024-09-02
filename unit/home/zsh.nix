@@ -14,6 +14,7 @@
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
       "rb" = "(cd $HOME/.nix-config && git add --all && nix run '.#activate')";
+      "sync_conf" = "(cd $HOME/.nix-config && git add --all && git commit --all --message Update && git push)";
       "codei" = "code-insiders";
     };
 
