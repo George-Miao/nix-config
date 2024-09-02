@@ -1,4 +1,4 @@
-{flake, ...}: {
+{...}: {
   programs.zoxide = {
     enable = true;
     options = ["--cmd" "j"];
@@ -13,7 +13,7 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
-      "rb" = "(cd $HOME/.nix-config && nix run '.#activate')";
+      "rb" = "(cd $HOME/.nix-config && git add --all && nix run '.#activate')";
       "codei" = "code-insiders";
     };
 
@@ -27,5 +27,8 @@
       theme = "agnoster";
       plugins = ["git" "sudo"];
     };
+
+    initExtra = ''
+    '';
   };
 }

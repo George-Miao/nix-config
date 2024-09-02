@@ -1,9 +1,8 @@
-{
-  flake,
-  pkgs,
-  ...
-}: {
-  imports = [./nix.nix ./user.nix];
+{flake, ...}: {
+  imports = [
+    ./nix.nix
+    ./user.nix
+  ];
 
   nixpkgs = {
     config.allowUnfree = true;

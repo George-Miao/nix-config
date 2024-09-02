@@ -86,74 +86,70 @@ input @ {
       };
     };
 
-    services.hyprpaper = {
-      enable = true;
-      settings = {
-        ipc = "on";
-      };
-    };
-
     wayland.windowManager.hyprland = {
       enable = true;
 
-      settings = with builtins; {
-        "$mod" = "SUPER";
-        xwayland = {
-          force_zero_scaling = true;
-        };
-        decoration = {
-          blur = {
-            enabled = true;
-            size = 20;
-            passes = 3;
-            new_optimizations = "on";
+      settings = with builtins;
+      # workspaces
+      # binds $mod + [shift +] {1..9} to [move to] workspace {1..9}
+        let
+          workspace_bind = concatLists (genList (
+              x: let
+                str = toString (x + 1);
+              in [
+                "$mod, ${str}, workspace, ${str}"
+                "$mod shift, ${str}, movetoworkspace, ${str}"
+              ]
+            )
+            9);
+        in {
+          "$mod" = "SUPER";
+          general = {
+            allow_tearing = true;
           };
+          xwayland = {
+            force_zero_scaling = true;
+          };
+          decoration = {
+            blur = {
+              enabled = true;
+              size = 20;
+              passes = 3;
+              new_optimizations = "on";
+            };
+          };
+          windowrulev2 = [
+            "opacity 0.9 0.9, class:^(Alacritty)$"
+            "immediate, class:.*"
+          ];
+          input = {
+            sensitivity = -0.6;
+            repeat_delay = 200;
+            repeat_rate = 50;
+          };
+          bindm = [
+            "$mod, mouse:272, movewindow"
+            "$mod, mouse:273, resizewindow"
+          ];
+          bind =
+            [
+              "CTRL, Q, killactive"
+              "ALT, space, exec, fuzzel"
+              "$mod, return, exec, alacritty"
+              "$mod, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+              "$mod, F, togglefloating"
+              "$mod, Y, setfloating"
+              "$mod, Y, resizeactive, exact 60% 60%"
+              "$mod, Y, centerwindow"
+              "$mod, left, movefocus, l"
+              "$mod, right, movefocus, r"
+              "$mod, up, movefocus, u"
+              "$mod, down, movefocus, d"
+            ]
+            ++ workspace_bind;
+          plugins = [
+          ];
         };
-        windowrulev2 = "opacity 0.9 0.9, class:^(Alacritty)$";
-        input = {
-          sensitivity = -0.6;
-          repeat_delay = 200;
-          repeat_rate = 50;
-        };
-        bindm = [
-          "$mod, mouse:272, movewindow"
-          "$mod, mouse:273, resizewindow"
-        ];
-        bind =
-          [
-            "CTRL, Q, killactive"
-            "ALT, space, exec, fuzzel"
-            "$mod, return, exec, alacritty"
-            "$mod, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
-            "$mod, F, togglefloating"
-            "$mod, Y, setfloating"
-            "$mod, Y, resizeactive, exact 60% 60%"
-            "$mod, Y, centerwindow"
-            "$mod, left, movefocus, l"
-            "$mod, right, movefocus, r"
-            "$mod, up, movefocus, u"
-            "$mod, down, movefocus, d"
-          ]
-          ++ (
-            # workspaces
-            # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-            concatLists (genList (
-                x: let
-                  ws = let
-                    c = (x + 1) / 10;
-                  in
-                    toString (x + 1 - (c * 10));
-                in [
-                  "$mod, ${ws}, workspace, ${toString (x + 1)}"
-                  "$mod shift, ${ws}, movetoworkspace, ${toString (x + 1)}"
-                ]
-              )
-              10)
-          );
-
-        plugins = [
-        ];
-      };
     };
   };
 }

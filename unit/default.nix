@@ -59,7 +59,7 @@ in {
         imports = with unit.home; [
           core
           typst
-          # dropbox
+          dropbox
         ];
         home.packages = with pkgs; [
           libiconv
@@ -98,6 +98,8 @@ in {
           telegram-desktop
           firefox
           pavucontrol
+          darktable
+          nil
         ];
       };
     };
