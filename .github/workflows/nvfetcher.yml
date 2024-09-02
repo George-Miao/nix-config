@@ -23,7 +23,8 @@ jobs:
           git diff --quiet --exit-code _sources/generated.nix
           changed=$?
           echo "changed=$changed" >> $GITHUB_OUTPUT
-          [ $changed = 0 ] && exit
+          [ $changed = 0 ] && echo "Nothing changed, early exiting" && exit
+          echo "Changed, commit & push"
           git config --local user.email "action@miao.dev"
           git config --local user.name "nvfetcher action"
           git commit -am "Update nvfetcher"
