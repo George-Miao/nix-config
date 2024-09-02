@@ -27,7 +27,7 @@ jobs:
           echo "Changed, commit & push"
           git config --local user.email "action@miao.dev"
           git config --local user.name "nvfetcher action"
-          git commit -am "Update nvfetcher"
+          git commit _sources -m "Update generated dependencies"
       - name: Push changes
         if: '${{ steps.commit-files.outputs.changed == 1 }}'
         uses: ad-m/github-push-action@master
