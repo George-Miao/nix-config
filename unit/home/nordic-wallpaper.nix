@@ -1,7 +1,11 @@
-{flake, ...}: {
+{
+  flake,
+  pkgs,
+  ...
+}: {
   home.file.wallpapers = {
     enable = true;
     target = "Wallpapers";
-    source = flake.self.generated.nordic-wallpaper.src + "/wallpapers";
+    source = (flake.self.tools.generate pkgs).nordic-wallpaper.src + "/wallpapers";
   };
 }

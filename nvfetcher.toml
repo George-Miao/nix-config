@@ -1,3 +1,7 @@
 [nordic-wallpaper]
 src.git      = "https://github.com/linuxdotexe/nordic-wallpapers"
 fetch.github = "linuxdotexe/nordic-wallpapers"
+
+[vscode-insiders-linux]
+src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "insider" and .platform.os == "linux-x64")] | first | .url'"""
+fetch.tarball = "$ver"

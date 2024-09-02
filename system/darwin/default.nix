@@ -1,7 +1,6 @@
 {
   self,
   config,
-  inputs,
   ...
 }: let
   user = config.user;

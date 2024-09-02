@@ -1,9 +1,5 @@
-{flake, ...}: let
-  darwin = flake.self.darwinModules.default;
-in {
-  imports = [
-    darwin
-  ];
+{flake, ...}: {
+  imports = [flake.self.darwinModules.default];
 
   networking.hostName = "Fuji";
 

@@ -1,6 +1,6 @@
 {flake, ...}: let
-  unit = flake.inputs.self.unit;
-  nixos = flake.inputs.self.nixosModules;
+  unit = flake.self.unit;
+  nixos = flake.self.nixosModules;
 in {
   imports = [
     nixos.desktop

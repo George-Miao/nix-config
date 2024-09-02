@@ -13,4 +13,12 @@
     };
     date = "2024-07-15";
   };
+  vscode-insiders-linux = {
+    pname = "vscode-insiders-linux";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/code-insider-x64-1725046615.tar.gz";
+    src = fetchTarball {
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/code-insider-x64-1725046615.tar.gz";
+      sha256 = "sha256-4IEVOqKOjklCGgyneCkEvoDEQhvFx2dPlub7XPBnwXY=";
+    };
+  };
 }

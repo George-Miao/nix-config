@@ -16,7 +16,7 @@
       init.defaultBranch = "main";
       tag.gpgSign = true;
       url = {
-        "https://oauth2:${flake.inputs.self.secrets.github.oauth_token}@github.com" = {
+        "https://oauth2:${flake.self.secrets.github.oauth_token}@github.com" = {
           insteadOf = "https://github.com";
         };
       };

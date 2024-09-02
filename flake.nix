@@ -10,26 +10,26 @@
     };
 
     # Rust
-    rust-overlay.url = "github:oxalica/rust-overlay";
-
-    # Flake Parts
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    nixos-flake.url = "github:srid/nixos-flake";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Nix Darwin
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Flake Parts
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixos-flake.url = "github:srid/nixos-flake";
   };
 
   outputs = inputs @ {
     self,
-    nixpkgs,
     flake-parts,
     nixos-flake,
-    nix-darwin,
-    rust-overlay,
     ...
   }:
     flake-parts.lib.mkFlake {inherit inputs;} {
@@ -44,8 +44,10 @@
       ];
 
       flake = with builtins; {
-        generated = (import _sources/generated.nix) {inherit (nixpkgs) fetchurl fetchgit fetchFromGithub dockerTools;};
         secrets = fromJSON (readFile "${self}/secrets/secrets.json");
+        tools = {
+          generate = pkgs: (import _sources/generated.nix) {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
+        };
         consts = {
           gpg = readFile "${self}/static/pub.gpg";
         };

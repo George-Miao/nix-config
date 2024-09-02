@@ -1,4 +1,3 @@
-input @ {self, ...}:
 with builtins; let
   basename = name: substring 0 (stringLength name - 4) name;
   import_all = dir:
