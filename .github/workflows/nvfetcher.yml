@@ -14,16 +14,21 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           nix_path: nixpkgs=channel:nixos-unstable
       - name: 'nvfetcher generate'
-        run: nix-shell -p nvfetcher --command "nvfetcher -v"
-      - name: 'Check update'
-        run: 'git diff --quiet --exit-code _sources/generated.nix'
+        run: nix-shell -p nvfetcher -p jq --command "nvfetcher -v"
       - name: Commit files
-        if: '${{ failure() }}'
+        id: commit-files
         run: |
+          nix-shell -p git-crypt
+          set +e
+          git diff --quiet --exit-code _sources/generated.nix
+          changed=$?
+          echo "changed=$changed" >> $GITHUB_OUTPUT
+          [ $changed = 0 ] && exit
           git config --local user.email "action@miao.dev"
           git config --local user.name "nvfetcher action"
-          git commit -a -m "Update nvfetcher"
-      - name: Push back changes
+          git commit -am "Update nvfetcher"
+      - name: Push changes
+        if: '${{ steps.commit-files.outputs.changed == 1 }}'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

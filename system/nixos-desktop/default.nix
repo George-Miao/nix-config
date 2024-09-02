@@ -13,6 +13,7 @@
         # self.unit.sys.i3
         self.unit.sys.hyprland
         self.unit.sys.printer
+        self.unit.sys.docker
         self.nixosModules.home-manager
         ({pkgs, ...}: {
           home-manager.users.${config.user} = {
