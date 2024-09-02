@@ -1,7 +1,6 @@
 {
   lib,
   flake,
-  pkgs,
   ...
 }: {
   services.xserver = {
