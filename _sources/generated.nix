@@ -13,12 +13,36 @@
     };
     date = "2024-07-15";
   };
-  vscode-insiders-linux = {
-    pname = "vscode-insiders-linux";
+  vscode-darwin-insider = {
+    pname = "vscode-darwin-insider";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/VSCode-darwin-universal.zip";
+    src = fetchTarball {
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/VSCode-darwin-universal.zip";
+      sha256 = "sha256-UTpQvRhiBKgvMl+tcRFAh4QEFdxkRKAMgD6ICh8hXvg=";
+    };
+  };
+  vscode-darwin-stable = {
+    pname = "vscode-darwin-stable";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/fee1edb8d6d72a0ddff41e5f71a671c23ed924b9/VSCode-darwin-universal.zip";
+    src = fetchTarball {
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/fee1edb8d6d72a0ddff41e5f71a671c23ed924b9/VSCode-darwin-universal.zip";
+      sha256 = "sha256-fwmRICX455/ULMn6goyIXHK64pe5Y+bmzUmseDJfpUY=";
+    };
+  };
+  vscode-linux-insider = {
+    pname = "vscode-linux-insider";
     version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/code-insider-x64-1725046615.tar.gz";
     src = fetchTarball {
       url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/code-insider-x64-1725046615.tar.gz";
       sha256 = "sha256-4IEVOqKOjklCGgyneCkEvoDEQhvFx2dPlub7XPBnwXY=";
+    };
+  };
+  vscode-linux-stable = {
+    pname = "vscode-linux-stable";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/fee1edb8d6d72a0ddff41e5f71a671c23ed924b9/code-stable-x64-1723659430.tar.gz";
+    src = fetchTarball {
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/fee1edb8d6d72a0ddff41e5f71a671c23ed924b9/code-stable-x64-1723659430.tar.gz";
+      sha256 = "sha256-Pnj+bAzj5KDmLhsASTBtZUx8dwmUFNb4gixe2WbJgXE=";
     };
   };
 }

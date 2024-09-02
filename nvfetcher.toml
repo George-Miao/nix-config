@@ -2,6 +2,18 @@
 src.git      = "https://github.com/linuxdotexe/nordic-wallpapers"
 fetch.github = "linuxdotexe/nordic-wallpapers"
 
-[vscode-insiders-linux]
+[vscode-linux-stable]
+src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "stable" and .platform.os == "linux-x64")] | first | .url'"""
+fetch.tarball = "$ver"
+
+[vscode-linux-insider]
 src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "insider" and .platform.os == "linux-x64")] | first | .url'"""
+fetch.tarball = "$ver"
+
+[vscode-darwin-stable]
+src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "stable" and .platform.os == "darwin-universal")] | first | .url'"""
+fetch.tarball = "$ver"
+
+[vscode-darwin-insider]
+src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "insider" and .platform.os == "darwin-universal")] | first | .url'"""
 fetch.tarball = "$ver"

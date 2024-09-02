@@ -17,6 +17,7 @@ in {
           users.${user} = {
             imports = [
               self.homeModules.local
+              self.unit.home.vscode.darwin.insider
               ({pkgs, ...}: {
                 home.packages = [
                   pkgs.darwin.apple_sdk.frameworks.SystemConfiguration

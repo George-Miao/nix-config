@@ -96,7 +96,6 @@ in {
         imports = with unit.home; [
           fcitx5
           alacritty
-          vscode
           gpg-agent
           gtk
         ];
