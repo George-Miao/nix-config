@@ -44,9 +44,10 @@
       ];
 
       flake = with builtins; {
+        generated = (import _sources/generated.nix) {inherit (nixpkgs) fetchurl fetchgit fetchFromGithub dockerTools;};
         secrets = fromJSON (readFile "${self}/secrets/secrets.json");
         consts = {
-          gpg = readFile "${self}/other/pub.gpg";
+          gpg = readFile "${self}/static/pub.gpg";
         };
         nixosConfigurations = {
           Atlas = self.nixos-flake.lib.mkLinuxSystem machine/Atlas;

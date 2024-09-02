@@ -27,7 +27,7 @@ input @ {
     ELECTRON_OZONE_PLATFORM_HINT = "wayland";
 
     # Hint apps to use wayland
-    NIXOS_OZONE_WL = "1";
+    # NIXOS_OZONE_WL = "1";
   };
 
   systemd.services.greetd.serviceConfig = {

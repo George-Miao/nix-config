@@ -1,0 +1,3 @@
+[nordic-wallpaper]
+src.git      = "https://github.com/linuxdotexe/nordic-wallpapers"
+fetch.github = "linuxdotexe/nordic-wallpapers"

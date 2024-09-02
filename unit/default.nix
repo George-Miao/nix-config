@@ -15,6 +15,14 @@ in {
     homeModules = rec {
       # List of core packages used in command line
       core = {pkgs, ...}: {
+        home = {
+          # See https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
+          stateVersion = "23.11";
+          sessionVariables = {
+            EDITOR = "vim";
+          };
+        };
+
         imports = with unit.home; [
           git
           starship
@@ -24,34 +32,32 @@ in {
           yazi
         ];
 
-        home = {
-          stateVersion = "23.11";
-          packages = with pkgs; [
-            (rust-bin.selectLatestNightlyWith (toolchain:
-              toolchain.default.override {
-                extensions = ["rust-src"];
-              }))
-            dig
-            pv
-            rnr
-            xdg-utils
-            tree
-            htop
-            file
-            git-crypt
-            openssl
-            bat
-            vim
-            xh
-            wget
-            curl
-            fd
-            ouch
-            ripgrep
-          ];
-
-          sessionVariables = {EDITOR = "vim";};
-        };
+        home.packages = with pkgs; let
+          rust = rust-bin.selectLatestNightlyWith (toolchain:
+            toolchain.default.override {
+              extensions = ["rust-src"];
+            });
+        in [
+          rust
+          lsd
+          dig
+          pv
+          rnr
+          xdg-utils
+          tree
+          htop
+          file
+          git-crypt
+          openssl
+          bat
+          vim
+          xh
+          wget
+          curl
+          fd
+          ouch
+          ripgrep
+        ];
       };
 
       # List of packages used for local environment, include PC's and Macs
@@ -61,6 +67,7 @@ in {
           typst
           dropbox
         ];
+
         home.packages = with pkgs; [
           libiconv
           cargo-release
@@ -94,12 +101,12 @@ in {
           gpg-agent
           gtk
         ];
+
         home.packages = with pkgs; [
           telegram-desktop
           firefox
           pavucontrol
           darktable
-          nil
         ];
       };
     };

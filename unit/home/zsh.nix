@@ -15,7 +15,13 @@
       "sysu" = "systemctl --user";
       "rb" = "(cd $HOME/.nix-config && git add --all && nix run '.#activate')";
       "sync_conf" = "(cd $HOME/.nix-config && git add --all && git commit --all --message Update && git push)";
+      "src" = "rb";
       "codei" = "code-insiders";
+      "ls" = "lsd";
+      "la" = "ll -a";
+      "tree" = "ls --tree";
+      "print" = "lpr";
+      ":wq" = "exit";
     };
 
     antidote = {
@@ -30,6 +36,7 @@
     };
 
     initExtra = ''
+      function run() { nix run nixpkgs#$1 ''${*[@]:2} }
     '';
   };
 }
