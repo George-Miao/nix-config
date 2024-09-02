@@ -14,6 +14,7 @@
         self.unit.sys.hyprland
         self.unit.sys.printer
         self.unit.sys.docker
+        self.unit.sys.pipewire
         self.nixosModules.home-manager
         ({pkgs, ...}: {
           home-manager.users.${config.user} = {
@@ -42,7 +43,7 @@
             };
           };
 
-          hardware.pulseaudio.enable = true;
+          # hardware.pulseaudio.enable = true;
         })
       ];
     };
