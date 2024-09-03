@@ -1,29 +1,28 @@
 {
   self,
   config,
+  lib,
   ...
-}: {
-  flake = {
-    nixosModules = {
-      server = {
-        imports = [
-          ../shared
-          ../shared/nixos.nix
-          self.nixosModules.home-manager
-        ];
+}: let
+  users = lib.attrsets.genAttrs ["root" config.user] (user: {
+    openssh.authorizedKeys.keys = [
+      self.consts.ssh
+    ];
+  });
+in {
+  flake.nixosModules.server = {
+    imports = [
+      ../shared
+      ../shared/nixos.nix
+      self.nixosModules.home-manager
+    ];
 
-        users.users.${config.user} = {
-          openssh.authorizedKeys.keys = [
-            self.consts.ssh
-          ];
-        };
+    services.openssh.enable = true;
 
-        services.openssh.enable = true;
+    users.users = users;
 
-        home-manager.users.${config.user} = {
-          imports = [self.homeModules.server];
-        };
-      };
+    home-manager.users.${config.user} = {
+      imports = [self.homeModules.server];
     };
   };
 }

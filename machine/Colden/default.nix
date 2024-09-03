@@ -21,10 +21,6 @@
 
   home-manager.users.${flake.config.user}.imports = [];
 
-  users.users.root.openssh.authorizedKeys.keys = [
-    flake.self.consts.ssh
-  ];
-
   boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = [];

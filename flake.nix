@@ -61,13 +61,14 @@
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
         secrets = fromJSON (readFile "${self}/secrets/secrets.json");
         tools = {
-          inspect = a: b: builtins.trace (builtins.attrNames o) b;
+          inspect = a: b: builtins.trace (builtins.attrNames a) b;
           generate = pkgs: (import _sources/generated.nix) {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
-          mkLinuxDeploy = node: {
-            hostname = "colden.syr.vec.sh";
+          mkLinuxDeploy = node: hostname: {
+            inherit hostname;
             profiles.system = {
               user = "root";
               sshUser = "root";
+              fastConnection = true;
               path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
             };
           };
@@ -85,7 +86,7 @@
           Fuji = self.nixos-flake.lib.mkMacosSystem machine/Fuji;
         };
         deploy.nodes = {
-          Colden = self.tools.mkLinuxDeploy "Colden";
+          Colden = self.tools.mkLinuxDeploy "Colden" "colden.syr.vec.sh";
         };
       };
     };
