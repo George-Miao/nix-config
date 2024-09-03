@@ -15,6 +15,7 @@
     extraConfig = {
       init.defaultBranch = "main";
       tag.gpgSign = true;
+      push.autoSetupRemote = true;
     };
   };
 }
