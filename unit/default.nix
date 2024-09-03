@@ -62,6 +62,7 @@ in {
       # List of packages used for local environment, include PC's and Macs
       local = {pkgs, ...}: {
         imports = with unit.home; [
+          gh
           core
           typst
           dropbox
@@ -77,7 +78,6 @@ in {
           jq
           jless
           rclone
-          gh
           nil
           alejandra
           htop

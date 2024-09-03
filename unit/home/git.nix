@@ -15,11 +15,11 @@
     extraConfig = {
       init.defaultBranch = "main";
       tag.gpgSign = true;
-      url = {
-        "https://oauth2:${flake.self.secrets.github.oauth_token}@github.com" = {
-          insteadOf = "https://github.com";
-        };
-      };
+      # url = {
+      #   "https://oauth2:${flake.self.secrets.github.oauth_token}@github.com" = {
+      #     insteadOf = "https://github.com";
+      #   };
+      # };
     };
   };
 }
