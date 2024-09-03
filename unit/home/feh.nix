@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  imports = [./nordic-wallpaper.nix];
+  imports = [./pop-wallpaper.nix];
 
   programs.feh.enable = true;
 

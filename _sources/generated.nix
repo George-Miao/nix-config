@@ -13,6 +13,17 @@
     };
     date = "2024-07-15";
   };
+  pop-wallpaper = {
+    pname = "pop-wallpaper";
+    version = "34e775";
+    src = fetchFromGitHub {
+      owner = "George-Miao";
+      repo = "wallpaper";
+      rev = "34e775";
+      fetchSubmodules = false;
+      sha256 = "sha256-76KN0pyoQqgYKANRh39s/ociM4oW99zR75wyUiFdkTU=";
+    };
+  };
   vscode-darwin-insider = {
     pname = "vscode-darwin-insider";
     version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/336db9ece67f682159078ea1b54212de7636d88a/VSCode-darwin-universal.zip";

@@ -2,6 +2,10 @@
 src.git      = "https://github.com/linuxdotexe/nordic-wallpapers"
 fetch.github = "linuxdotexe/nordic-wallpapers"
 
+[pop-wallpaper]
+src.github   = "George-Miao/wallpaper"
+fetch.github = "George-Miao/wallpaper"
+
 [vscode-linux-stable]
 src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "stable" and .platform.os == "linux-x64")] | first | .url'"""
 fetch.tarball = "$ver"

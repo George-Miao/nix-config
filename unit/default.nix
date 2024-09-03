@@ -23,6 +23,7 @@ in {
         };
 
         imports = with unit.home; [
+          cargo
           git
           starship
           zsh

@@ -7,7 +7,9 @@
 }: let
   home = nixosConfig.users.users.${flake.config.user}.home;
 in {
-  imports = [./nordic-wallpaper.nix];
+  imports = [
+    ./pop-wallpaper.nix
+  ];
 
   programs.wpaperd = {
     enable = true;

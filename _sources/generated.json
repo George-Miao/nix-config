@@ -19,6 +19,26 @@
         },
         "version": "78b242f58faf31541ba4d76926849253b4d2e979"
     },
+    "pop-wallpaper": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "pop-wallpaper",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "George-Miao",
+            "repo": "wallpaper",
+            "rev": "34e775",
+            "sha256": "sha256-76KN0pyoQqgYKANRh39s/ociM4oW99zR75wyUiFdkTU=",
+            "type": "github"
+        },
+        "version": "34e775"
+    },
     "vscode-darwin-insider": {
         "cargoLocks": null,
         "date": null,

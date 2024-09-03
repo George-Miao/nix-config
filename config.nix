@@ -2,7 +2,7 @@
 with lib; {
   config = {
     user = "pop";
-    wayland_restart_delay = 1;
+    wayland_restart_delay = 2;
   };
 
   options = {
