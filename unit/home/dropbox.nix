@@ -4,8 +4,6 @@
   ...
 }: {
   home.packages = with pkgs; [
-    # dropbox - we don't need this in the environment. systemd unit pulls it in
-    # dropbox-cli
     maestral
   ];
 

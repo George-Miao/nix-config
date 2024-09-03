@@ -36,7 +36,7 @@
     };
 
     initExtra = ''
-      function run() { nix run nixpkgs#$1 ''${*[@]:2} }
+      function run() { nix run nixpkgs#$1 -- ''${*[@]:2} }
     '';
   };
 }

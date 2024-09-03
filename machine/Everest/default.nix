@@ -1,12 +1,12 @@
 {flake, ...}: let
-  unit = flake.self.unit;
   nixos = flake.self.nixosModules;
 in {
-  imports = [
+  imports = with flake.self.unit.sys; [
     nixos.desktop
-    unit.sys.btrfs
-    unit.sys.amdgpu
-    unit.sys.steam
+
+    btrfs
+    amdgpu
+    steam
 
     ./hardware.nix
     ./samba.nix

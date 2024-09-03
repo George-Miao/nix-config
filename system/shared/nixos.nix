@@ -1,4 +1,7 @@
 {flake, ...}: {
+  imports = [
+    flake.self.unit.sys.yubico
+  ];
   users.users.${flake.config.user} = {
     extraGroups = ["wheel"];
     isNormalUser = true;
