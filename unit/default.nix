@@ -74,7 +74,7 @@ in {
           cargo-release
           dua
           biome
-          bitwarden-cli
+          # bitwarden-cli # Build failed after Python 3.12
           websocat
           jq
           jless

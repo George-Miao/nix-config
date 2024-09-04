@@ -48,19 +48,20 @@ in {
 
         system.defaults = {
           dock = {
-            autohide = true;
-            orientation = "right";
+            autohide = false;
+            orientation = "bottom";
           };
 
           finder = {
+            QuitMenuItem = true;
             AppleShowAllExtensions = true;
             _FXShowPosixPathInTitle = true;
             FXEnableExtensionChangeWarning = false;
           };
 
           NSGlobalDomain = {
-            _HIHideMenuBar = true;
-            "com.apple.swipescrolldirection" = false;
+            _HIHideMenuBar = false;
+            "com.apple.swipescrolldirection" = true;
           };
 
           screencapture.location = "/tmp";
