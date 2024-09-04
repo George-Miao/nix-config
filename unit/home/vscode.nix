@@ -8,10 +8,10 @@ in
         name = build;
         value = {
           pkgs,
-          flake,
+          tools,
           ...
         }: let
-          generated = flake.self.tools.generate pkgs;
+          generated = tools.generate pkgs;
         in {
           programs.vscode = {
             enable = true;

@@ -1,12 +1,14 @@
-{flake, ...}: let
-  secrets = flake.self.secrets.yubico;
-in {
+{
+  flake,
+  secrets,
+  ...
+}: {
   security.pam = {
     yubico = {
       enable = true;
-      id = secrets.client_id;
+      id = secrets.yubico.client_id;
     };
   };
 
-  home-manager.users.${flake.config.user}.pam.yubico.authorizedYubiKeys.ids = secrets.yubikey_ids;
+  home-manager.users.${flake.config.user}.pam.yubico.authorizedYubiKeys.ids = secrets.yubico.yubikey_ids;
 }

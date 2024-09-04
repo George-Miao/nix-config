@@ -40,13 +40,11 @@
 
   outputs = inputs @ {
     self,
-    disko,
     deploy-rs,
-    flake-parts,
     nixos-flake,
     ...
   }:
-    flake-parts.lib.mkFlake {inherit inputs;} {
+    (import ./shim.nix) inputs (shim: {
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
       imports = [
         nixos-flake.flakeModule
@@ -57,37 +55,19 @@
         ./system/nixos-server
       ];
 
-      flake = with builtins; {
+      flake = with shim; {
         checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
-        secrets = fromJSON (readFile "${self}/secrets/secrets.json");
-        tools = {
-          inspect = a: b: builtins.trace (builtins.attrNames a) b;
-          generate = pkgs: (import _sources/generated.nix) {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
-          mkLinuxDeploy = node: hostname: {
-            inherit hostname;
-            profiles.system = {
-              user = "root";
-              sshUser = "root";
-              fastConnection = true;
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
-            };
-          };
-        };
-        consts = {
-          gpg = readFile "${self}/static/gpg.pub";
-          ssh = readFile "${self}/static/ssh.pub";
-        };
         nixosConfigurations = {
-          Atlas = self.nixos-flake.lib.mkLinuxSystem machine/Atlas;
-          Everest = self.nixos-flake.lib.mkLinuxSystem machine/Everest;
-          Colden = self.nixos-flake.lib.mkLinuxSystem machine/Colden;
+          Atlas = mkLinuxSystem machine/Atlas;
+          Everest = mkLinuxSystem machine/Everest;
+          Colden = mkLinuxSystem machine/Colden;
         };
         darwinConfigurations = {
-          Fuji = self.nixos-flake.lib.mkMacosSystem machine/Fuji;
+          Fuji = mkMacosSystem machine/Fuji;
         };
         deploy.nodes = {
-          Colden = self.tools.mkLinuxDeploy "Colden" "colden.syr.vec.sh";
+          Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
         };
       };
-    };
+    });
 }

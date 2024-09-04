@@ -1,5 +1,5 @@
 {
-  flake,
+  tools,
   pkgs,
   ...
 }: {
@@ -7,6 +7,6 @@
     enable = true;
     target = "Wallpapers";
     recursive = true;
-    source = (flake.self.tools.generate pkgs).pop-wallpaper.src + "/wallpaper";
+    source = (tools.generate pkgs).pop-wallpaper.src + "/wallpaper";
   };
 }

@@ -1,9 +1,9 @@
 {
-  flake,
+  secrets,
   pkgs,
   ...
 }: let
-  secret = flake.self.secrets.Everest.smb;
+  secret = secrets.Everest.smb;
   automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
   options = [
     automount_opts

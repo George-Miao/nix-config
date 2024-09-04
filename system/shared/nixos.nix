@@ -1,4 +1,8 @@
-{flake, ...}: {
+{
+  flake,
+  secrets,
+  ...
+}: {
   imports = [
     flake.self.unit.sys.yubico
   ];

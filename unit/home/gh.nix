@@ -1,10 +1,10 @@
-{flake, ...}: {
+{secrets, ...}: {
   programs.gh = {
     enable = true;
   };
 
   xdg.configFile.gh-hosts = let
-    github = flake.self.secrets.github;
+    github = secrets.github;
   in {
     recursive = true;
     target = "gh/hosts.yml";

@@ -1,5 +1,5 @@
 {
-  flake,
+  tools,
   pkgs,
   ...
 }: {
@@ -7,6 +7,6 @@
     enable = true;
     target = "Wallpapers";
     recursive = true;
-    source = (flake.self.tools.generate pkgs).nordic-wallpaper.src + "/wallpapers";
+    source = (tools.generate pkgs).nordic-wallpaper.src + "/wallpapers";
   };
 }

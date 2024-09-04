@@ -8,6 +8,8 @@ in {
     amdgpu
     steam
 
+    # (tools.bind tailscale {})
+
     ./hardware.nix
     ./samba.nix
   ];

@@ -1,9 +1,9 @@
-{flake, ...}: {
+{consts, ...}: {
   programs.gpg = {
     enable = true;
     publicKeys = [
       {
-        text = flake.self.consts.gpg;
+        text = consts.gpg;
         trust = 5;
       }
     ];

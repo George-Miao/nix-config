@@ -1,12 +1,15 @@
 {
   flake,
   pkgs,
+  specialArgs,
   ...
 }: {
   imports = [
     ./nix.nix
     ./user.nix
   ];
+
+  home-manager.extraSpecialArgs = specialArgs;
 
   nixpkgs = {
     config.allowUnfree = true;

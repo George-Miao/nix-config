@@ -1,12 +1,13 @@
 {
   self,
+  consts,
   config,
   lib,
   ...
 }: let
   users = lib.attrsets.genAttrs ["root" config.user] (user: {
     openssh.authorizedKeys.keys = [
-      self.consts.ssh
+      consts.ssh
     ];
   });
 in {
