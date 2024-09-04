@@ -38,16 +38,11 @@
     nixos-flake.url = "github:srid/nixos-flake";
   };
 
-  outputs = inputs @ {
-    self,
-    deploy-rs,
-    nixos-flake,
-    ...
-  }:
+  outputs = inputs:
     (import ./shim.nix) inputs (shim: {
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
       imports = [
-        nixos-flake.flakeModule
+        inputs.nixos-flake.flakeModule
         ./config.nix
         ./unit
         ./system/darwin
@@ -56,7 +51,7 @@
       ];
 
       flake = with shim; {
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) deploy-rs.lib;
         nixosConfigurations = {
           Atlas = mkLinuxSystem machine/Atlas;
           Everest = mkLinuxSystem machine/Everest;

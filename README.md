@@ -2,6 +2,7 @@
 
 This is my personal NixOS configuration.
 
+<!--
 ## Directory Structure
 
 - `/flake.nix`: entry point for the flake, including `nixosConfigurations` and `darwinConfigurations`.
@@ -15,19 +16,17 @@ This is my personal NixOS configuration.
   - `/system/nixos-desktop`: NixOS desktop config
   - `/system/nixos-server`: NixOS server config
 - `/machine`: Machine-specific configuration
+-->
 
-## Get started (Mainly for myself cuz I'm forgetful)
+## Notes (Mainly for myself cuz I'm forgetful)
 
-TODO
+- Units (`./unit/{home/*, sys/*}`) are "bare" in the sense that they can output to flake directly, where Machines (`./machine/*`) are not because they are wrapped by my hand-written shim (`./shim.nix`) and system declarations, e.g., `nixpkgs.lib.nixosSystem`/`nix-darwin.lib.darwinSystem`.
+- Units are exported to `flake.unit.{home,sys}`, in which home units are further collected into `homeModules.{core,local,server,gui}` to form four "profiles".
+- Systems (`./system`) imports aforementioned "profiles" and `sys` units, then add machine-agnostic but os-dependent configurations.
+- Machines (`./machine`) imports corresponding systems and `sys` units, then add machine-specific configurations.
+- `deploy-rs` is used to push local changes to remote machines (configs live under `flake.deploy.nodes`).
+- Secrets are managed with `git-crypt` and keys are encoded with `base64`. Decode with `echo $KEY | base64 -d`.
 
-## Secrets
+### Invariants
 
-Secrets are managed with `git-crypt`
-
-## Config flow
-
-`flake.nix` imports all units and systems, which would then be exported as flake. Next, depend on which machine the activate script (`nix run .#activate`) is running on, the corresponding machine configuration will be activated and pull in the system and unit configurations it needs.
-
-## Invariants
-
-- The config *MUST* live under `$HOME/.nix-config`
+- This config **MUST** live under `$HOME/.nix-config`
