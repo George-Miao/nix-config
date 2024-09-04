@@ -65,7 +65,7 @@
         };
         mkLinuxSystem = mod:
           nixpkgs.lib.nixosSystem {
-            specialArgs = extra // self.nixos-flake.lib.specialArgsFor.nixos;
+            specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
             modules = [self.nixosModules.nixosFlake mod];
           };
         mkMacosSystem = mod:
@@ -101,6 +101,7 @@
             Everest = mkLinuxSystem machine/Everest;
             Colden = mkLinuxSystem machine/Colden;
             LUX = mkLinuxSystem machine/LUX;
+            EWR = mkLinuxSystem machine/EWR;
           };
           darwinConfigurations = {
             Fuji = mkMacosSystem machine/Fuji;
@@ -108,6 +109,7 @@
           deploy.nodes = {
             Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
             LUX = mkLinuxDeploy "LUX" "ssh.lux.vec.sh";
+            EWR = mkLinuxDeploy "EWR" "ssh.ewr.vec.sh";
           };
         };
       });

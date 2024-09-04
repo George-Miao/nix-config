@@ -32,6 +32,7 @@ in {
           useGlobalPkgs = true;
           useUserPackages = true;
         };
+
         services.nix-daemon.enable = true;
 
         nix.gc = {

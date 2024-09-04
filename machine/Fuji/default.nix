@@ -9,4 +9,6 @@
   services.nix-daemon.logFile = "/var/log/nix-daemon.log";
 
   system.stateVersion = 4;
+
+  nix.linux-builder.enable = true;
 }
