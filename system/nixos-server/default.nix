@@ -1,16 +1,9 @@
 {
   self,
-  consts,
   config,
   lib,
   ...
-}: let
-  users = lib.attrsets.genAttrs ["root" config.user] (user: {
-    openssh.authorizedKeys.keys = [
-      consts.ssh
-    ];
-  });
-in {
+}: {
   flake.nixosModules.server = {
     imports = [
       ../shared
@@ -20,7 +13,11 @@ in {
 
     services.openssh.enable = true;
 
-    users.users = users;
+    users.users = lib.attrsets.genAttrs ["root" config.user] (user: {
+      openssh.authorizedKeys.keys = [
+        self.extra.consts.ssh
+      ];
+    });
 
     home-manager.users.${config.user} = {
       imports = [self.homeModules.server];

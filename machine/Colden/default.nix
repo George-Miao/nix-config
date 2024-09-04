@@ -11,6 +11,8 @@
     "${modulesPath}/installer/scan/not-detected.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
 
+    (flake.self.unit.sys.tailscale {isServer = true;})
+
     ./disk.nix
   ];
 

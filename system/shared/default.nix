@@ -9,7 +9,9 @@
     ./user.nix
   ];
 
-  home-manager.extraSpecialArgs = specialArgs;
+  home-manager.extraSpecialArgs = {
+    inherit (specialArgs) consts tools secrets;
+  };
 
   nixpkgs = {
     config.allowUnfree = true;

@@ -1,14 +1,11 @@
-{flake, ...}: let
-  nixos = flake.self.nixosModules;
-in {
+{flake, ...}: {
   imports = with flake.self.unit.sys; [
-    nixos.desktop
+    flake.self.nixosModules.desktop
 
     btrfs
     amdgpu
     steam
-
-    # (tools.bind tailscale {})
+    (tailscale {autoStart = true;})
 
     ./hardware.nix
     ./samba.nix

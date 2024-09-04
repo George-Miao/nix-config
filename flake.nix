@@ -38,31 +38,75 @@
     nixos-flake.url = "github:srid/nixos-flake";
   };
 
-  outputs = inputs:
-    (import ./shim.nix) inputs (shim: {
-      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
-      imports = [
-        inputs.nixos-flake.flakeModule
-        ./config.nix
-        ./unit
-        ./system/darwin
-        ./system/nixos-desktop
-        ./system/nixos-server
-      ];
-
-      flake = with shim; {
-        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks inputs.self.deploy) deploy-rs.lib;
-        nixosConfigurations = {
-          Atlas = mkLinuxSystem machine/Atlas;
-          Everest = mkLinuxSystem machine/Everest;
-          Colden = mkLinuxSystem machine/Colden;
-        };
-        darwinConfigurations = {
-          Fuji = mkMacosSystem machine/Fuji;
-        };
-        deploy.nodes = {
-          Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
-        };
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    flake-parts,
+    nix-darwin,
+    nixos-flake,
+    deploy-rs,
+    ...
+  }:
+    with builtins; let
+      secrets = fromJSON (readFile "${self}/secrets/secrets.json");
+      consts = {
+        gpg = readFile "${self}/static/gpg.pub";
+        ssh = readFile "${self}/static/ssh.pub";
       };
-    });
+      tools = {
+        inspect = a: b: builtins.trace (builtins.attrNames a) b;
+        generate = pkgs: (import "${self}/_sources/generated.nix") {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
+      };
+    in
+      flake-parts.lib.mkFlake {inherit inputs;} (args: let
+        extra = {
+          inherit tools consts secrets;
+          inherit (args) flake-parts-lib;
+        };
+        mkLinuxSystem = mod:
+          nixpkgs.lib.nixosSystem {
+            specialArgs = extra // self.nixos-flake.lib.specialArgsFor.nixos;
+            modules = [self.nixosModules.nixosFlake mod];
+          };
+        mkMacosSystem = mod:
+          nix-darwin.lib.darwinSystem {
+            specialArgs = self.nixos-flake.lib.specialArgsFor.darwin // extra;
+            modules = [self.darwinModules_.nixosFlake mod];
+          };
+        mkLinuxDeploy = node: hostname: {
+          inherit hostname;
+          profiles.system = {
+            user = "root";
+            sshUser = "root";
+            fastConnection = true;
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
+          };
+        };
+      in {
+        systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
+        imports = [
+          nixos-flake.flakeModule
+          ./config.nix
+          ./unit
+          ./system/darwin
+          ./system/nixos-desktop
+          ./system/nixos-server
+        ];
+
+        flake = {
+          inherit extra;
+          checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+          nixosConfigurations = {
+            Atlas = mkLinuxSystem machine/Atlas;
+            Everest = mkLinuxSystem machine/Everest;
+            Colden = mkLinuxSystem machine/Colden;
+          };
+          darwinConfigurations = {
+            Fuji = mkMacosSystem machine/Fuji;
+          };
+          deploy.nodes = {
+            Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
+          };
+        };
+      });
 }
