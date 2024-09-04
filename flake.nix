@@ -100,12 +100,14 @@
             Atlas = mkLinuxSystem machine/Atlas;
             Everest = mkLinuxSystem machine/Everest;
             Colden = mkLinuxSystem machine/Colden;
+            LUX = mkLinuxSystem machine/LUX;
           };
           darwinConfigurations = {
             Fuji = mkMacosSystem machine/Fuji;
           };
           deploy.nodes = {
             Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
+            LUX = mkLinuxDeploy "LUX" "ssh.lux.vec.sh";
           };
         };
       });
