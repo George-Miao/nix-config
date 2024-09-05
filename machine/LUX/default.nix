@@ -11,7 +11,7 @@
 
     (flake.self.unit.sys.tailscale {isServer = true;})
 
-    ./disk.nix
+    ./hardware.nix
   ];
 
   networking = {
@@ -19,16 +19,14 @@
     useDHCP = true;
   };
 
-  home-manager.users.${flake.config.user}.imports = [];
+  boot.tmp.cleanOnBoot = true;
+  zramSwap.enable = true;
 
-  boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = [];
-  boot.extraModulePackages = [];
+  home-manager.users.${flake.config.user}.imports = [];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
   time.timeZone = "Europe/Luxembourg";
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "23.11";
 }

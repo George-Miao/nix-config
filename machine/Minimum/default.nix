@@ -9,24 +9,17 @@
 
     "${modulesPath}/installer/scan/not-detected.nix"
 
-    (flake.self.unit.sys.tailscale {isServer = true;})
-
-    ./hardware-configuration.nix
+    ./disk.nix
   ];
 
   networking = {
-    hostName = "EWR";
+    hostName = "Minimum";
     useDHCP = true;
   };
-
-  boot.tmp.cleanOnBoot = true;
-  zramSwap.enable = true;
-
-  home-manager.users.${flake.config.user}.imports = [];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
   time.timeZone = "America/New_York";
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

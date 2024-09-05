@@ -11,11 +11,11 @@
 
     (flake.self.unit.sys.tailscale {isServer = true;})
 
-    ./hardware-configuration.nix
+    ./hardware.nix
   ];
 
   networking = {
-    hostName = "EWR";
+    hostName = "LAX";
     useDHCP = true;
   };
 
@@ -26,7 +26,7 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  time.timeZone = "America/New_York";
+  time.timeZone = "America/Los_Angeles";
 
   system.stateVersion = "23.11";
 }

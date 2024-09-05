@@ -9,31 +9,26 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Rust
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Nix Darwin
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Disko
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # deploy-rs
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Flake Parts
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
   };
@@ -78,7 +73,6 @@
           profiles.system = {
             user = "root";
             sshUser = "root";
-            fastConnection = true;
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
           };
         };
@@ -97,19 +91,26 @@
           inherit extra;
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
           nixosConfigurations = {
+            Minimum = mkLinuxSystem machine/Minimum;
             Atlas = mkLinuxSystem machine/Atlas;
             Everest = mkLinuxSystem machine/Everest;
             Colden = mkLinuxSystem machine/Colden;
             LUX = mkLinuxSystem machine/LUX;
+            LAX = mkLinuxSystem machine/LAX;
             EWR = mkLinuxSystem machine/EWR;
+            HEL = mkLinuxSystem machine/HEL;
+            HND = mkLinuxSystem machine/HND;
           };
           darwinConfigurations = {
             Fuji = mkMacosSystem machine/Fuji;
           };
           deploy.nodes = {
             Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
-            LUX = mkLinuxDeploy "LUX" "ssh.lux.vec.sh";
-            EWR = mkLinuxDeploy "EWR" "ssh.ewr.vec.sh";
+            LUX = mkLinuxDeploy "LUX" "lux.vec.sh";
+            EWR = mkLinuxDeploy "EWR" "ewr.vec.sh";
+            HEL = mkLinuxDeploy "HEL" "hel.vec.sh";
+            LAX = mkLinuxDeploy "LAX" "lax.vec.sh";
+            HND = mkLinuxDeploy "HND" "hnd.vec.sh";
           };
         };
       });

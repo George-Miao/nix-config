@@ -12,6 +12,27 @@ in {
       sys = import_all ./sys;
     };
     homeModules = rec {
+      bare = {pkgs, ...}: {
+        home = {
+          stateVersion = "23.11";
+          sessionVariables = {
+            EDITOR = "vim";
+          };
+        };
+
+        imports = with unit.home; [git zsh];
+
+        home.packages = with pkgs; [
+          lsd
+          dig
+          file
+          openssl
+          bat
+          vim
+          wget
+          curl
+        ];
+      };
       # List of core packages used in command line
       core = {pkgs, ...}: {
         home = {
@@ -44,7 +65,6 @@ in {
           pv
           rnr
           xdg-utils
-          tree
           htop
           file
           git-crypt

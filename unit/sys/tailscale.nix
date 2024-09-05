@@ -5,16 +5,23 @@
   pkgs,
   lib,
   secrets,
+  flake,
   ...
-}:
-with lib; {
-  services.tailscale = {
+}: {
+  services.tailscale = let
+    flags =
+      [
+        "--operator=${flake.config.user}"
+        "--accept-routes"
+        "--ssh"
+      ]
+      ++ lib.lists.optional isServer "--advertise-exit-node";
+  in {
     enable = true;
     useRoutingFeatures = "both";
     openFirewall = isServer;
     authKeyFile = builtins.toFile "tailscale-authkey" secrets.tailscale.key;
-    extraSetFlags = mkIf isServer [
-      "--advertise-exit-node"
-    ];
+    extraSetFlags = flags;
+    extraUpFlags = flags;
   };
 }

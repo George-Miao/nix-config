@@ -1,4 +1,8 @@
-{flake, ...}: {
+{
+  flake,
+  consts,
+  ...
+}: {
   imports = with flake.self.unit.sys; [
     flake.self.nixosModules.desktop
 
@@ -16,6 +20,24 @@
   system.stateVersion = "24.05";
 
   networking.hostName = "Everest";
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      permitRootLogin = "no";
+      passwordAuthentication = false;
+    };
+    # Only allow SSH from Tailscale IPs
+    listenAddresses = [
+      {
+        addr = "100.127.77.80";
+        port = 22;
+      }
+    ];
+  };
+  users.users.${flake.config.user}.openssh.authorizedKeys.keys = [
+    consts.ssh
+  ];
 
   boot.loader = {
     efi = {

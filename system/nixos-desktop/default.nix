@@ -41,7 +41,7 @@
         };
       };
       programs.zsh.shellAliases = {
-        "open" = "xdg-open";
+        "open" = "setsid xdg-open";
       };
     };
 

@@ -1,6 +1,7 @@
 {
   modulesPath,
   flake,
+  lib,
   ...
 }: {
   imports = [
@@ -11,11 +12,11 @@
 
     (flake.self.unit.sys.tailscale {isServer = true;})
 
-    ./hardware-configuration.nix
+    ./hardware.nix
   ];
 
   networking = {
-    hostName = "EWR";
+    hostName = "HEL";
     useDHCP = true;
   };
 
@@ -26,7 +27,7 @@
 
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  time.timeZone = "America/New_York";
+  time.timeZone = "Europe/Helsinki";
 
   system.stateVersion = "23.11";
 }
