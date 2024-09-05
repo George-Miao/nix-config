@@ -15,13 +15,13 @@
   };
   pop-wallpaper = {
     pname = "pop-wallpaper";
-    version = "34e775";
+    version = "84356f";
     src = fetchFromGitHub {
       owner = "George-Miao";
       repo = "wallpaper";
-      rev = "34e775";
+      rev = "84356f";
       fetchSubmodules = false;
-      sha256 = "sha256-76KN0pyoQqgYKANRh39s/ociM4oW99zR75wyUiFdkTU=";
+      sha256 = "sha256-o5LwZYSk/pAdr3Zr1JxjLl6Ggp/LB4VFkjgKlBbEo44=";
     };
   };
   vscode-darwin-insider = {
