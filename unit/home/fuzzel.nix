@@ -17,6 +17,8 @@
         "width" = 80;
         "line-height" = "40px";
         "icon-theme" = "Adwaita";
+        "show-actions" = true;
+        "terminal" = "alacritty -e";
       };
 
       "colors" = {

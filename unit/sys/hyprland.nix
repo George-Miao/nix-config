@@ -33,10 +33,13 @@ in {
       # Electron apps, VSCode in particular, need this to run smoothly on Wayland
       ELECTRON_OZONE_PLATFORM_HINT = "wayland";
 
+      # Enable Wayland IME support in Electron apps
+      ELECTRON_ENABLE_WAYLAND_IME = "1";
+
       HYPRLAND_NO_SD_NOTIFY = 1;
 
       # Hint apps to use wayland
-      # NIXOS_OZONE_WL = "1";
+      NIXOS_OZONE_WL = "1";
     };
 
     systemPackages = with pkgs; [

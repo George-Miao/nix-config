@@ -80,7 +80,7 @@ in {
         ];
       };
 
-      # List of packages used for local environment, include PC's and Macs
+      # List of packages used for local environment, include nixos and darwin
       local = {pkgs, ...}: {
         imports = with unit.home; [
           gh

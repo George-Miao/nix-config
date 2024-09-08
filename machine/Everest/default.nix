@@ -24,17 +24,18 @@
   services.openssh = {
     enable = true;
     settings = {
-      permitRootLogin = "no";
-      passwordAuthentication = false;
+      PermitRootLogin = "no";
+      PasswordAuthentication = false;
     };
     # Only allow SSH from Tailscale IPs
     listenAddresses = [
       {
-        addr = "100.127.77.80";
+        addr = "100.64.0.1";
         port = 22;
       }
     ];
   };
+
   users.users.${flake.config.user}.openssh.authorizedKeys.keys = [
     consts.ssh
   ];
