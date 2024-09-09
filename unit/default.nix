@@ -90,6 +90,7 @@ in {
         ];
 
         home.packages = with pkgs; [
+          flyctl
           libiconv
           cargo-release
           dua
