@@ -21,3 +21,8 @@ fetch.tarball = "$ver"
 [vscode-darwin-insider]
 src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "insider" and .platform.os == "darwin-universal")] | first | .url'"""
 fetch.tarball = "$ver"
+
+[forrit]
+src.github   = "George-Miao/forrit"
+fetch.github = "George-Miao/forrit"
+cargo_locks  = ["Cargo.lock"]
