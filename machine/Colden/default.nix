@@ -4,7 +4,9 @@
   lib,
   secrets,
   ...
-}: {
+}: let
+  sys = flake.self.unit.sys;
+in {
   imports = [
     flake.self.nixosModules.server
     flake.inputs.disko.nixosModules.disko
@@ -12,7 +14,8 @@
     "${modulesPath}/installer/scan/not-detected.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
 
-    (flake.self.unit.sys.tailscale {isServer = true;})
+    (sys.tailscale {isServer = true;})
+    (sys.forrit secrets.syr.forrit)
 
     ./disk.nix
   ];
@@ -21,10 +24,6 @@
     hostName = "Colden";
     useDHCP = lib.mkDefault true;
   };
-
-  home-manager.users.${flake.config.user}.imports = [
-    (flake.self.unit.home.forrit secrets.syr.forrit)
-  ];
 
   boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
   boot.initrd.kernelModules = [];
