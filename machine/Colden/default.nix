@@ -23,7 +23,7 @@
   };
 
   home-manager.users.${flake.config.user}.imports = [
-    (flake.self.unit.home.forrit secrets.syr.forrit_config)
+    (flake.self.unit.home.forrit secrets.syr.forrit)
   ];
 
   boot.initrd.availableKernelModules = ["ata_piix" "uhci_hcd" "virtio_pci" "virtio_scsi" "sd_mod" "sr_mod"];
