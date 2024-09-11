@@ -29,6 +29,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    forrit = {
+      url = "github:George-Miao/forrit";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
   };
@@ -53,20 +61,17 @@
         generate = pkgs: (import "${self}/_sources/generated.nix") {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
       };
     in
-      flake-parts.lib.mkFlake {inherit inputs;} (args: let
-        extra = {
-          inherit tools consts secrets;
-          inherit (args) flake-parts-lib;
-        };
-        mkLinuxSystem = mod:
+      flake-parts.lib.mkFlake {inherit inputs;} ({flake-parts-lib, ...}: let
+        extra = {inherit tools consts secrets flake-parts-lib;};
+        mkLinuxSystem = machine:
           nixpkgs.lib.nixosSystem {
             specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
-            modules = [self.nixosModules.nixosFlake mod];
+            modules = [self.nixosModules.nixosFlake machine];
           };
-        mkMacosSystem = mod:
+        mkMacosSystem = machine:
           nix-darwin.lib.darwinSystem {
             specialArgs = self.nixos-flake.lib.specialArgsFor.darwin // extra;
-            modules = [self.darwinModules_.nixosFlake mod];
+            modules = [self.darwinModules_.nixosFlake machine];
           };
         mkLinuxDeploy = node: hostname: {
           inherit hostname;

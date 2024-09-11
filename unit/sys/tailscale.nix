@@ -21,7 +21,7 @@
       [
         "--reset"
         "--ssh"
-        "--accept-routes"
+        "--accept-dns=false"
         "--login-server=${server}"
         "--operator=${flake.config.user}"
       ]
