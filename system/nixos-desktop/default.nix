@@ -15,6 +15,8 @@
       printer
       docker
       pipewire
+      keyring
+      kdeconnect
 
       self.nixosModules.home-manager
     ];

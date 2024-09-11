@@ -10,14 +10,12 @@ in
           pkgs,
           tools,
           ...
-        }: let
-          generated = tools.generate pkgs;
-        in {
+        }: {
           programs.vscode = {
             enable = true;
             package = (pkgs.vscode.override {isInsiders = build == "insider";}).overrideAttrs (f: oldAttrs: {
               inherit (oldAttrs) buildInputs;
-              src = generated."vscode-${os}-${build}".src;
+              src = (tools.generate pkgs)."vscode-${os}-${build}".src;
               version = "latest";
             });
           };

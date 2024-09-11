@@ -43,7 +43,7 @@
     ...
   }:
     with builtins; let
-      secrets = fromJSON (readFile "${self}/secrets/secrets.json");
+      secrets = import "${self}/secrets/secrets.nix";
       consts = {
         gpg = readFile "${self}/static/gpg.pub";
         ssh = readFile "${self}/static/ssh.pub";

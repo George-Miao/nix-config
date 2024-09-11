@@ -1,6 +1,7 @@
 {
   isServer ? false,
   autoStart ? isServer,
+  hostname ? null,
 }: {
   pkgs,
   lib,
@@ -9,19 +10,22 @@
   ...
 }: {
   services.tailscale = let
-    flags =
-      [
-        "--operator=${flake.config.user}"
-        "--accept-routes"
-        "--ssh"
-      ]
-      ++ lib.lists.optional isServer "--advertise-exit-node";
+    optional = lib.lists.optional;
+    server = secrets.tailscale.server;
   in {
     enable = true;
     useRoutingFeatures = "both";
     openFirewall = isServer;
     authKeyFile = builtins.toFile "tailscale-authkey" secrets.tailscale.key;
-    extraSetFlags = flags;
-    extraUpFlags = flags;
+    extraUpFlags =
+      [
+        "--reset"
+        "--ssh"
+        "--accept-routes"
+        "--login-server=${server}"
+        "--operator=${flake.config.user}"
+      ]
+      ++ optional isServer "--advertise-exit-node"
+      ++ optional (hostname != null) "--hostname=${hostname}";
   };
 }

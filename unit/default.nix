@@ -116,6 +116,7 @@ in {
       # List of GUI packages
       gui = {pkgs, ...}: {
         imports = with unit.home; [
+          # kdeconnect
           fcitx5
           alacritty
           gpg-agent
@@ -123,6 +124,9 @@ in {
         ];
 
         home.packages = with pkgs; [
+          zotero
+          libreoffice
+          kooha
           telegram-desktop
           firefox
           pavucontrol
