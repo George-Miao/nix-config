@@ -1,7 +1,6 @@
 {
   modulesPath,
   flake,
-  lib,
   ...
 }: {
   imports = [
