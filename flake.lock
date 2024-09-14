@@ -121,11 +121,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1726258005,
-        "narHash": "sha256-YlAjNxFScZoameFAKWyQLjfpqN5hgwI+6SR1X6FZlZ0=",
+        "lastModified": 1726259279,
+        "narHash": "sha256-Kjb9SjpFOEBHhRNClgTlj5uRG+WWFxK0W2EJCG1fLeA=",
         "owner": "George-Miao",
         "repo": "forrit",
-        "rev": "9caf279f527e9656caad4c006d4ef4a4e96f901d",
+        "rev": "34eee28f3ea2b43c2c5ad0b222cc9fd38c89287f",
         "type": "github"
       },
       "original": {
