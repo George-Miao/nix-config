@@ -33,11 +33,11 @@
             "name": null,
             "owner": "George-Miao",
             "repo": "wallpaper",
-            "rev": "255b6b",
-            "sha256": "sha256-dhvMCaMZGGIdCcC4rJ+FQEG81ZgENVZCglZmMjDOruc=",
+            "rev": "6c471f",
+            "sha256": "sha256-D/f9ZhiIW5Aqyp7mQ2sVuwCL7SxvWHcfvB3ZIB2paII=",
             "type": "github"
         },
-        "version": "255b6b"
+        "version": "6c471f"
     },
     "vscode-darwin-insider": {
         "cargoLocks": null,
