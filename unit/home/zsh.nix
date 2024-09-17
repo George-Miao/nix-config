@@ -16,9 +16,8 @@
       "rb" = "(cd $HOME/.nix-config && git add --all && nix run '.#activate')";
       "sync_conf" = "(cd $HOME/.nix-config && git add --all && git commit --all --message Update && git pull &&  git push)";
       "src" = "rb";
-      "code-insiders" = "code-insiders --enable-wayland-ime";
-      "codei" = "code-insiders";
       "ls" = "lsd";
+      "codei" = "code-insiders";
       "la" = "ll -a";
       "tree" = "ls --tree";
       "print" = "lpr";

@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   flake,
   ...
@@ -106,6 +107,10 @@ in {
           name = "Bibata-Modern-Ice";
           size = 14;
         };
+      };
+
+      programs.zsh.shellAliases = {
+        "codei" = lib.mkOverride "code-insiders --enable-wayland-ime";
       };
 
       wayland.windowManager.hyprland = {
