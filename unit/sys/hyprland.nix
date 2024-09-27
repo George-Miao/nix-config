@@ -109,10 +109,6 @@ in {
         };
       };
 
-      programs.zsh.shellAliases = {
-        "codei" = lib.mkOverride "code-insiders --enable-wayland-ime";
-      };
-
       wayland.windowManager.hyprland = {
         enable = true;
 
