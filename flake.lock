@@ -174,6 +174,21 @@
         "type": "github"
       }
     },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1726966855,
+        "narHash": "sha256-25ByioeOBFcnitO5lM/Mufnv/u7YtHEHEM8QFuiS40k=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "575704ff85d3a41dc5bfef7b55380cbc7b87f3c2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixos-flake": {
       "locked": {
         "lastModified": 1725387154,
@@ -186,6 +201,27 @@
       "original": {
         "owner": "srid",
         "repo": "nixos-flake",
+        "type": "github"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727312535,
+        "narHash": "sha256-exnTgS6OBYvEa8v5x8UsLQK2ERdDFwXNFQHoT2cqycY=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "f31447cd3f8e54674bd1675969e97e6043a309bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
         "type": "github"
       }
     },
@@ -226,6 +262,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nixos-flake": "nixos-flake",
+        "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",
         "rust-overlay": "rust-overlay"
       }

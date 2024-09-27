@@ -30,7 +30,7 @@
       plugins = ["chisui/zsh-nix-shell"];
     };
 
-    oh-my-zsh = {
+    onMyZsh = {
       enable = true;
       theme = "agnoster";
       plugins = ["git" "sudo"];

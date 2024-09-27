@@ -37,6 +37,11 @@
       };
     };
 
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
   };
@@ -48,6 +53,7 @@
     nix-darwin,
     nixos-flake,
     deploy-rs,
+    nixos-generators,
     ...
   }:
     with builtins; let
@@ -92,8 +98,30 @@
           ./system/nixos-server
         ];
 
+        perSystem = {
+          pkgs,
+          system,
+          ...
+        }: {
+          packages = {
+            lxc = nixos-generators.nixosGenerate {
+              inherit system;
+              specialArgs = {
+                inherit pkgs;
+              };
+              modules = [
+                ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
+                # Apply the rest of the config.
+                machine/ProxmoxLXC
+              ];
+              format = "proxmox-lxc";
+            };
+          };
+        };
+
         flake = {
           inherit extra;
+
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
           nixosConfigurations = {
             Minimum = mkLinuxSystem machine/Minimum;
