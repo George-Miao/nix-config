@@ -2,7 +2,6 @@
   modulesPath,
   flake,
   lib,
-  secrets,
   ...
 }: let
   sys = flake.self.unit.sys;
@@ -15,7 +14,6 @@ in {
     "${modulesPath}/profiles/qemu-guest.nix"
 
     (sys.tailscale {isServer = true;})
-    (sys.forrit secrets.syr.forrit)
 
     ./disk.nix
   ];

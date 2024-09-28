@@ -57,12 +57,16 @@
     ...
   }:
     with builtins; let
-      secrets = import "${self}/secrets/secrets.nix";
+      secrets = import secrets/secrets.nix;
       consts = {
         gpg = readFile "${self}/static/gpg.pub";
         ssh = readFile "${self}/static/ssh.pub";
       };
       tools = {
+        toArray = a:
+          if isList a
+          then a
+          else [a];
         inspect = a: b: builtins.trace (builtins.attrNames a) b;
         generate = pkgs: (import "${self}/_sources/generated.nix") {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
       };
@@ -72,12 +76,21 @@
         mkLinuxSystem = machine:
           nixpkgs.lib.nixosSystem {
             specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
-            modules = [self.nixosModules.nixosFlake machine];
+            modules = [self.nixosModules.nixosFlake] ++ (tools.toArray machine);
+          };
+        mkLinuxService = service:
+          nixpkgs.lib.nixosSystem {
+            specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
+            modules = [
+              self.nixosModules.nixosFlake
+              machine/ProxmoxLXC
+              ({flake, ...}: {imports = tools.toArray (service flake.self.unit);})
+            ];
           };
         mkMacosSystem = machine:
           nix-darwin.lib.darwinSystem {
             specialArgs = self.nixos-flake.lib.specialArgsFor.darwin // extra;
-            modules = [self.darwinModules_.nixosFlake machine];
+            modules = [self.darwinModules_.nixosFlake] ++ (tools.toArray machine);
           };
         mkLinuxDeploy = node: hostname: {
           inherit hostname;
@@ -104,14 +117,12 @@
           ...
         }: {
           packages = {
-            lxc = nixos-generators.nixosGenerate {
+            proxmox-lxc = nixos-generators.nixosGenerate {
               inherit system;
-              specialArgs = {
-                inherit pkgs;
-              };
+              specialArgs = {inherit pkgs;} // self.nixos-flake.lib.specialArgsFor.nixos // extra;
               modules = [
+                self.nixosModules.nixosFlake
                 ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
-                # Apply the rest of the config.
                 machine/ProxmoxLXC
               ];
               format = "proxmox-lxc";
@@ -124,7 +135,6 @@
 
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
           nixosConfigurations = {
-            Minimum = mkLinuxSystem machine/Minimum;
             Atlas = mkLinuxSystem machine/Atlas;
             Everest = mkLinuxSystem machine/Everest;
             Colden = mkLinuxSystem machine/Colden;
@@ -133,11 +143,13 @@
             EWR = mkLinuxSystem machine/EWR;
             HEL = mkLinuxSystem machine/HEL;
             HND = mkLinuxSystem machine/HND;
+            Forrit = mkLinuxService (unit: (unit.sys.forrit secrets.syr.forrit));
           };
           darwinConfigurations = {
             Fuji = mkMacosSystem machine/Fuji;
           };
           deploy.nodes = {
+            Forrit = mkLinuxDeploy "Forrit" "forrit.syr.vec.sh";
             Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";
             LUX = mkLinuxDeploy "LUX" "lux.vec.sh";
             EWR = mkLinuxDeploy "EWR" "ewr.vec.sh";
