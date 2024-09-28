@@ -53,13 +53,7 @@ in {
           yazi
         ];
 
-        home.packages = with pkgs; let
-          rust = rust-bin.selectLatestNightlyWith (toolchain:
-            toolchain.default.override {
-              extensions = ["rust-src"];
-            });
-        in [
-          rust
+        home.packages = with pkgs; [
           lsd
           dig
           pv
@@ -89,7 +83,13 @@ in {
           dropbox
         ];
 
-        home.packages = with pkgs; [
+        home.packages = with pkgs; let
+          rust = rust-bin.selectLatestNightlyWith (toolchain:
+            toolchain.default.override {
+              extensions = ["rust-src"];
+            });
+        in [
+          rust
           flyctl
           libiconv
           cargo-release

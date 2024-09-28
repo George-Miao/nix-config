@@ -1,21 +1,15 @@
 {
   pkgs,
-  # self',
+  flake,
   modulesPath,
   ...
 }: {
   imports = [
-    # self'.nixosModules.server
+    flake.self.nixosModules.server
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 
-  proxmoxLXC.privileged = true;
-
-  virtualisation.lxd = {
-    enable = true;
-    zfsSupport = true;
-    recommendedSysctlSettings = true;
-  };
+  services.openssh.enable = true;
 
   virtualisation.lxc = {
     enable = true;
@@ -25,5 +19,6 @@
     '';
   };
 
+  nixpkgs.hostPlatform = "x86_64-linux";
   system.stateVersion = "23.11";
 }
