@@ -3,15 +3,15 @@
 {
   nordic-wallpaper = {
     pname = "nordic-wallpaper";
-    version = "78b242f58faf31541ba4d76926849253b4d2e979";
+    version = "4451bb432fc855159ab77a2ee41a0d4b8f60555a";
     src = fetchFromGitHub {
       owner = "linuxdotexe";
       repo = "nordic-wallpapers";
-      rev = "78b242f58faf31541ba4d76926849253b4d2e979";
+      rev = "4451bb432fc855159ab77a2ee41a0d4b8f60555a";
       fetchSubmodules = false;
-      sha256 = "sha256-gayN5wC3sbcixqdx2vaZiGT/aKyUbVtBouvrYkZfgcU=";
+      sha256 = "sha256-rDlhp5bkFoHcIRq+SASk34nzcS9MJ63yR46/RBYL7AQ=";
     };
-    date = "2024-07-15";
+    date = "2024-10-02";
   };
   pop-wallpaper = {
     pname = "pop-wallpaper";
