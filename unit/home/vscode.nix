@@ -13,11 +13,16 @@ in
         }: {
           programs.vscode = {
             enable = true;
-            package = (pkgs.vscode.override {isInsiders = build == "insider";}).overrideAttrs (f: oldAttrs: {
-              inherit (oldAttrs) buildInputs;
-              src = (tools.generate pkgs)."vscode-${os}-${build}".src;
-              version = "latest";
-            });
+            package =
+              (pkgs.vscode.override {
+                isInsiders = build == "insider";
+                useVSCodeRipgrep = false;
+              })
+              .overrideAttrs (f: oldAttrs: {
+                inherit (oldAttrs) buildInputs;
+                src = (tools.generate pkgs)."vscode-${os}-${build}".src;
+                version = "latest";
+              });
           };
         };
       }) ["stable" "insider"];
