@@ -9,6 +9,7 @@
     btrfs
     amdgpu
     steam
+    obs-studio
     (tailscale {autoStart = true;})
 
     ./hardware.nix
@@ -50,6 +51,7 @@
       enable = true;
       devices = ["nodev"];
       useOSProber = true;
+      default = "saved";
     };
   };
 

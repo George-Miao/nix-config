@@ -21,6 +21,8 @@
       self.nixosModules.home-manager
     ];
 
+    # boot.loader.grub.theme = pkgs.grub2-themes.hyprland;
+
     home-manager.users.${config.user} = {
       imports = [
         ./xdg.nix
@@ -32,6 +34,7 @@
 
       home = {
         packages = with pkgs; [
+          grub2
           evince
           gnome-clocks
           eog
