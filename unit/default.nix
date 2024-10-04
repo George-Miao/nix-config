@@ -77,6 +77,7 @@ in {
       # List of packages used for local environment, include nixos and darwin
       local = {pkgs, ...}: {
         imports = with unit.home; [
+          rbw
           gh
           core
           typst
@@ -89,6 +90,9 @@ in {
               extensions = ["rust-src"];
             });
         in [
+          (discord.override {
+            withOpenASAR = true;
+          })
           rust
           flyctl
           libiconv
@@ -124,7 +128,7 @@ in {
         ];
 
         home.packages = with pkgs; [
-          cinnamon.nemo-with-extensions
+          nemo-with-extensions
           zotero
           libreoffice
           kooha

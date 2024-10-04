@@ -23,6 +23,7 @@
       "tree" = "ls --tree";
       "print" = "lpr";
       ":wq" = "exit";
+      "bw" = "rbw";
     };
 
     antidote = {
