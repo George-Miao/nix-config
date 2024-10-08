@@ -1,5 +1,8 @@
 {flake, ...}: {
-  imports = [flake.self.darwinModules.default];
+  imports = with flake.self.unit.sys; [
+    flake.self.darwinModules.default
+    (tailscale {autoStart = true;})
+  ];
 
   networking.hostName = "Fuji";
 
