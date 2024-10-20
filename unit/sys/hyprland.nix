@@ -145,6 +145,10 @@ in {
                 new_optimizations = "on";
               };
             };
+            master = {
+               mfact = 0.75;
+               allow_small_split = true;
+            };
             windowrulev2 = [
               "opacity 0.9 0.9, class:^(Alacritty)$"
               "immediate, class:.*"

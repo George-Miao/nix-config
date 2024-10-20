@@ -24,6 +24,7 @@
       "print" = "lpr";
       ":wq" = "exit";
       "bw" = "rbw";
+      "note" = "fd Note.typ -x typst c {}";
     };
 
     antidote = {
