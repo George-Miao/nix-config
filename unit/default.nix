@@ -93,6 +93,7 @@ in {
           (discord.override {
             withOpenASAR = true;
           })
+          plex-desktop
           rust
           flyctl
           libiconv

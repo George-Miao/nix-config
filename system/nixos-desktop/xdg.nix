@@ -1,5 +1,7 @@
 {...}: {
   xdg = {
+    portal.xdgOpenUsePortal = true;
+
     mimeApps = {
       enable = true;
       defaultApplications = {
