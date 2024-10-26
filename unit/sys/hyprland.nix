@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   flake,
   ...
@@ -146,8 +145,8 @@ in {
               };
             };
             master = {
-               mfact = 0.75;
-               allow_small_split = true;
+              mfact = 0.75;
+              allow_small_split = true;
             };
             windowrulev2 = [
               "opacity 0.9 0.9, class:^(Alacritty)$"

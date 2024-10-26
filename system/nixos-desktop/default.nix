@@ -11,6 +11,7 @@
 
       # x
       # i3
+      flipper
       hyprland
       printer
       docker
@@ -34,6 +35,7 @@
 
       home = {
         packages = with pkgs; [
+          usbutils
           grub2
           evince
           gnome-clocks
