@@ -15,13 +15,13 @@
   };
   pop-wallpaper = {
     pname = "pop-wallpaper";
-    version = "6c471f";
+    version = "8537fe";
     src = fetchFromGitHub {
       owner = "George-Miao";
       repo = "wallpaper";
-      rev = "6c471f";
+      rev = "8537fe";
       fetchSubmodules = false;
-      sha256 = "sha256-D/f9ZhiIW5Aqyp7mQ2sVuwCL7SxvWHcfvB3ZIB2paII=";
+      sha256 = "sha256-23C4CYqBeYniOyS1Tm4INQOpycvnSJ+ivx2jeNb/54g=";
     };
   };
   vscode-darwin-insider = {
@@ -34,10 +34,10 @@
   };
   vscode-darwin-stable = {
     pname = "vscode-darwin-stable";
-    version = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/384ff7382de624fb94dbaf6da11977bba1ecd427/VSCode-darwin-universal.zip";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/912bb683695358a54ae0c670461738984cbb5b95/VSCode-darwin-universal.zip";
     src = fetchTarball {
-      url = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/384ff7382de624fb94dbaf6da11977bba1ecd427/VSCode-darwin-universal.zip";
-      sha256 = "sha256-BAcQ0b+462t3BrvFkPz3J75ZvS/DA7dhVF3lav48YkM=";
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/912bb683695358a54ae0c670461738984cbb5b95/VSCode-darwin-universal.zip";
+      sha256 = "sha256-CHKUyx1Q+gSiNv1BBvKTmMi9Qmw8SZOJOL4JI9tHvJU=";
     };
   };
   vscode-linux-insider = {
@@ -50,10 +50,10 @@
   };
   vscode-linux-stable = {
     pname = "vscode-linux-stable";
-    version = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/384ff7382de624fb94dbaf6da11977bba1ecd427/code-stable-x64-1728492644.tar.gz";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/912bb683695358a54ae0c670461738984cbb5b95/code-stable-x64-1730152418.tar.gz";
     src = fetchTarball {
-      url = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/384ff7382de624fb94dbaf6da11977bba1ecd427/code-stable-x64-1728492644.tar.gz";
-      sha256 = "sha256-E5u/Cokz6i4lqU/EEttdvMkc4qMTOEqinEZLQ/jwz4A=";
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/stable/912bb683695358a54ae0c670461738984cbb5b95/code-stable-x64-1730152418.tar.gz";
+      sha256 = "sha256-sWfDX+oJTEVaMGVGPpwWNFZWM8RivNcgHvNKEyUZfXw=";
     };
   };
 }
