@@ -147,6 +147,7 @@
           };
           darwinConfigurations = {
             Fuji = mkMacosSystem machine/Fuji;
+            Marcy = mkMacosSystem machine/Marcy;
           };
           deploy.nodes = {
             Forrit = mkLinuxDeploy "Forrit" "forrit.syr.vec.sh";

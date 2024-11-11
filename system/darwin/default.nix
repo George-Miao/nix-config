@@ -10,6 +10,7 @@ in {
       default = {
         imports = [
           ../shared
+          ./fonts.nix
           self.darwinModules_.home-manager
         ];
 
@@ -18,6 +19,8 @@ in {
             imports = [
               self.homeModules.local
               self.unit.home.vscode.darwin.insider
+              self.unit.home.alacritty
+
               ({pkgs, ...}: {
                 home.packages = [
                   pkgs.darwin.apple_sdk.frameworks.SystemConfiguration
@@ -51,6 +54,22 @@ in {
           dock = {
             autohide = false;
             orientation = "bottom";
+            magnification = true;
+            largesize = 96;
+            mineffect = "genie";
+            minimize-to-application = true;
+            launchanim = true;
+            show-recents = false;
+            persistent-apps = [
+              "/Applications/Arc.app"
+              "/Applications/Spark Desktop.app"
+              "/Applications/Reeder.app"
+              "/Applications/Fantastical.app"
+              "/Users/${user}/Applications/Home Manager Apps/Alacritty.app"
+              "/Users/${user}/Applications/Home Manager Apps/Visual Studio Code - Insiders.app"
+              "/System/Applications/System Settings.app"
+              "/Applications/Things3.app"
+            ];
           };
 
           finder = {
