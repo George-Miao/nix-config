@@ -3,7 +3,10 @@
     enable = true;
     settings = {
       scrolling.multiplier = 3;
-      font.normal.family = "Cascadia Code PL";
+      font = {
+        normal.family = "Cascadia Code PL";
+        size = 14;
+      };
       cursor = {
         style = {
           shape = "Beam";

@@ -1,22 +1,7 @@
 {pkgs, ...}: {
   fonts = {
     fontDir.enable = true;
-    packages = with pkgs; [
-      ubuntu_font_family
-      corefonts
-      vistafonts
-      cascadia-code
-      noto-fonts
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      source-han-sans
-      source-han-serif
-      liberation_ttf
-      font-awesome
-      powerline-fonts
-      mplus-outline-fonts.githubRelease
-      (nerdfonts.override {fonts = ["Noto"];})
-    ];
+    packages = import ../shared/font-pkgs.nix {inherit pkgs;};
 
     fontconfig = {
       defaultFonts = {
