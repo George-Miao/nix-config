@@ -68,6 +68,7 @@
           then a
           else [a];
         inspect = a: b: builtins.trace (builtins.attrNames a) b;
+        isMac = pkgs: with builtins; isList (match ".*darwin" pkgs.system);
         generate = pkgs: (import "${self}/_sources/generated.nix") {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
       };
     in
