@@ -35,7 +35,7 @@
 
       home = {
         packages = with pkgs; [
-          plex-desktop 
+          plex-desktop
           usbutils
           grub2
           evince
