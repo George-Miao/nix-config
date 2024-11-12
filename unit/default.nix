@@ -84,6 +84,11 @@ in {
           dropbox
         ];
 
+        home.file."hushlogin" = {
+          target = ".hushlogin";
+          text = "";
+        };
+
         home.packages = with pkgs; let
           rust = rust-bin.selectLatestNightlyWith (toolchain:
             toolchain.default.override {
