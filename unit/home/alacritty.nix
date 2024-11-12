@@ -81,6 +81,31 @@ in {
           y = 10;
         };
       };
+      keyboard.bindings = [
+        {
+          key = "C";
+          mods = "Command";
+          chars = "\\u0003";
+        }
+        {
+          key = "C";
+          mods = "Command | Shift";
+          action = "Copy";
+        }
+        {
+          key = "V";
+          mods = "Command | Shift";
+          action = "Paste";
+        }
+      ];
     };
+  };
+  programs.zsh = {
+    initExtra = ''
+      bindkey "^[[1;3C" forward-word
+      bindkey "^[[1;3D" backward-word
+      bindkey "^[[1;9C" end-of-line
+      bindkey "^[[1;9D" beginning-of-line
+    '';
   };
 }
