@@ -67,6 +67,8 @@ in {
               "/Applications/Fantastical.app"
               "/Users/${user}/Applications/Home Manager Apps/Alacritty.app"
               "/Users/${user}/Applications/Home Manager Apps/Visual Studio Code - Insiders.app"
+              "/Applications/Telegram.app"
+              "/Applications/WeChat.app"
               "/System/Applications/System Settings.app"
               "/Applications/Things3.app"
             ];
