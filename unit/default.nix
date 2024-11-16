@@ -98,6 +98,8 @@ in {
           (discord.override {
             withOpenASAR = true;
           })
+          deploy-rs
+          logseq
           rust
           flyctl
           libiconv

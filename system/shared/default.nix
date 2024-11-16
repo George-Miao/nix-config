@@ -19,7 +19,12 @@
     overlays = with flake.inputs; [
       rust-overlay.overlays.default
       deploy-rs.overlays.default
-      (self: super: {deploy-rs = {inherit (pkgs) deploy-rs;};})
+      (self: super: {
+        deploy-rs = {
+          inherit (pkgs) deploy-rs;
+          lib = super.deploy-rs.lib;
+        };
+      })
     ];
   };
 }

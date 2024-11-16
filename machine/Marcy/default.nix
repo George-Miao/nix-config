@@ -15,6 +15,7 @@
 
   nix.linux-builder.enable = true;
 
+  system.defaults.NSGlobalDomain."com.apple.trackpad.scaling" = 1.5;
   system.keyboard = {
     enableKeyMapping = true;
     # Swap command and ctrl, for keyboard with CapsLock pre-mapped to Ctrl

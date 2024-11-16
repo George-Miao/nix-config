@@ -71,6 +71,7 @@ in {
               "/Applications/WeChat.app"
               "/System/Applications/System Settings.app"
               "/Applications/Things3.app"
+              "/Users/${user}/Applications/Home Manager Apps/Logseq.app"
             ];
           };
 
@@ -83,6 +84,8 @@ in {
 
           NSGlobalDomain = {
             _HIHideMenuBar = false;
+            InitialKeyRepeat = 10;
+            KeyRepeat = 1;
             "com.apple.swipescrolldirection" = true;
           };
 
@@ -90,6 +93,7 @@ in {
 
           trackpad = {
             Clicking = true;
+            FirstClickThreshold = 0;
             TrackpadThreeFingerDrag = true;
           };
         };
