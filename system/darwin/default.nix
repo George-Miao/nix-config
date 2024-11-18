@@ -72,6 +72,7 @@ in {
               "/System/Applications/System Settings.app"
               "/Applications/Things3.app"
               "/Users/${user}/Applications/Home Manager Apps/Logseq.app"
+              "/System/Applications/iPhone Mirroring.app"
             ];
           };
 
