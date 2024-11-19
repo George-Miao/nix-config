@@ -20,10 +20,9 @@ in {
           };
         };
 
-        imports = with unit.home; [git zsh];
+        imports = with unit.home; [git zsh lsd];
 
         home.packages = with pkgs; [
-          lsd
           dig
           file
           openssl
@@ -51,10 +50,10 @@ in {
           gpg
           direnv
           yazi
+          lsd
         ];
 
         home.packages = with pkgs; [
-          lsd
           dig
           pv
           rnr

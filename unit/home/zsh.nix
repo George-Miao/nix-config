@@ -19,8 +19,6 @@
       "src" = "rb";
       "code-insiders" = "code-insiders --enable-wayland-ime --";
       "codei" = "code-insiders";
-      "ls" = "lsd";
-      "la" = "ll -a";
       "tree" = "ls --tree";
       "print" = "lpr";
       ":wq" = "exit";
