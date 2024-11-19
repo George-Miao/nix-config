@@ -63,7 +63,7 @@ in {
       colors = nordic;
       scrolling.multiplier = 3;
       font = {
-        normal.family = "Cascadia Code PL";
+        normal.family = "CaskaydiaCove Nerd Font Mono";
         size = 14;
       };
       cursor = {
