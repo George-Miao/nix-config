@@ -18,6 +18,8 @@ in {
     ./disk.nix
   ];
 
+  services.openssh.enable = true;
+
   networking = {
     hostName = "Colden";
     useDHCP = lib.mkDefault true;
