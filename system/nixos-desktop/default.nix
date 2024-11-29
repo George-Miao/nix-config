@@ -8,6 +8,7 @@
       ../shared
       ../shared/nixos.nix
       ./fonts.nix
+      (import ./xdg.nix {inherit config;})
 
       # x
       # i3
@@ -26,7 +27,6 @@
 
     home-manager.users.${config.user} = {
       imports = [
-        ./xdg.nix
         self.homeModules.local
         self.homeModules.gui
         self.unit.home.wpaperd

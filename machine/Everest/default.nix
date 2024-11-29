@@ -44,7 +44,6 @@
       enable = true;
       devices = ["nodev"];
       useOSProber = true;
-      default = "saved";
     };
   };
 
