@@ -81,6 +81,7 @@ in {
           core
           typst
           dropbox
+          gpg-agent
         ];
 
         home.file."hushlogin" = {
@@ -129,7 +130,6 @@ in {
           # kdeconnect
           fcitx5
           alacritty
-          gpg-agent
           gtk
         ];
 

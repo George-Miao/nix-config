@@ -74,6 +74,18 @@
     in
       flake-parts.lib.mkFlake {inherit inputs;} ({flake-parts-lib, ...}: let
         extra = {inherit tools consts secrets flake-parts-lib;};
+        deployPkgs = import nixpkgs {
+          system = "x86_64-linux";
+          overlays = [
+            deploy-rs.overlay # or deploy-rs.overlays.default
+            (self: super: {
+              deploy-rs = {
+                inherit (pkgs) deploy-rs;
+                lib = deploy-rs.lib;
+              };
+            })
+          ];
+        };
         mkLinuxSystem = machine:
           nixpkgs.lib.nixosSystem {
             specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
@@ -98,7 +110,7 @@
           profiles.system = {
             user = "root";
             sshUser = "root";
-            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
+            path = deployPkgs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
           };
         };
       in {
