@@ -21,6 +21,7 @@
       [
         "--reset"
         "--ssh"
+        "--advertise-tags=tag:node"
         "--accept-dns=false"
         "--login-server=${server}"
         "--operator=${flake.config.user}"

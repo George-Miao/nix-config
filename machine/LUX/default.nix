@@ -5,7 +5,6 @@
 }: {
   imports = [
     flake.self.nixosModules.server
-    flake.inputs.disko.nixosModules.disko
 
     "${modulesPath}/installer/scan/not-detected.nix"
 
