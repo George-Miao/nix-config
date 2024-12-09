@@ -98,8 +98,9 @@ in {
           (discord.override {
             withOpenASAR = true;
           })
+          glibc
           deploy-rs
-          logseq
+          (logseq.override {electron_27 = electron_32;})
           rust
           flyctl
           libiconv
@@ -134,6 +135,8 @@ in {
         ];
 
         home.packages = with pkgs; [
+          yubioath-flutter
+          chromium
           nemo-with-extensions
           zotero
           libreoffice

@@ -12,8 +12,6 @@ in {
 
   home-manager.users.${flake.config.user}.imports = [./hyprland.nix];
 
-  system.stateVersion = "23.11";
-
   networking.hostName = "Atlas";
 
   boot.loader = {
@@ -31,4 +29,6 @@ in {
   };
 
   time.timeZone = "Asia/Shanghai";
+
+  system.stateVersion = "23.11";
 }

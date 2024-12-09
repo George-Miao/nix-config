@@ -156,6 +156,7 @@
             EWR = mkLinuxSystem machine/EWR;
             HEL = mkLinuxSystem machine/HEL;
             HND = mkLinuxSystem machine/HND;
+            YUL = mkLinuxSystem machine/YUL;
             Forrit = mkLinuxService (unit: (unit.sys.forrit secrets.syr.forrit));
           };
           darwinConfigurations = {
@@ -170,6 +171,7 @@
             HEL = mkLinuxDeploy "HEL" "hel.vec.sh";
             LAX = mkLinuxDeploy "LAX" "lax.vec.sh";
             HND = mkLinuxDeploy "HND" "hnd.vec.sh";
+            YUL = mkLinuxDeploy "YUL" "yul.vec.sh";
           };
         };
       });

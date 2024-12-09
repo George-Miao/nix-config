@@ -10,5 +10,7 @@
     };
   };
 
+  services.pcscd.enable = true;
+
   home-manager.users.${flake.config.user}.pam.yubico.authorizedYubiKeys.ids = secrets.yubico.yubikey_ids;
 }
