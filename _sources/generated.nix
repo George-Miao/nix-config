@@ -42,10 +42,10 @@
   };
   vscode-linux-insider = {
     pname = "vscode-linux-insider";
-    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/b87fa463df1aeec04bf1f56276cc9972bdb14124/code-insider-x64-1742534676.tar.gz";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/dc289883be5d37d5d2b2f7d30926aa42a3123437/code-insider-x64-1742587352.tar.gz";
     src = fetchTarball {
-      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/b87fa463df1aeec04bf1f56276cc9972bdb14124/code-insider-x64-1742534676.tar.gz";
-      sha256 = "sha256-H90IQY+9MQ539pf1pt3lLj1k2BBgN1qr4Itf3JV0Rsk=";
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/dc289883be5d37d5d2b2f7d30926aa42a3123437/code-insider-x64-1742587352.tar.gz";
+      sha256 = "sha256-v8pnjInjfMv7s5LVX+HV5NndOr0+MQFLkhk2l7h2o18=";
     };
   };
   vscode-linux-stable = {
