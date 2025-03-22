@@ -49,11 +49,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-fzp5lvi7OCHnFGZImsiPPS6n2HVlBFhB1vkAhFyk6tU=",
+            "sha256": "sha256-DWyqlj4hkW31WJ7BVU2jIxjpsTru1FTdAAzwNY6JSdc=",
             "type": "tarball",
-            "url": "https://vscode.download.prss.microsoft.com/dbazure/download/insider/b87fa463df1aeec04bf1f56276cc9972bdb14124/VSCode-darwin-universal.zip"
+            "url": "https://vscode.download.prss.microsoft.com/dbazure/download/insider/dc289883be5d37d5d2b2f7d30926aa42a3123437/VSCode-darwin-universal.zip"
         },
-        "version": "https://vscode.download.prss.microsoft.com/dbazure/download/insider/b87fa463df1aeec04bf1f56276cc9972bdb14124/VSCode-darwin-universal.zip"
+        "version": "https://vscode.download.prss.microsoft.com/dbazure/download/insider/dc289883be5d37d5d2b2f7d30926aa42a3123437/VSCode-darwin-universal.zip"
     },
     "vscode-darwin-stable": {
         "cargoLocks": null,
