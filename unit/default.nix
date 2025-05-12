@@ -99,8 +99,10 @@ in {
             withOpenASAR = true;
           })
           glibc
+          bitwarden-cli
           deploy-rs
-          (logseq.override {electron_27 = electron_32;})
+          obsidian
+          ((logseq.override {electron_27 = electron_32;}).override {electron_27 = electron_32;})
           rust
           flyctl
           libiconv
