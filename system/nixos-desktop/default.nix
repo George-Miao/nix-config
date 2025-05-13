@@ -12,6 +12,7 @@
 
       # x
       # i3
+      probe-rs
       flipper
       hyprland
       printer
@@ -22,6 +23,14 @@
 
       self.nixosModules.home-manager
     ];
+
+    # i18n = let
+    #   EN = "en_US.UTF-8/UTF-8";
+    #   CN = "zh_CN.UTF-8/UTF-8";
+    #   JP = "ja_JP.UTF-8/UTF-8";
+    # in {
+    #   supportedLocales = ["all" EN CN JP];
+    # };
 
     # boot.loader.grub.theme = pkgs.grub2-themes.hyprland;
 

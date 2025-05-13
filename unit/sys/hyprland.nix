@@ -45,6 +45,7 @@ in {
     systemPackages = with pkgs; [
       xdg-desktop-portal-hyprland
       xdg-desktop-portal-gtk
+      # bibata-cursors
     ];
   };
 
@@ -100,12 +101,12 @@ in {
           wl-clipboard
         ];
 
-        pointerCursor = {
-          gtk.enable = true;
-          package = pkgs.bibata-cursors;
-          name = "Bibata-Modern-Ice";
-          size = 14;
-        };
+        # pointerCursor = {
+        #   gtk.enable = true;
+        #   package = pkgs.bibata-cursors;
+        #   name = "Bibata Modern Ice";
+        #   size = 24;
+        # };
       };
 
       wayland.windowManager.hyprland = {
@@ -132,6 +133,10 @@ in {
             "$mod" = "SUPER";
             general = {
               allow_tearing = true;
+            };
+            debug.disable_logs = false;
+            misc = {
+              vrr = 2;
             };
             xwayland = {
               force_zero_scaling = true;
@@ -177,7 +182,16 @@ in {
                 "$mod, down, movefocus, d"
               ]
               ++ workspace_bind;
-            plugins = [];
+            env = [
+              "WLR_DRM_NO_ATOMIC,1"
+              # "HYPRCURSOR_SIZE,24"
+              # "XCURSOR_SIZE,24"
+              # "HYPRCURSOR_THEME,Bibata-Modern-Ice"
+              # "XCURSOR_THEME,Bibata-Modern-Ice"
+            ];
+            exec-once = [
+              # "hyprctl setcursor Bibata-Modern-Ice 24"
+            ];
           };
       };
     }

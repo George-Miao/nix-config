@@ -9,9 +9,8 @@
       ../shared
       ../shared/nixos.nix
       self.nixosModules.home-manager
+      self.unit.sys.sshd
     ];
-
-    services.openssh.enable = true;
 
     users.users = lib.attrsets.genAttrs ["root" config.user] (user: {
       openssh.authorizedKeys.keys = [

@@ -2,7 +2,7 @@
   description = "My Nix configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/abd72d8e98ab73f114561d986f9c069ddd800935";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -42,12 +42,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
   };
 
   outputs = inputs @ {
     self,
+    nur,
     nixpkgs,
     flake-parts,
     nix-darwin,
@@ -89,7 +95,7 @@
         mkLinuxSystem = machine:
           nixpkgs.lib.nixosSystem {
             specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
-            modules = [self.nixosModules.nixosFlake] ++ (tools.toArray machine);
+            modules = [self.nixosModules.nixosFlake nur.modules.nixos.default] ++ (tools.toArray machine);
           };
         mkLinuxService = service:
           nixpkgs.lib.nixosSystem {
@@ -110,6 +116,7 @@
           profiles.system = {
             user = "root";
             sshUser = "root";
+            sshOpts = ["-p" "2222"];
             path = deployPkgs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
           };
         };
@@ -163,6 +170,7 @@
             Fuji = mkMacosSystem machine/Fuji;
             Marcy = mkMacosSystem machine/Marcy;
           };
+
           deploy.nodes = {
             Forrit = mkLinuxDeploy "Forrit" "forrit.syr.vec.sh";
             Colden = mkLinuxDeploy "Colden" "colden.syr.vec.sh";

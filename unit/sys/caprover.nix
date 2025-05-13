@@ -23,8 +23,23 @@
     };
   };
 
-  networking.firewall = {
-    allowedTCPPorts = [80 443 3000 996 7946 4789 2377];
-    allowedUDPPorts = [7946 4789 2377];
+  networking.firewall = let
+    range = {
+      from = 8000;
+      to = 65535;
+    };
+  in {
+    allowedTCPPorts = [80 443 3000];
+    allowedUDPPorts = [80 443 3000];
+
+    # For apps that need to bind to a port
+    allowedTCPPortRanges = [range];
+    allowedUDPPortRanges = [range];
   };
+
+  ## Cluster networking
+  # networking.firewall = {
+  #   allowedTCPPorts = [80 443 996 2377 3000 4789 7946];
+  #   allowedUDPPorts = [2377 4789 7946];
+  # };
 }

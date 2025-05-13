@@ -13,12 +13,11 @@ in {
     "${modulesPath}/installer/scan/not-detected.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
 
+    (sys.sshd)
     (sys.tailscale {isServer = true;})
 
     ./disk.nix
   ];
-
-  services.openssh.enable = true;
 
   networking = {
     hostName = "Colden";

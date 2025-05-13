@@ -41,6 +41,11 @@
     options = ["fmask=0077" "dmask=0077"];
   };
 
+  # fileSystems."/data/windows" = {
+  #  device = "/dev/disk/by-uuid/6C2E92512E921464";
+  #  fsType = "exfat";
+  # };
+
   swapDevices = [];
 
   networking.useDHCP = lib.mkDefault true;

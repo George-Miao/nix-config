@@ -5,11 +5,10 @@
   ...
 }: {
   imports = [
+    flake.self.unit.sys.sshd
     flake.self.nixosModules.server
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
-
-  services.openssh.enable = true;
 
   virtualisation.lxc = {
     enable = true;
