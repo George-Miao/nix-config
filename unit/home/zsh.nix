@@ -17,8 +17,6 @@
       "sync_conf" = "(cd $HOME/.nix-config && git add --all && git commit --all --message Update && git pull && git push)";
       "sync_typst" = "(j common && git add --all && git commit --all --message Update && git pull && git push)";
       "src" = "rb";
-      "code-insiders" = "code-insiders --enable-wayland-ime --";
-      "codei" = "code-insiders";
       "tree" = "ls --tree";
       "print" = "lpr";
       ":wq" = "exit";
@@ -39,6 +37,7 @@
 
     initExtra = ''
       function run() { nix run nixpkgs#$1 -- ''${*[@]:2} }
+      function codei() { code-insiders ''${*[@]} --enable-wayland-ime  }
     '';
   };
 }

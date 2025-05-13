@@ -9,6 +9,11 @@
   flake,
   ...
 }: {
+  # Logout tailscale so any change in the configuration can take effect
+  system.activationScripts.logout-tailscale = ''
+    ${pkgs.tailscale}/bin/tailscale logout || true
+  '';
+
   services.tailscale = let
     optional = lib.lists.optional;
     server = secrets.tailscale.server;

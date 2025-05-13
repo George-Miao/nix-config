@@ -1,9 +1,12 @@
 {flake, ...}: {
-  imports = [
-    flake.self.unit.sys.yubico
+  imports = with flake.self.unit.sys; [
+    yubico
+    ratbag
   ];
+  home-manager.backupFileExtension = "bkup";
+  boot.initrd.systemd.dbus.enable = true;
   users.users.${flake.config.user} = {
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "docker" "dialout" "tty"];
     isNormalUser = true;
   };
   nix = {

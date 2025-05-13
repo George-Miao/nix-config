@@ -14,7 +14,12 @@
   };
 
   nixpkgs = {
-    config.allowUnfree = true;
+    config = {
+      allowUnfree = true;
+      permittedInsecurePackages = [
+        "electron-29.4.6"
+      ];
+    };
 
     overlays = with flake.inputs; [
       rust-overlay.overlays.default

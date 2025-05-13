@@ -3,12 +3,13 @@
   flake,
   ...
 }: {
-  imports = [
+  imports = with flake.self.unit.sys; [
     flake.self.nixosModules.server
 
     "${modulesPath}/installer/scan/not-detected.nix"
 
-    (flake.self.unit.sys.tailscale {isServer = true;})
+    (tailscale {isServer = true;})
+    (vector {hostname = "HEL";})
 
     ./hardware.nix
   ];

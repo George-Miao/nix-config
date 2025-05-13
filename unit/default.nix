@@ -76,6 +76,8 @@ in {
       # List of packages used for local environment, include nixos and darwin
       local = {pkgs, ...}: {
         imports = with unit.home; [
+          syncthing
+          headscale
           rbw
           gh
           core
@@ -95,20 +97,23 @@ in {
               extensions = ["rust-src"];
             });
         in [
+          vector
           (discord.override {
-            withOpenASAR = true;
+            # withOpenASAR = true;
           })
+          nix-search-cli
+          espup
+          arp-scan
           glibc
           bitwarden-cli
           deploy-rs
           obsidian
-          ((logseq.override {electron_27 = electron_32;}).override {electron_27 = electron_32;})
           rust
           flyctl
           libiconv
           cargo-release
           dua
-          biome
+          # biome
           # bitwarden-cli # Build failed after Python 3.12
           websocat
           jq
@@ -130,6 +135,7 @@ in {
       # List of GUI packages
       gui = {pkgs, ...}: {
         imports = with unit.home; [
+          wine
           # kdeconnect
           fcitx5
           alacritty
@@ -137,6 +143,16 @@ in {
         ];
 
         home.packages = with pkgs; [
+          mpv
+          qbittorrent
+          teamspeak3
+          bottles-unwrapped
+          kicad
+          freecad-wayland
+          appimage-run
+          gui-for-clash
+          bambu-studio
+          wechat-uos
           yubioath-flutter
           chromium
           nemo-with-extensions

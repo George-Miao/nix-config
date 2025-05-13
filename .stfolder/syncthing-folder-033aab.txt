@@ -1,0 +1,5 @@
+# This directory is a Syncthing folder marker.
+# Do not delete.
+
+folderID: fayah-ymsuu
+created: 2024-12-18T07:40:52-05:00
