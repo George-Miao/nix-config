@@ -45,6 +45,7 @@
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
 
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -160,6 +161,7 @@
             Colden = mkLinuxSystem machine/Colden;
             LUX = mkLinuxSystem machine/LUX;
             LAX = mkLinuxSystem machine/LAX;
+            LAX-2 = mkLinuxSystem machine/LAX-2;
             EWR = mkLinuxSystem machine/EWR;
             HEL = mkLinuxSystem machine/HEL;
             HND = mkLinuxSystem machine/HND;
@@ -178,6 +180,7 @@
             EWR = mkLinuxDeploy "EWR" "ewr.vec.sh";
             HEL = mkLinuxDeploy "HEL" "hel.vec.sh";
             LAX = mkLinuxDeploy "LAX" "lax.vec.sh";
+            LAX-2 = mkLinuxDeploy "LAX-2" "lax-2.vec.sh";
             HND = mkLinuxDeploy "HND" "hnd.vec.sh";
             YUL = mkLinuxDeploy "YUL" "yul.vec.sh";
           };

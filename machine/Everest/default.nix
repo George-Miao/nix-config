@@ -13,11 +13,12 @@
     amdgpu
     steam
     obs-studio
+    netbird-client
     (tailscale {autoStart = true;})
     (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
     (vector {
       hostname = "Everest";
-      include_units = ["home-manager-pop"];
+      include_units = ["home-manager-pop" "netbird"];
     })
 
     ./hardware.nix
