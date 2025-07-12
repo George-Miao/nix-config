@@ -7,6 +7,7 @@
   imports = with flake.self.unit.sys; [
     flake.self.nixosModules.desktop
 
+    logitech
     atd
     sshd
     btrfs
@@ -14,6 +15,7 @@
     steam
     obs-studio
     netbird-client
+    postgresql
     (tailscale {autoStart = true;})
     (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
     (vector {
