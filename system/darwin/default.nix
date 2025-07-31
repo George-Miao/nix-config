@@ -71,7 +71,7 @@ in {
               "/Applications/WeChat.app"
               "/System/Applications/System Settings.app"
               "/Applications/Things3.app"
-              "/Users/${user}/Applications/Home Manager Apps/Logseq.app"
+              "/Users/${user}/Applications/Home Manager Apps/Obsidian.app"
               "/System/Applications/iPhone Mirroring.app"
             ];
           };

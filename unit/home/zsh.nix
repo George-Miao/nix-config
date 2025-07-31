@@ -38,6 +38,8 @@
     initExtra = ''
       function run() { nix run nixpkgs#$1 -- ''${*[@]:2} }
       function codei() { code-insiders ''${*[@]} --enable-wayland-ime  }
+
+      export PATH="$HOME/.npm-packages/bin:$PATH"
     '';
   };
 }
