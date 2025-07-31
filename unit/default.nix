@@ -104,8 +104,6 @@ in {
           nix-search-cli
           espup
           arp-scan
-          glibc
-          bitwarden-cli
           deploy-rs
           obsidian
           rust
@@ -143,6 +141,7 @@ in {
         ];
 
         home.packages = with pkgs; [
+          code-cursor
           mpv
           qbittorrent
           teamspeak3
