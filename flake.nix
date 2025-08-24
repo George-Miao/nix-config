@@ -80,7 +80,7 @@
       };
     in
       flake-parts.lib.mkFlake {inherit inputs;} ({flake-parts-lib, ...}: let
-        extra = {inherit tools consts secrets flake-parts-lib;};
+        extra = {inherit tools secrets flake-parts-lib;};
         deployPkgs = import nixpkgs {
           system = "x86_64-linux";
           overlays = [
@@ -93,24 +93,33 @@
             })
           ];
         };
+        mkMacosSystem = machine:
+          nix-darwin.lib.darwinSystem {
+            specialArgs =
+              self.nixos-flake.lib.specialArgsFor.darwin
+              // extra
+              // {consts = consts // {os = "darwin";};};
+            modules = [self.darwinModules_.nixosFlake] ++ (tools.toArray machine);
+          };
         mkLinuxSystem = machine:
           nixpkgs.lib.nixosSystem {
-            specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
+            specialArgs =
+              self.nixos-flake.lib.specialArgsFor.nixos
+              // extra
+              // {consts = consts // {os = "linux";};};
             modules = [self.nixosModules.nixosFlake nur.modules.nixos.default] ++ (tools.toArray machine);
           };
         mkLinuxService = service:
           nixpkgs.lib.nixosSystem {
-            specialArgs = self.nixos-flake.lib.specialArgsFor.nixos // extra;
+            specialArgs =
+              self.nixos-flake.lib.specialArgsFor.nixos
+              // extra
+              // {consts = consts // {os = "linux";};};
             modules = [
               self.nixosModules.nixosFlake
               machine/ProxmoxLXC
               ({flake, ...}: {imports = tools.toArray (service flake.self.unit);})
             ];
-          };
-        mkMacosSystem = machine:
-          nix-darwin.lib.darwinSystem {
-            specialArgs = self.nixos-flake.lib.specialArgsFor.darwin // extra;
-            modules = [self.darwinModules_.nixosFlake] ++ (tools.toArray machine);
           };
         mkLinuxDeploy = node: hostname: {
           inherit hostname;

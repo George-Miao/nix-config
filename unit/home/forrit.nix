@@ -1,6 +1,5 @@
 settings: {
   flake,
-  tools,
   pkgs,
   system,
   ...

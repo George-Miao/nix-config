@@ -1,12 +1,11 @@
 {secrets, ...}: {
   services.syncthing = {
     enable = true;
-    passwordFile = builtins.toFile "syncthing_password" secrets.syncthing.password;
-    settings = {
-      gui.user = "admin";
-    };
+    settings = secrets.syncthing.settings;
+    overrideFolders = false;
     extraOptions = [
       "--no-browser"
+      "--no-default-folder"
     ];
   };
 }

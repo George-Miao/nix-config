@@ -76,6 +76,7 @@ in {
       # List of packages used for local environment, include nixos and darwin
       local = {pkgs, ...}: {
         imports = with unit.home; [
+          forgejo-cli
           syncthing
           headscale
           rbw
