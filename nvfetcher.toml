@@ -1,23 +1,23 @@
 [nordic-wallpaper]
-src.git      = "https://github.com/linuxdotexe/nordic-wallpapers"
+src.git = "https://github.com/linuxdotexe/nordic-wallpapers"
 fetch.github = "linuxdotexe/nordic-wallpapers"
 
 [pop-wallpaper]
-src.github   = "George-Miao/wallpaper"
+src.github = "George-Miao/wallpaper"
 fetch.github = "George-Miao/wallpaper"
 
 [vscode-linux-stable]
-src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "stable" and .platform.os == "linux-x64")] | first | .url'"""
+src.cmd = """curl -Ls -o /dev/null -w %{url_effective} 'https://code.visualstudio.com/sha/download?build=stable&os=linux-x64'"""
 fetch.tarball = "$ver"
 
 [vscode-linux-insider]
-src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "insider" and .platform.os == "linux-x64")] | first | .url'"""
+src.cmd = """curl -Ls -o /dev/null -w %{url_effective} 'https://code.visualstudio.com/sha/download?build=insider&os=linux-x64'"""
 fetch.tarball = "$ver"
 
 [vscode-darwin-stable]
-src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "stable" and .platform.os == "darwin-universal")] | first | .url'"""
+src.cmd = """curl -Ls -o /dev/null -w %{url_effective} 'https://code.visualstudio.com/sha/download?build=stable&os=darwin-universal'"""
 fetch.tarball = "$ver"
 
 [vscode-darwin-insider]
-src.cmd       = """curl https://code.visualstudio.com/sha | jq -r '[.products.[] | select(.build == "insider" and .platform.os == "darwin-universal")] | first | .url'"""
+src.cmd = """curl -Ls -o /dev/null -w %{url_effective} 'https://code.visualstudio.com/sha/download?build=insider&os=darwin-universal'"""
 fetch.tarball = "$ver"
