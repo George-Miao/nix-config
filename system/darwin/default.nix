@@ -61,7 +61,7 @@ in {
             launchanim = true;
             show-recents = false;
             persistent-apps = [
-              "/Applications/Arc.app"
+              "/Applications/Zen.app"
               "/Applications/Spark Desktop.app"
               "/Applications/Reeder.app"
               "/Applications/Fantastical.app"
