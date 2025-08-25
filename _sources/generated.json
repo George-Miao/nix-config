@@ -34,12 +34,12 @@
             "name": null,
             "owner": "George-Miao",
             "repo": "wallpaper",
-            "rev": "f4d411",
-            "sha256": "sha256-+MByyeHBWeqkRuu/bU70i4k0Y7YJWv3lWQGfmE4kEjs=",
+            "rev": "f79c2e",
+            "sha256": "sha256-3VYnGGE/N8GWGWTCHYFQxMva1Ye8NIaByfzBCCyPUPU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f4d411"
+        "version": "f79c2e"
     },
     "vscode-darwin-insider": {
         "cargoLocks": null,
