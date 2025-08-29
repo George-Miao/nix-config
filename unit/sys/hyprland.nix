@@ -155,7 +155,8 @@ in {
             };
             windowrulev2 = [
               "opacity 0.9 0.9, class:^(Alacritty)$"
-              "immediate, class:.*"
+              # "immediate, class:.*"
+              "float, class:^(zen-twilight)$, title:^Extension.*$"
             ];
             input = {
               sensitivity = -0.6;
