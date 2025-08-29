@@ -12,7 +12,11 @@ in {
       sys = import_all ./sys;
     };
     homeModules = rec {
-      bare = {pkgs, ...}: {
+      bare = {
+        pkgs,
+        flake,
+        ...
+      }: {
         home = {
           stateVersion = "23.11";
           sessionVariables = {
@@ -20,7 +24,13 @@ in {
           };
         };
 
-        imports = with unit.home; [git zsh lsd];
+        imports = with unit.home; [
+          flake.inputs.zen-browser.homeModules.twilight
+
+          git
+          zsh
+          lsd
+        ];
 
         home.packages = with pkgs; [
           dig
@@ -33,7 +43,11 @@ in {
         ];
       };
       # List of core packages used in command line
-      core = {pkgs, ...}: {
+      core = {
+        pkgs,
+        flake,
+        ...
+      }: {
         home = {
           # See https://nix-community.github.io/home-manager/options.xhtml#opt-home.stateVersion
           stateVersion = "23.11";
@@ -43,6 +57,8 @@ in {
         };
 
         imports = with unit.home; [
+          flake.inputs.zen-browser.homeModules.twilight
+
           cargo
           git
           starship
@@ -134,6 +150,7 @@ in {
       # List of GUI packages
       gui = {pkgs, ...}: {
         imports = with unit.home; [
+          zen-browser
           wine
           # kdeconnect
           fcitx5
@@ -143,6 +160,7 @@ in {
 
         home.packages = with pkgs; [
           code-cursor
+          postman
           mpv
           qbittorrent
           teamspeak3
