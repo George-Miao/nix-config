@@ -20,18 +20,4 @@ in {
       };
     };
   };
-
-  systemd.user.services.wpaperd = {
-    Unit.Description = "Modern wallpaper daemon for Wayland";
-    Install.WantedBy = ["hyprland-session.target"];
-
-    Service = {
-      ExecStart = "${lib.getBin pkgs.wpaperd}/bin/wpaperd -v";
-      ExecReload = "${lib.getBin pkgs.coreutils}/bin/kill -HUP $MAINPID";
-      KillMode = "control-group";
-      Restart = "on-failure";
-      PrivateTmp = true;
-      ProtectSystem = "full";
-    };
-  };
 }

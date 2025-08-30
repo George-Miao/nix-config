@@ -30,7 +30,7 @@
 
     vec
     caprover
-    (tailscale {isServer = true;})
+    # (tailscale {isServer = true;})
     (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
     (zurg_rclone "/data/zurg")
 

@@ -14,7 +14,7 @@ in {
     "${modulesPath}/profiles/qemu-guest.nix"
 
     (sys.sshd)
-    (sys.tailscale {isServer = true;})
+    # (sys.tailscale {isServer = true;})
 
     ./disk.nix
   ];

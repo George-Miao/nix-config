@@ -16,9 +16,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
-      permittedInsecurePackages = [
-        "electron-29.4.6"
-      ];
+      allowInsecurePredicate = _: true;
     };
 
     overlays = with flake.inputs; [

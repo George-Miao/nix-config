@@ -16,7 +16,7 @@
     obs-studio
     netbird-client
     postgresql
-    (tailscale {autoStart = true;})
+    # (tailscale {autoStart = true;})
     (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
     (vector {
       hostname = "Everest";

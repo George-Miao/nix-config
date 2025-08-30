@@ -150,6 +150,7 @@ in {
       # List of GUI packages
       gui = {pkgs, ...}: {
         imports = with unit.home; [
+          bambu-studio
           zen-browser
           wine
           # kdeconnect
@@ -169,7 +170,8 @@ in {
           freecad-wayland
           appimage-run
           gui-for-clash
-          bambu-studio
+          # bambu-studio
+          # orca-slicer
           wechat-uos
           yubioath-flutter
           chromium

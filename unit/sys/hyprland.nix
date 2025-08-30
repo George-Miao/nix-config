@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   flake,
   ...
 }: let
@@ -13,7 +14,7 @@
   systemd_delay = with builtins; {
     systemd.user.services = listToAttrs (map (service: {
         name = service;
-        value = {Service.RestartSec = flake.config.wayland_restart_delay;};
+        value = {Service.RestartSec = lib.mkForce flake.config.wayland_restart_delay;};
       })
       delayed_services);
   };
