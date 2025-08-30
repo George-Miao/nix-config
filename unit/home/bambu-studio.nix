@@ -3,10 +3,6 @@
   appimageName = "Bambu_Studio_ubuntu-24.04_PR-8017.AppImage";
   zipUrl = "https://github.com/bambulab/BambuStudio/releases/download/v02.02.01.60/BambuStudio_ubuntu-24.04_PR-8017.zip";
   zipSha256 = "sha256-w3lmxein1ukB1B4ogTk/JV5ADT1VS8feIKywoOR91Nc=";
-  # version = "2.1.1";
-  # appimageName = "Bambu_Studio_ubuntu-24.04_PR-7292.AppImage";
-  # zipUrl = "https://github.com/bambulab/BambuStudio/releases/download/v02.01.01.52/BambuStudio_ubuntu-24.04_PR-7292.zip";
-  # zipSha256 = "sha256-0xQqDlW0yHnshy6O7nsmOGT49XsLjf6Y8TPnyohp7Sc=";
   srcZipped = pkgs.fetchzip {
     url = zipUrl;
     sha256 = zipSha256;
