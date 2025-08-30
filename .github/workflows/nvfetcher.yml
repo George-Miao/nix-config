@@ -14,7 +14,7 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           nix_path: nixpkgs=channel:nixos-unstable
       - name: 'nvfetcher generate'
-        run: nix-shell -p nvfetcher -p jq --command "nvfetcher -v --keep-going"
+        run: nix-shell -p nvfetcher --command "nvfetcher -v --keep-going"
       - name: Commit files
         id: commit-files
         run: |
