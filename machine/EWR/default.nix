@@ -8,7 +8,7 @@
 
     "${modulesPath}/installer/scan/not-detected.nix"
 
-    (tailscale {isServer = true;})
+    # (tailscale {isServer = true;})
     (vector {hostname = "EWR";})
 
     ./hardware-configuration.nix

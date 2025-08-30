@@ -11,7 +11,7 @@
     "${modulesPath}/profiles/qemu-guest.nix"
 
     netbird-server
-    (tailscale {isServer = true;})
+    # (tailscale {isServer = true;})
     (vector {
       hostname = "LAX-2";
       include_units = [
