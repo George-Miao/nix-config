@@ -170,8 +170,6 @@ in {
           freecad-wayland
           appimage-run
           gui-for-clash
-          # bambu-studio
-          # orca-slicer
           wechat-uos
           yubioath-flutter
           chromium
