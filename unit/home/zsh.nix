@@ -35,7 +35,7 @@
       plugins = ["git" "sudo"];
     };
 
-    initExtra = ''
+    initContent = ''
       function run() { nix run nixpkgs#$1 -- ''${*[@]:2} }
       function codei() { code-insiders ''${*[@]} --enable-wayland-ime  }
 

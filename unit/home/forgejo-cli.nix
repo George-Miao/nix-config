@@ -24,7 +24,7 @@ in
 
     xdg.configFile.forge-config = {
       recursive = true;
-      target = ".config/forgejo/keys.json";
+      target = "forgejo/keys.json";
       text = content;
     };
   }

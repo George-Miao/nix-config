@@ -54,7 +54,7 @@ in {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember --cmd Hyprland";
+        command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd Hyprland";
       };
     };
   };
@@ -88,7 +88,7 @@ in {
   home-manager.users.${flake.config.user} =
     {
       imports = with flake.self.unit.home; [
-        waybar
+        waybar-hyprland
         fuzzel
         swaync
       ];

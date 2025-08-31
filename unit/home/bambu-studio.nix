@@ -7,7 +7,7 @@
     url = zipUrl;
     sha256 = zipSha256;
   };
-  appimagePath = builtins.trace "${srcZipped}" "${srcZipped}/${appimageName}";
+  appimagePath = "${srcZipped}/${appimageName}";
   bambu-studio = pkgs.appimageTools.wrapType2 {
     name = "BambuStudio";
     pname = "bambustudio";

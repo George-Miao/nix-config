@@ -101,7 +101,7 @@ in {
     };
   };
   programs.zsh = {
-    initExtra = ''
+    initContent = ''
       bindkey "^[[1;3C" forward-word
       bindkey "^[[1;3D" backward-word
       bindkey "^[[1;9C" end-of-line
