@@ -16,6 +16,17 @@
     obs-studio
     netbird-client
     postgresql
+    (niri {
+      display = ''
+        output "LG Electronics LG TV SSCR2 0x01010101" {
+          mode "3840x2160@60"
+          scale 1.3
+          transform "normal"
+          position x=1920 y=0
+          focus-at-startup
+        }
+      '';
+    })
     # (tailscale {autoStart = true;})
     (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
     (vector {
@@ -28,7 +39,7 @@
   ];
 
   home-manager.users.${flake.config.user} = {
-    imports = [./hyprland.nix];
+    # imports = [./hyprland.nix];
     programs.alacritty.settings.font.size = lib.mkForce 11;
   };
 

@@ -14,7 +14,6 @@
       # i3
       probe-rs
       flipper
-      hyprland
       printer
       docker
       pipewire

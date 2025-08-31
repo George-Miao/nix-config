@@ -11,7 +11,7 @@ in {
     ./pop-wallpaper.nix
   ];
 
-  programs.wpaperd = {
+  services.wpaperd = {
     enable = true;
     settings = {
       any = {

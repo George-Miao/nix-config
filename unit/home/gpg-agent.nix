@@ -13,11 +13,11 @@ in {
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
-    pinentryPackage = pinentry;
+    pinentry.package = pinentry;
   };
 
   programs.zsh = lib.mkIf is_mac {
-    initExtra = ''
+    initContent = ''
       gpgconf --launch gpg-agent
     '';
     sessionVariables = {
