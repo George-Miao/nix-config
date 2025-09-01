@@ -37,7 +37,6 @@
       imports = [
         self.homeModules.local
         self.homeModules.gui
-        self.unit.home.wpaperd
         self.unit.home.vscode.linux.insider
       ];
 
