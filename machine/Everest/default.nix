@@ -27,6 +27,7 @@
         }
       '';
     })
+    # hyprland
     # (tailscale {autoStart = true;})
     (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
     (vector {

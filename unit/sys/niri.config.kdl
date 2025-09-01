@@ -1,8 +1,13 @@
+debug {
+  preview-render "screencast"
+  enable-overlay-planes
+}
+
 input {
     keyboard {
-        xkb {
-            layout "us"
-        }
+	xkb {
+	
+	}
         repeat-delay 200
         repeat-rate 50
     }
