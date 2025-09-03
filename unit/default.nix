@@ -114,6 +114,7 @@ in {
               extensions = ["rust-src"];
             });
         in [
+          devenv
           vector
           (discord.override {
             # withOpenASAR = true;
