@@ -12,6 +12,7 @@ in {
           ../shared
           ./fonts.nix
           self.darwinModules_.home-manager
+          # self.unit.sys.dropbox
         ];
 
         home-manager = {
@@ -23,8 +24,6 @@ in {
 
               ({pkgs, ...}: {
                 home.packages = [
-                  pkgs.darwin.apple_sdk.frameworks.SystemConfiguration
-                  pkgs.darwin.apple_sdk.frameworks.Security
                   pkgs.tart
                 ];
               })
@@ -36,20 +35,19 @@ in {
           useUserPackages = true;
         };
 
-        services.nix-daemon.enable = true;
-
         nix.gc = {
           interval = {
             Day = 7;
           };
         };
 
-        security.pam.enableSudoTouchIdAuth = true;
+        security.pam.services.sudo_local.touchIdAuth = true;
         users.users.${user} = {
           name = user;
           home = "/Users/${user}";
         };
 
+        system.primaryUser = user;
         system.defaults = {
           dock = {
             autohide = false;

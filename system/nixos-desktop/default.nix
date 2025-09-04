@@ -38,10 +38,12 @@
         self.homeModules.local
         self.homeModules.gui
         self.unit.home.vscode.linux.insider
+        self.unit.home.dropbox
       ];
 
       home = {
         packages = with pkgs; [
+          glibc
           plex-desktop
           usbutils
           grub2

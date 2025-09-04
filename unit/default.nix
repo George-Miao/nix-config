@@ -99,7 +99,6 @@ in {
           gh
           core
           typst
-          dropbox
           gpg-agent
         ];
 
@@ -114,11 +113,10 @@ in {
               extensions = ["rust-src"];
             });
         in [
+          rocq-core
           devenv
           vector
-          (discord.override {
-            # withOpenASAR = true;
-          })
+          discord
           nix-search-cli
           espup
           arp-scan
