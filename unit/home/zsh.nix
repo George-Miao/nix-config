@@ -13,7 +13,7 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
-      "rb" = "(cd $HOME/.nix-config && git add --all && nix run '.#activate')";
+      "rb" = "(cd $HOME/.nix-config && git add --all && sudo nix run '.#activate')";
       "sync_conf" = "(cd $HOME/.nix-config && git add --all && git commit --all --message Update && git pull && git push)";
       "sync_typst" = "(j common && git add --all && git commit --all --message Update && git pull && git push)";
       "src" = "rb";
