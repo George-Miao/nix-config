@@ -11,7 +11,12 @@
         spacing = 1;
         margin = "0";
         modules-left = [
-          "group/hardware"
+          "custom/hardware-wrap"
+          # "power-profiles-daemon"
+          "cpu"
+          "memory"
+          "temperature"
+          "disk"
           "niri/workspaces"
           "niri/window"
         ];
@@ -22,15 +27,15 @@
           "wireplumber#sink"
           # "backlight"
           "network"
-          "battery"
+          # "battery"
           "group/session"
           "tray"
         ];
         "niri/workspaces" = {
           format = "{icon}";
           format-icons = {
-            active = "";
-            default = "";
+            active = "⊚";
+            default = "⬤";
           };
         };
         "niri/window" = {
@@ -44,21 +49,21 @@
           format = "";
           tooltip-format = "Resource Usage";
         };
-        "group/hardware" = {
-          orientation = "horizontal";
-          drawer = {
-            transition-duration = 500;
-            transition-left-to-right = true;
-          };
-          modules = [
-            "custom/hardware-wrap"
-            # "power-profiles-daemon"
-            "cpu"
-            "memory"
-            "temperature"
-            "disk"
-          ];
-        };
+        # "group/hardware" = {
+        #   orientation = "horizontal";
+        #   drawer = {
+        #     transition-duration = 500;
+        #     transition-left-to-right = true;
+        #   };
+        #   modules = [
+        #     "custom/hardware-wrap"
+        #     # "power-profiles-daemon"
+        #     "cpu"
+        #     "memory"
+        #     "temperature"
+        #     "disk"
+        #   ];
+        # };
         "custom/session-wrap" = {
           format = "<span color='#63a4ff'>  </span>";
           tooltip-format = "Lock, Reboot, Shutdown";
@@ -95,8 +100,8 @@
           tooltip-format = "Power Off";
         };
         clock = {
-          format = "󰥔 {:%H:%M 󰃮 %B %d, %Y}";
-          format-alt = "󰥔 {:%H:%M}";
+          interval = 1;
+          format = "󰥔 {:%H:%M:%S 󰃮 %b %d, %Y}";
           tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "month";
@@ -273,7 +278,7 @@
           /* Base styling for all modules */
           border: none;
           border-radius: 0;
-          font-family: "Cascadia Code";
+          font-family: "CaskaydiaCove Nerd Font";
           font-size: 14px;
           min-height: 0;
       }
@@ -282,7 +287,6 @@
           background-color: @background;
           color: @foreground;
       }
-
 
       /* Common module styling with border-bottom */
       #mode,

@@ -6,7 +6,7 @@
     fontconfig = {
       defaultFonts = {
         emoji = ["Noto Color Emoji"];
-        monospace = ["Cascadia Code"];
+        monospace = ["Cascadia Code" "Caskaydia Cove"];
         sansSerif = ["Noto Sans" "Source Han Sans SC"];
         serif = ["Noto Serif" "Source Han Serif SC"];
       };

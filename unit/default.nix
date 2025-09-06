@@ -113,8 +113,12 @@ in {
               extensions = ["rust-src"];
             });
         in [
+<<<<<<< HEAD
           rocq-core
           devenv
+=======
+          cargo-feature
+>>>>>>> 53212d8 (update)
           vector
           discord
           nix-search-cli

@@ -5,9 +5,9 @@ debug {
 
 input {
     keyboard {
-	xkb {
-	
-	}
+        xkb {
+            layout "us"
+        }
         repeat-delay 200
         repeat-rate 50
     }
@@ -53,18 +53,26 @@ window-rule {
     clip-to-geometry true
 }
 window-rule {
-    match app-id="^org\\.wezfurlong\\.wezterm$"
-    default-column-width {
-
-    }
-}
-window-rule {
-    match title="^Extension:"
+    match app-id="^zen" title="^Extension:"
     open-floating true
     min-width 350
     max-width 350
     min-height 700
     max-height 700
+}
+window-rule {
+    match app-id="^zen"
+    exclude title="^Extension:"
+    default-column-width {
+        proportion 0.33333
+    }
+}
+window-rule {
+    match app-id="^zen"
+    exclude title="^Extension:"
+    default-column-width {
+        proportion 0.33333
+    }
 }
 window-rule {
     match app-id="^zen" title="^Picture-in-Picture$"
@@ -75,6 +83,17 @@ window-rule {
     default-window-height {
         fixed 270
     }
+}
+window-rule {
+    match app-id="^Alacritty$"
+    opacity 0.9
+    default-column-width {
+        proportion 0.33333
+    }
+    default-window-height {
+        proportion 0.5
+    }
+
 }
 binds {
     Mod+Shift+Slash {
@@ -87,16 +106,11 @@ binds {
         spawn "fuzzel"
     }
     Mod+V hotkey-overlay-title="Open Clipboard Manager" {
-        spawn "sh" "-c" "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
+        spawn-sh "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"
     }
     Mod+S hotkey-overlay-title="Take a Screenshot of the selected area" {
-        spawn "sh" "-c" r#"grim -g "$(slurp -d)" - | wl-copy"#
+        spawn-sh r#"grim -g "$(slurp -d)" - | wl-copy"#
     }
-    // You can also use a shell. Do this if you need pipes, multiple commands, etc.
-    // Note: the entire command goes as a single argument in the end.
-    // Mod+T { spawn "bash" "-c" "notify-send hello && exec alacritty"; }
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"
     }
@@ -114,6 +128,14 @@ binds {
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false {
         toggle-overview
+    }
+    Mod+Y {
+        spawn-sh "
+            niri msg action move-window-to-floating &&
+            niri msg action set-window-height 70% &&
+            niri msg action set-window-width 60% &&
+            niri msg action center-window
+        "
     }
     Ctrl+Q {
         close-window
@@ -274,10 +296,10 @@ binds {
     Mod+F {
         toggle-window-floating
     }
-    Mod+Ctrl+F {
+    Alt+Ctrl+F {
         expand-column-to-available-width
     }
-    Mod+Shift+F {
+    Alt+Shift+F {
         fullscreen-window
     }
     Mod+C {

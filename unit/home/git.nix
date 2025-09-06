@@ -8,7 +8,7 @@
     difftastic.enable = true;
 
     signing = {
-      key = "FE1B8D89A929808E";
+      key = "DB4536E20EB42CE6";
       signByDefault = true;
     };
 
