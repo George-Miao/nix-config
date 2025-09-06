@@ -24,6 +24,7 @@ in {
       };
       Extensions = {
         Install = [
+          "https://www.zotero.org/download/connector/dl?browser=firefox"
           (extension_latest "ublock-origin")
           (extension_latest "privacy-badger17")
           (extension_latest "clearurls")

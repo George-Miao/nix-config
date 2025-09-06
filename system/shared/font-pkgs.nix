@@ -13,7 +13,8 @@ with pkgs; [
   font-awesome
   powerline-fonts
   mplus-outline-fonts.githubRelease
-  # (nerdfonts.override {fonts = ["Noto" "CascadiaCode" "CascadiaMono"];})
+
+  # Nerd Fonts
   nerd-fonts.noto
   nerd-fonts.caskaydia-cove
   nerd-fonts.caskaydia-mono
