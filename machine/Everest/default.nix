@@ -25,6 +25,10 @@
           position x=1920 y=0
           focus-at-startup
         }
+        output "ASUSTek COMPUTER INC VG279QM M6LMQS104605" {
+          mode "1920x1080@239.760"
+          position x=0 y=0
+        }
       '';
     })
     # hyprland

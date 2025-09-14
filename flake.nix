@@ -88,11 +88,11 @@
       };
     in
       flake-parts.lib.mkFlake {inherit inputs;} ({flake-parts-lib, ...}: let
-        extra = {inherit tools secrets flake-parts-lib;};
+        extra = {inherit tools secrets flake-parts-lib consts;};
         deployPkgs = import nixpkgs {
           system = "x86_64-linux";
           overlays = [
-            deploy-rs.overlay # or deploy-rs.overlays.default
+            deploy-rs.overlays.default # or deploy-rs.overlays.default
             (self: super: {
               deploy-rs = {
                 inherit (pkgs) deploy-rs;
@@ -178,7 +178,6 @@
             Colden = mkLinuxSystem machine/Colden;
             LUX = mkLinuxSystem machine/LUX;
             LAX = mkLinuxSystem machine/LAX;
-            LAX-2 = mkLinuxSystem machine/LAX-2;
             EWR = mkLinuxSystem machine/EWR;
             HEL = mkLinuxSystem machine/HEL;
             HND = mkLinuxSystem machine/HND;
@@ -197,7 +196,6 @@
             EWR = mkLinuxDeploy "EWR" "ewr.vec.sh";
             HEL = mkLinuxDeploy "HEL" "hel.vec.sh";
             LAX = mkLinuxDeploy "LAX" "lax.vec.sh";
-            LAX-2 = mkLinuxDeploy "LAX-2" "lax-2.vec.sh";
             HND = mkLinuxDeploy "HND" "hnd.vec.sh";
             YUL = mkLinuxDeploy "YUL" "yul.vec.sh";
           };
