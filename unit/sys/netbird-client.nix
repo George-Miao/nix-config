@@ -1,8 +1,13 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  secrets,
+  ...
+}: let
   env = {
-    NB_MANAGEMENT_SERVER = "https://netbird.miao.dev";
-    NB_ADMIN_SERVER = "https://netbird.miao.dev";
-    NB_SETUP_KEY = "662EDEA5-93EF-4840-8495-C7035506A21D";
+    NB_MANAGEMENT_SERVER = secrets.netbird.domain;
+    NB_ADMIN_SERVER = secrets.netbird.domain;
+    NB_SETUP_KEY = secrets.netbird.setup_key;
+    NB_ALLOW_SERVER_SSH = "true";
   };
 in {
   services.netbird = {

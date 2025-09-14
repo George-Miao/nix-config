@@ -2,6 +2,7 @@
   self,
   config,
   lib,
+  consts,
   ...
 }: {
   flake.nixosModules.server = {
@@ -14,7 +15,7 @@
 
     users.users = lib.attrsets.genAttrs ["root" config.user] (user: {
       openssh.authorizedKeys.keys = [
-        self.extra.consts.ssh
+        consts.ssh
       ];
     });
 

@@ -15,19 +15,19 @@ in {
 
   fileSystems."/data/download" = {
     inherit options;
-    device = "//truenas.syr.vec.sh/download";
+    device = "//truenas.cgs.vec.sh/download";
     fsType = "cifs";
   };
 
   fileSystems."/data/photo" = {
     inherit options;
-    device = "//truenas.syr.vec.sh/photo";
+    device = "//truenas.cgs.vec.sh/photo";
     fsType = "cifs";
   };
 
   fileSystems."/data/video" = {
     inherit options;
-    device = "//truenas.syr.vec.sh/video";
+    device = "//truenas.cgs.vec.sh/video";
     fsType = "cifs";
   };
 }
