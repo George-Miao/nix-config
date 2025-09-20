@@ -56,6 +56,11 @@
       };
     };
 
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixos-flake.url = "github:srid/nixos-flake";
   };
@@ -69,6 +74,7 @@
     nixos-flake,
     deploy-rs,
     nixos-generators,
+    sops-nix,
     ...
   }:
     with builtins; let
@@ -107,7 +113,12 @@
               self.nixos-flake.lib.specialArgsFor.darwin
               // extra
               // {consts = consts // {os = "darwin";};};
-            modules = [self.darwinModules_.nixosFlake] ++ (tools.toArray machine);
+            modules =
+              [
+                sops-nix.darwinModules.sops
+                self.darwinModules_.nixosFlake
+              ]
+              ++ (tools.toArray machine);
           };
         mkLinuxSystem = machine:
           nixpkgs.lib.nixosSystem {
@@ -115,7 +126,13 @@
               self.nixos-flake.lib.specialArgsFor.nixos
               // extra
               // {consts = consts // {os = "linux";};};
-            modules = [self.nixosModules.nixosFlake nur.modules.nixos.default] ++ (tools.toArray machine);
+            modules =
+              [
+                sops-nix.nixosModules.sops
+                self.nixosModules.nixosFlake
+                nur.modules.nixos.default
+              ]
+              ++ (tools.toArray machine);
           };
         mkLinuxService = service:
           nixpkgs.lib.nixosSystem {
@@ -124,6 +141,7 @@
               // extra
               // {consts = consts // {os = "linux";};};
             modules = [
+              sops-nix.nixosModules.sops
               self.nixosModules.nixosFlake
               machine/ProxmoxLXC
               ({flake, ...}: {imports = tools.toArray (service flake.self.unit);})

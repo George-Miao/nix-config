@@ -113,6 +113,7 @@ in {
               extensions = ["rust-src"];
             });
         in [
+          sops
           rocq-core
           devenv
           cargo-feature
