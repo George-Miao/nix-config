@@ -59,6 +59,7 @@ in {
         imports = with unit.home; [
           flake.inputs.zen-browser.homeModules.twilight
 
+          jujutsu
           cargo
           git
           starship

@@ -6,6 +6,29 @@
 }: {
   programs.niri.enable = true;
 
+  environment.etc = {
+    "wayland-sessions/steam.desktop" = {
+      text = ''
+        [Desktop Entry]
+        Name=Steam
+        Comment=Wayland session for Steam
+        Exec=${pkgs.gamescope}/bin/gamescope -e -r 240 -- steam -tenfoot -steamos
+        Type=Application
+        DesktopNames=Steam
+      '';
+    };
+    "wayland-sessions/niri.desktop" = {
+      text = ''
+        [Desktop Entry]
+        Name=Niri
+        Comment=Wayland session for Niri
+        Exec=${pkgs.niri}/bin/niri-session
+        Type=Application
+        DesktopNames=Niri
+      '';
+    };
+  };
+
   home-manager.users.${flake.config.user} = {
     imports = with flake.self.unit.home; [
       waybar-niri
@@ -55,11 +78,13 @@
     ];
   };
 
+  services.seatd.enable = true;
   services.greetd = {
     enable = true;
     settings = {
-      default_session = {
-        command = "${lib.getExe pkgs.tuigreet} --time --remember --cmd 'niri-session'";
+      default_session = with pkgs; {
+        command = "${lib.getExe tuigreet} -t -r -s /etc/wayland-sessions";
+        # command = "${lib.getExe tuigreet} --time --remember --cmd '${lib.getExe gamescope} -e -r 240 -- steam -tenfoot'";
         user = flake.config.user;
       };
     };
