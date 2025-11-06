@@ -3,15 +3,15 @@
 {
   nordic-wallpaper = {
     pname = "nordic-wallpaper";
-    version = "1b0102fb3fc39d29bf9d1c5385b1c1ad873c7e54";
+    version = "5971527800f8dca1632dfdad53c96b9855edac58";
     src = fetchFromGitHub {
       owner = "linuxdotexe";
       repo = "nordic-wallpapers";
-      rev = "1b0102fb3fc39d29bf9d1c5385b1c1ad873c7e54";
+      rev = "5971527800f8dca1632dfdad53c96b9855edac58";
       fetchSubmodules = false;
-      sha256 = "sha256-KDkTnEBdL/DQ7ZJ62t3vTAO3OwE69KDsQ5gSTWh84GM=";
+      sha256 = "sha256-lCg7VXIdSSWD5KK4mTK0jjdMFH7HmEHrAPM6cWmYpMk=";
     };
-    date = "2025-02-10";
+    date = "2025-11-05";
   };
   pop-wallpaper = {
     pname = "pop-wallpaper";
@@ -26,10 +26,10 @@
   };
   vscode-darwin-insider = {
     pname = "vscode-darwin-insider";
-    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/18d828e5d596e56b516fac7baa53e4b32cf087be/VSCode-darwin-universal.zip";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/1a756d609ca6220dbd315a779b9ef1baf8a761f2/VSCode-darwin-universal.zip";
     src = fetchTarball {
-      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/18d828e5d596e56b516fac7baa53e4b32cf087be/VSCode-darwin-universal.zip";
-      sha256 = "sha256-qjENxYBpCBcLBqta/K6nY2+vtN1hPO5lJyHN2fS4+Yc=";
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/1a756d609ca6220dbd315a779b9ef1baf8a761f2/VSCode-darwin-universal.zip";
+      sha256 = "sha256-jRF6tfSj4Tzu+Nq9/FbgzH/eikbpJDcYOmqz/DDP/Ac=";
     };
   };
   vscode-darwin-stable = {
@@ -42,10 +42,10 @@
   };
   vscode-linux-insider = {
     pname = "vscode-linux-insider";
-    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/18d828e5d596e56b516fac7baa53e4b32cf087be/code-insider-x64-1762233913.tar.gz";
+    version = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/1a756d609ca6220dbd315a779b9ef1baf8a761f2/code-insider-x64-1762319883.tar.gz";
     src = fetchTarball {
-      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/18d828e5d596e56b516fac7baa53e4b32cf087be/code-insider-x64-1762233913.tar.gz";
-      sha256 = "sha256-CmkycC/kiVa/N4zjBnVeR38Uf2PIWpSqVWLGb1rqSjg=";
+      url = "https://vscode.download.prss.microsoft.com/dbazure/download/insider/1a756d609ca6220dbd315a779b9ef1baf8a761f2/code-insider-x64-1762319883.tar.gz";
+      sha256 = "sha256-BhBTr6zGrpQHuqRRbUs95S31qIDLtAdp1TsZd1HPN3I=";
     };
   };
   vscode-linux-stable = {
