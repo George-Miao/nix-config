@@ -1,4 +1,5 @@
-{flake, ...}: {
+{ flake, ... }:
+{
   imports = with flake.self.unit.sys; [
     yubico
     ratbag
@@ -7,14 +8,19 @@
   home-manager.backupFileExtension = "bkup";
   boot.initrd.systemd.dbus.enable = true;
   users.users.${flake.config.user} = {
-    extraGroups = ["wheel" "docker" "dialout" "tty"];
+    extraGroups = [
+      "wheel"
+      "docker"
+      "dialout"
+      "tty"
+    ];
     isNormalUser = true;
   };
   programs.nix-ld.enable = true;
   nix = {
     optimise = {
       automatic = true;
-      dates = ["03:45"];
+      dates = [ "03:45" ];
     };
     gc = {
       dates = "weekly";

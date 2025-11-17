@@ -2,67 +2,70 @@
   self,
   config,
   ...
-}: {
-  flake.nixosModules.desktop = {pkgs, ...}: {
-    imports = with self.unit.sys; [
-      ../shared
-      ../shared/nixos.nix
-      ./fonts.nix
-      (import ./xdg.nix {inherit config;})
+}:
+{
+  flake.nixosModules.desktop =
+    { pkgs, ... }:
+    {
+      imports = with self.unit.sys; [
+        ../shared
+        ../shared/nixos.nix
+        ./fonts.nix
+        (import ./xdg.nix { inherit config; })
 
-      # x
-      # i3
-      spacenav
-      probe-rs
-      flipper
-      printer
-      docker
-      pipewire
-      keyring
-      kdeconnect
+        # x
+        # i3
+        spacenav
+        probe-rs
+        flipper
+        printer
+        docker
+        pipewire
+        keyring
+        kdeconnect
 
-      self.nixosModules.home-manager
-    ];
-
-    # i18n = let
-    #   EN = "en_US.UTF-8/UTF-8";
-    #   CN = "zh_CN.UTF-8/UTF-8";
-    #   JP = "ja_JP.UTF-8/UTF-8";
-    # in {
-    #   supportedLocales = ["all" EN CN JP];
-    # };
-
-    # boot.loader.grub.theme = pkgs.grub2-themes.hyprland;
-
-    home-manager.users.${config.user} = {
-      imports = [
-        self.homeModules.local
-        self.homeModules.gui
-        self.unit.home.vscode.linux.insider
-        self.unit.home.dropbox
+        self.nixosModules.home-manager
       ];
 
-      home = {
-        packages = with pkgs; [
-          glibc
-          plex-desktop
-          usbutils
-          grub2
-          evince
-          gnome-clocks
-          eog
-          gnome-2048
+      # i18n = let
+      #   EN = "en_US.UTF-8/UTF-8";
+      #   CN = "zh_CN.UTF-8/UTF-8";
+      #   JP = "ja_JP.UTF-8/UTF-8";
+      # in {
+      #   supportedLocales = ["all" EN CN JP];
+      # };
+
+      # boot.loader.grub.theme = pkgs.grub2-themes.hyprland;
+
+      home-manager.users.${config.user} = {
+        imports = [
+          self.homeModules.local
+          self.homeModules.gui
+          self.unit.home.vscode.linux.insider
+          self.unit.home.dropbox
         ];
-        sessionVariables = {
-          BROWSER = "firefox";
-          TERMINAL = "alacritty";
+
+        home = {
+          packages = with pkgs; [
+            glibc
+            plex-desktop
+            usbutils
+            grub2
+            evince
+            gnome-clocks
+            eog
+            gnome-2048
+          ];
+          sessionVariables = {
+            BROWSER = "firefox";
+            TERMINAL = "alacritty";
+          };
+        };
+        programs.zsh.shellAliases = {
+          "open" = "setsid xdg-open";
         };
       };
-      programs.zsh.shellAliases = {
-        "open" = "setsid xdg-open";
-      };
-    };
 
-    # hardware.pulseaudio.enable = true;
-  };
+      # hardware.pulseaudio.enable = true;
+    };
 }

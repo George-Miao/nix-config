@@ -1,6 +1,8 @@
-{...}: let
+{ ... }:
+let
   extension_latest = name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
-in {
+in
+{
   programs.zen-browser = {
     enable = true;
 

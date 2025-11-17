@@ -1,6 +1,7 @@
-{...}: {
+{ ... }:
+{
   services.spotifyd = {
     enable = true;
-    settings = {};
+    settings = { };
   };
 }

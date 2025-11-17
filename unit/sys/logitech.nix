@@ -2,7 +2,8 @@
   flake,
   pkgs,
   ...
-}: {
+}:
+{
   hardware.logitech.wireless = {
     enable = true;
     enableGraphical = true;
@@ -11,7 +12,7 @@
     Unit = {
       Description = "Logitech device manager";
     };
-    Install.WantedBy = ["graphical-session.target"];
+    Install.WantedBy = [ "graphical-session.target" ];
     Service = {
       RestartSec = 2;
       Restart = "on-failure";

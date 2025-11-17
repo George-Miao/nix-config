@@ -2,7 +2,8 @@
   pkgs,
   secrets,
   ...
-}: {
+}:
+{
   home.packages = with pkgs; [
     headscale
   ];

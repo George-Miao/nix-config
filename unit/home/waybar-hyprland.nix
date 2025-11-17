@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -18,7 +19,7 @@
           "hyprland/workspaces"
           "wlr/taskbar"
         ];
-        modules-center = [];
+        modules-center = [ ];
         modules-right = [
           "cpu"
           "temperature"
@@ -82,7 +83,7 @@
           spacing = 3;
           on-click-middle = "close";
           tooltip-format = "{title}";
-          ignore-list = [];
+          ignore-list = [ ];
           on-click = "activate";
         };
         tray = {

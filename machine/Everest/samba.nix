@@ -2,7 +2,8 @@
   secrets,
   pkgs,
   ...
-}: let
+}:
+let
   secret = secrets.syr.smb;
   automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
   options = [
@@ -10,8 +11,9 @@
     "username=${secret.username}"
     "password=${secret.password}"
   ];
-in {
-  environment.systemPackages = [pkgs.cifs-utils];
+in
+{
+  environment.systemPackages = [ pkgs.cifs-utils ];
 
   fileSystems."/data/download" = {
     inherit options;

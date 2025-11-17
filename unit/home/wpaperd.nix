@@ -4,9 +4,11 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   home = nixosConfig.users.users.${flake.config.user}.home;
-in {
+in
+{
   imports = [
     ./pop-wallpaper.nix
   ];

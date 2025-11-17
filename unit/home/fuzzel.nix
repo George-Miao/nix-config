@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Wayland Clipboard
   home.packages = with pkgs; [
     wl-clipboard

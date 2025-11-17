@@ -1,21 +1,24 @@
-settings: {
+settings:
+{
   lib,
   flake,
   tools,
   pkgs,
   system,
   ...
-}: let
+}:
+let
   cfg = builtins.toFile "forrit.json" (builtins.toJSON settings);
   port = with lib.strings; toInt (builtins.elemAt (splitString ":" settings.http.bind) 1);
   forrit-server = flake.self.inputs.forrit.outputs.forrit-server."x86_64-linux";
-in {
+in
+{
   systemd.services.forrit-server = {
     description = "Bangumi tracker and downloader";
-    requires = ["network-online.target"];
-    wantedBy = ["multi-user.target"];
+    requires = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
     script = "${forrit-server}/bin/forrit-server ${cfg}";
   };
 
-  networking.firewall.allowedTCPPorts = [port];
+  networking.firewall.allowedTCPPorts = [ port ];
 }

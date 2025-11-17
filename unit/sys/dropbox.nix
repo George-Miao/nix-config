@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   launchd.agents.maestral = {
     script = ''
       exec ${lib.getBin pkgs.maestral}/bin/maestral start -fv

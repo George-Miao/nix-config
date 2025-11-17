@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   system.activationScripts.mkdir-caprover = ''
     mkdir -p /captain
   '';
@@ -23,19 +24,29 @@
     };
   };
 
-  networking.firewall = let
-    range = {
-      from = 8000;
-      to = 65535;
-    };
-  in {
-    allowedTCPPorts = [80 443 3000];
-    allowedUDPPorts = [80 443 3000];
+  networking.firewall =
+    let
+      range = {
+        from = 8000;
+        to = 65535;
+      };
+    in
+    {
+      allowedTCPPorts = [
+        80
+        443
+        3000
+      ];
+      allowedUDPPorts = [
+        80
+        443
+        3000
+      ];
 
-    # For apps that need to bind to a port
-    allowedTCPPortRanges = [range];
-    allowedUDPPortRanges = [range];
-  };
+      # For apps that need to bind to a port
+      allowedTCPPortRanges = [ range ];
+      allowedUDPPortRanges = [ range ];
+    };
 
   ## Cluster networking
   # networking.firewall = {

@@ -1,4 +1,5 @@
-{secrets, ...}: {
+{ secrets, ... }:
+{
   services.syncthing = {
     enable = true;
     settings = secrets.syncthing.settings;

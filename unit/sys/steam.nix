@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.steam = {
     enable = true;
 
@@ -12,7 +13,7 @@
     gamescopeSession.enable = true;
 
     package = pkgs.steam.override {
-      extraPkgs = pkgs: [pkgs.mesa-demos];
+      extraPkgs = pkgs: [ pkgs.mesa-demos ];
     };
   };
 }

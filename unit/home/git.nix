@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   programs.git = {
     enable = true;
 
@@ -18,7 +19,7 @@
       push.autoSetupRemote = true;
       pull.rebase = true;
 
-      credential.helper = lib.mkBefore ["cache --timeout=7200"];
+      credential.helper = lib.mkBefore [ "cache --timeout=7200" ];
       "credential \"https://git.miao.dev\"" = {
         oauthClientId = "a4792ccc-144e-407e-86c9-5e7d8d9c3269";
         oauthAuthURL = "/login/oauth/authorize";

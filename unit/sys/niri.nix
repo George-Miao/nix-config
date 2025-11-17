@@ -1,9 +1,14 @@
-{display ? "", ...}: {
+{
+  display ? "",
+  ...
+}:
+{
   pkgs,
   flake,
   lib,
   ...
-}: {
+}:
+{
   programs.niri.enable = true;
 
   environment.etc = {
@@ -46,16 +51,18 @@
       xwayland-satellite
     ];
 
-    xdg.configFile.niri = let
-      base = builtins.readFile ./niri.config.kdl;
-    in {
-      recursive = true;
-      target = "niri/config.kdl";
-      text = ''
-        ${base}
-        ${display}
-      '';
-    };
+    xdg.configFile.niri =
+      let
+        base = builtins.readFile ./niri.config.kdl;
+      in
+      {
+        recursive = true;
+        target = "niri/config.kdl";
+        text = ''
+          ${base}
+          ${display}
+        '';
+      };
   };
 
   environment = {

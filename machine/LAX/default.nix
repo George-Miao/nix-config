@@ -2,7 +2,8 @@
   modulesPath,
   flake,
   ...
-}: {
+}:
+{
   imports = with flake.self.unit.sys; [
     flake.self.nixosModules.server
     flake.inputs.disko.nixosModules.disko
@@ -26,10 +27,17 @@
     ./disk.nix
   ];
 
-  boot.initrd.availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "virtio_pci" "sr_mod" "virtio_blk"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "uhci_hcd"
+    "ehci_pci"
+    "ahci"
+    "virtio_pci"
+    "sr_mod"
+    "virtio_blk"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.device = "nodev";
 
@@ -43,7 +51,7 @@
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
-  home-manager.users.${flake.config.user}.imports = [];
+  home-manager.users.${flake.config.user}.imports = [ ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

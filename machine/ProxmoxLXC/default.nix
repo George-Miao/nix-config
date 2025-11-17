@@ -3,7 +3,8 @@
   flake,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     flake.self.unit.sys.sshd
     flake.self.nixosModules.server
