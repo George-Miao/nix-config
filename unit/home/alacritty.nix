@@ -1,4 +1,5 @@
-{...}: let
+{ ... }:
+let
   ayu_dark = builtins.fromTOML ''
     # Default colors
     [primary]
@@ -56,7 +57,8 @@
     text = '#000000'
     background = '#F0DFAF'
   '';
-in {
+in
+{
   programs.alacritty = {
     enable = true;
     settings = {

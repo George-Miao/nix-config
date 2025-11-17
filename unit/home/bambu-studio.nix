@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   version = "2.2.1";
   appimageName = "Bambu_Studio_ubuntu-24.04_PR-8017.AppImage";
   zipUrl = "https://github.com/bambulab/BambuStudio/releases/download/v02.02.01.60/BambuStudio_ubuntu-24.04_PR-8017.zip";
@@ -20,8 +21,8 @@
       export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
       export GIO_MODULE_DIR="${pkgs.glib-networking}/lib/gio/modules/"
     '';
-    extraPkgs = pkgs:
-      with pkgs; [
+    extraPkgs =
+      pkgs: with pkgs; [
         cacert
         curl
         glib
@@ -38,8 +39,9 @@
         hack-font
       ];
   };
-in {
-  home.packages = [bambu-studio];
+in
+{
+  home.packages = [ bambu-studio ];
   home.file.".local/share/applications/bambustudio.desktop".text = ''
     [Desktop Entry]
     Name=BambuStudio

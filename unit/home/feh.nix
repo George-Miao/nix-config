@@ -1,12 +1,13 @@
-{pkgs, ...}: {
-  imports = [./pop-wallpaper.nix];
+{ pkgs, ... }:
+{
+  imports = [ ./pop-wallpaper.nix ];
 
   programs.feh.enable = true;
 
   systemd.user = {
     services.update-wallpaper = {
       Unit.Description = "Update wallpaper";
-      Install.WantedBy = ["default.target"];
+      Install.WantedBy = [ "default.target" ];
 
       Service = {
         Type = "oneshot";
@@ -16,7 +17,7 @@
 
     timers.update-wallpaper = {
       Unit.Description = "Update wallpaper every 30 minutes";
-      Install.WantedBy = ["default.target"];
+      Install.WantedBy = [ "default.target" ];
 
       Timer = {
         OnActiveSec = 0;

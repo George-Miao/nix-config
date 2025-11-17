@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   wayland.windowManager.hyprland.settings = {
     monitor = [
       "desc:Shenzhen Soogeen Electronics Co. LTD. L01N8A 0x01348C5C,800x1280@60,0x0,1,transform,1"

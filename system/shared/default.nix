@@ -3,7 +3,8 @@
   pkgs,
   specialArgs,
   ...
-}: {
+}:
+{
   imports = [
     ./nix.nix
     ./user.nix

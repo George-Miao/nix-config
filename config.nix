@@ -1,5 +1,6 @@
-{lib, ...}:
-with lib; {
+{ lib, ... }:
+with lib;
+{
   config = {
     user = "pop";
     wayland_restart_delay = 2;

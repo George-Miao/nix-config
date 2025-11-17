@@ -1,4 +1,5 @@
-{consts, ...}: {
+{ consts, ... }:
+{
   programs.gpg = {
     enable = true;
     publicKeys = [

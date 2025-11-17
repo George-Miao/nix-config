@@ -1,4 +1,5 @@
-{config, ...}: let
+{ config, ... }:
+let
   map = {
     "image/x-sony-arw" = "org.gnome.eog.desktop";
     "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
@@ -14,7 +15,8 @@
     "application/x-extension-xhtml" = "zen-twilight.desktop";
     "application/x-extension-xht " = "zen-twilight.desktop";
   };
-in {
+in
+{
   home-manager.users.${config.user}.xdg.mimeApps = {
     enable = true;
     defaultApplications = map;

@@ -2,7 +2,8 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   caprover = pkgs.buildNpmPackage (finalAttrs: {
     pname = "caprover-cli";
     version = "2.3.1";
@@ -17,7 +18,7 @@
     npmDepsHash = "sha256-68vOWIM1KuEHvWLbwy11BBMGcrwtuwxkQqVBAiyoIVo=";
 
     # The prepack script runs the build script, which we'd rather do in the build phase.
-    npmPackFlags = ["--ignore-scripts"];
+    npmPackFlags = [ "--ignore-scripts" ];
 
     NODE_OPTIONS = "--openssl-legacy-provider";
 
@@ -25,9 +26,10 @@
       description = "Command Line Interface for https://github.com/caprover/caprover";
       homepage = "https://caprover.com/";
       license = lib.licenses.asl20;
-      maintainers = [];
+      maintainers = [ ];
     };
   });
-in {
-  home.packages = [caprover];
+in
+{
+  home.packages = [ caprover ];
 }

@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   xdg.configFile.rustfmt = {
     recursive = true;
     target = "rustfmt/rustfmt.toml";

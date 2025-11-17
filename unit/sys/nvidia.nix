@@ -1,5 +1,6 @@
-{config, ...}: {
-  services.xserver.videoDrivers = ["nvidia"];
+{ config, ... }:
+{
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.graphics.enable = true;
   hardware.nvidia = {
     open = false;
@@ -7,6 +8,6 @@
     powerManagement.enable = false;
     powerManagement.finegrained = false;
   };
-  boot.initrd.kernelModules = ["nvidia"];
-  boot.extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
+  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 }

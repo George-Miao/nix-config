@@ -2,12 +2,13 @@
   flake,
   pkgs,
   ...
-}: {
+}:
+{
   environment.systemPackages = [
     pkgs.probe-rs-tools
   ];
 
-  users.groups.plugdev.members = [flake.config.user];
+  users.groups.plugdev.members = [ flake.config.user ];
 
   services.udev.extraRules = ''
     # If rules fail to reload automatically, you can refresh udev rules

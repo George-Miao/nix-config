@@ -2,7 +2,8 @@
   modulesPath,
   flake,
   ...
-}: {
+}:
+{
   imports = [
     flake.self.nixosModules.server
     flake.inputs.disko.nixosModules.disko

@@ -1,9 +1,11 @@
-target: {
+target:
+{
   pkgs,
   lib,
   secrets,
   ...
-}: let
+}:
+let
   config = builtins.toFile "rclone.conf" ''
     [zurg]
     type = webdav
@@ -25,11 +27,12 @@ target: {
     "--dir-cache-time=30s"
     "--vfs-cache-mode=writes"
   ];
-in {
+in
+{
   systemd.services.zurg_rclone = {
     description = "Rclone service for zurg";
-    requires = ["network-online.target"];
-    wantedBy = ["multi-user.target"];
+    requires = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
     script = cmd;
     postStop = ''
       fusermount -u ${target}

@@ -2,17 +2,25 @@
   flake,
   secrets,
   ...
-}: let
+}:
+let
   secret = secrets.netbird;
   turn_password = builtins.toFile "turn_password" secret.coturn_password;
   relay_password = builtins.toFile "relay_password" secret.relay_password;
   datastore_key = builtins.toFile "datastore_key" secret.datastore_key;
   turn_secret = builtins.toFile "turn_secret" secret.turn_secret;
-in {
-  imports = [flake.self.unit.sys.acme];
+in
+{
+  imports = [ flake.self.unit.sys.acme ];
   networking.firewall = {
-    allowedTCPPorts = [80 443 33073 10000 33080];
-    allowedUDPPorts = [3478];
+    allowedTCPPorts = [
+      80
+      443
+      33073
+      10000
+      33080
+    ];
+    allowedUDPPorts = [ 3478 ];
     allowedUDPPortRanges = [
       {
         from = 49152;

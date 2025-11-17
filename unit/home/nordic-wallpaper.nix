@@ -2,7 +2,8 @@
   tools,
   pkgs,
   ...
-}: {
+}:
+{
   home.file.nordic-wallpaper = {
     enable = true;
     target = "Wallpapers";

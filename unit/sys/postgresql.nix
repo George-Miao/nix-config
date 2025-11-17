@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   services.postgresql = {
     enable = true;
     initialScript = pkgs.writeText "init.sql" ''

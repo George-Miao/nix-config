@@ -2,7 +2,8 @@
   tools,
   pkgs,
   ...
-}: {
+}:
+{
   home.file.pop-wallpapers = {
     enable = true;
     target = "Wallpapers";

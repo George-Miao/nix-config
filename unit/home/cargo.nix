@@ -1,4 +1,5 @@
-{secrets, ...}: {
+{ secrets, ... }:
+{
   home.file.cargo_config = {
     target = ".cargo/config.toml";
     text = ''

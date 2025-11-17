@@ -2,9 +2,11 @@
   self,
   config,
   ...
-}: let
+}:
+let
   user = config.user;
-in {
+in
+{
   flake = {
     darwinModules = {
       default = {
@@ -22,11 +24,14 @@ in {
               self.unit.home.vscode.darwin.insider
               self.unit.home.alacritty
 
-              ({pkgs, ...}: {
-                home.packages = [
-                  pkgs.tart
-                ];
-              })
+              (
+                { pkgs, ... }:
+                {
+                  home.packages = [
+                    pkgs.tart
+                  ];
+                }
+              )
             ];
             home.username = user;
             home.homeDirectory = "/Users/${user}";

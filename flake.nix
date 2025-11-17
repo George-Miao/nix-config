@@ -89,38 +89,55 @@
     flake-compat.url = "github:edolstra/flake-compat";
   };
 
-  outputs = inputs @ {
-    self,
-    nur,
-    nixpkgs,
-    flake-parts,
-    nix-darwin,
-    nixos-flake,
-    deploy-rs,
-    nixos-generators,
-    sops-nix,
-    lanzaboote,
-    vscode-server,
-    ...
-  }:
-    with builtins; let
+  outputs =
+    inputs@{
+      self,
+      nur,
+      nixpkgs,
+      flake-parts,
+      nix-darwin,
+      nixos-flake,
+      deploy-rs,
+      nixos-generators,
+      sops-nix,
+      lanzaboote,
+      vscode-server,
+      ...
+    }:
+    with builtins;
+    let
       secrets = import secrets/secrets.nix;
       consts = {
         gpg = readFile "${self}/static/gpg.pub";
         ssh = readFile "${self}/static/ssh.pub";
       };
       tools = {
-        toArray = a:
-          if isList a
-          then a
-          else [a];
+        toArray = a: if isList a then a else [ a ];
         inspect = a: b: builtins.trace (builtins.attrNames a) b;
         isMac = pkgs: with builtins; isList (match ".*darwin" pkgs.system);
-        generate = pkgs: (import "${self}/_sources/generated.nix") {inherit (pkgs) fetchgit fetchurl fetchFromGitHub dockerTools;};
+        generate =
+          pkgs:
+          (import "${self}/_sources/generated.nix") {
+            inherit (pkgs)
+              fetchgit
+              fetchurl
+              fetchFromGitHub
+              dockerTools
+              ;
+          };
       };
     in
-      flake-parts.lib.mkFlake {inherit inputs;} ({flake-parts-lib, ...}: let
-        extra = {inherit tools secrets flake-parts-lib consts;};
+    flake-parts.lib.mkFlake { inherit inputs; } (
+      { flake-parts-lib, ... }:
+      let
+        extra = {
+          inherit
+            tools
+            secrets
+            flake-parts-lib
+            consts
+            ;
+        };
         deployPkgs = import nixpkgs {
           system = "x86_64-linux";
           overlays = [
@@ -133,46 +150,64 @@
             })
           ];
         };
-        mkMacosSystem = machine:
+        mkMacosSystem =
+          machine:
           nix-darwin.lib.darwinSystem {
             specialArgs =
               self.nixos-flake.lib.specialArgsFor.darwin
               // extra
-              // {consts = consts // {os = "darwin";};};
-            modules =
-              [
-                sops-nix.darwinModules.sops
-                self.darwinModules_.nixosFlake
-              ]
-              ++ (tools.toArray machine);
+              // {
+                consts = consts // {
+                  os = "darwin";
+                };
+              };
+            modules = [
+              sops-nix.darwinModules.sops
+              self.darwinModules_.nixosFlake
+            ]
+            ++ (tools.toArray machine);
           };
-        mkLinuxSystem = machine:
+        mkLinuxSystem =
+          machine:
           nixpkgs.lib.nixosSystem {
             specialArgs =
               self.nixos-flake.lib.specialArgsFor.nixos
               // extra
-              // {consts = consts // {os = "linux";};};
-            modules =
-              [
-                vscode-server.nixosModules.default
-                lanzaboote.nixosModules.lanzaboote
-                sops-nix.nixosModules.sops
-                self.nixosModules.nixosFlake
-                nur.modules.nixos.default
-              ]
-              ++ (tools.toArray machine);
+              // {
+                consts = consts // {
+                  os = "linux";
+                };
+              };
+            modules = [
+              vscode-server.nixosModules.default
+              lanzaboote.nixosModules.lanzaboote
+              sops-nix.nixosModules.sops
+              self.nixosModules.nixosFlake
+              nur.modules.nixos.default
+            ]
+            ++ (tools.toArray machine);
           };
-        mkLinuxService = service:
+        mkLinuxService =
+          service:
           nixpkgs.lib.nixosSystem {
             specialArgs =
               self.nixos-flake.lib.specialArgsFor.nixos
               // extra
-              // {consts = consts // {os = "linux";};};
+              // {
+                consts = consts // {
+                  os = "linux";
+                };
+              };
             modules = [
               sops-nix.nixosModules.sops
               self.nixosModules.nixosFlake
               machine/ProxmoxLXC
-              ({flake, ...}: {imports = tools.toArray (service flake.self.unit);})
+              (
+                { flake, ... }:
+                {
+                  imports = tools.toArray (service flake.self.unit);
+                }
+              )
             ];
           };
         mkLinuxDeploy = node: hostname: {
@@ -180,12 +215,20 @@
           profiles.system = {
             user = "root";
             sshUser = "root";
-            sshOpts = ["-p" "2222"];
+            sshOpts = [
+              "-p"
+              "2222"
+            ];
             path = deployPkgs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
           };
         };
-      in {
-        systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin"];
+      in
+      {
+        systems = [
+          "x86_64-linux"
+          "aarch64-linux"
+          "aarch64-darwin"
+        ];
         imports = [
           nixos-flake.flakeModule
           ./config.nix
@@ -195,24 +238,35 @@
           ./system/nixos-server
         ];
 
-        perSystem = {
-          pkgs,
-          system,
-          ...
-        }: {
-          packages = {
-            proxmox-lxc = nixos-generators.nixosGenerate {
-              inherit system;
-              specialArgs = {inherit pkgs;} // self.nixos-flake.lib.specialArgsFor.nixos // extra;
-              modules = [
-                self.nixosModules.nixosFlake
-                ({...}: {nix.registry.nixpkgs.flake = nixpkgs;})
-                machine/ProxmoxLXC
-              ];
-              format = "proxmox-lxc";
+        perSystem =
+          {
+            pkgs,
+            system,
+            ...
+          }:
+          {
+            packages = {
+              proxmox-lxc = nixos-generators.nixosGenerate {
+                inherit system;
+                specialArgs = {
+                  inherit pkgs;
+                }
+                // self.nixos-flake.lib.specialArgsFor.nixos
+                // extra;
+                modules = [
+                  self.nixosModules.nixosFlake
+                  (
+                    { ... }:
+                    {
+                      nix.registry.nixpkgs.flake = nixpkgs;
+                    }
+                  )
+                  machine/ProxmoxLXC
+                ];
+                format = "proxmox-lxc";
+              };
             };
           };
-        };
 
         flake = {
           inherit extra;
@@ -246,5 +300,6 @@
             YUL = mkLinuxDeploy "YUL" "yul.vec.sh";
           };
         };
-      });
+      }
+    );
 }

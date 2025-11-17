@@ -4,7 +4,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = with flake.self.unit.sys; [
     flake.self.nixosModules.desktop
 
@@ -37,10 +38,18 @@
     })
     # hyprland
     # (tailscale {autoStart = true;})
-    (scrutiny {devices = ["/dev/nvme0" "/dev/nvme1"];})
+    (scrutiny {
+      devices = [
+        "/dev/nvme0"
+        "/dev/nvme1"
+      ];
+    })
     (vector {
       hostname = "Everest";
-      include_units = ["home-manager-pop" "netbird"];
+      include_units = [
+        "home-manager-pop"
+        "netbird"
+      ];
     })
 
     ./hardware.nix

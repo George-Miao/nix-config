@@ -1,4 +1,5 @@
-{lib, ...}: {
+{ lib, ... }:
+{
   config.disko.devices = {
     disk.disk1 = {
       device = lib.mkDefault "/dev/sda";

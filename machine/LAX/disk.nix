@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   config.disko.devices = {
     disk.disk1 = {
       device = "/dev/vda";
