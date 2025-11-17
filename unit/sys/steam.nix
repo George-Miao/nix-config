@@ -12,7 +12,7 @@
     gamescopeSession.enable = true;
 
     package = pkgs.steam.override {
-      extraPkgs = pkgs: [pkgs.glxinfo];
+      extraPkgs = pkgs: [pkgs.mesa-demos];
     };
   };
 }

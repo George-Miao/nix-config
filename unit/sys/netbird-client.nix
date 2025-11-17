@@ -1,5 +1,6 @@
 {
   pkgs,
+  flake,
   secrets,
   ...
 }: let
@@ -17,7 +18,7 @@ in {
       environment = env;
     };
   };
-  programs.zsh.shellInit = ''
+  home-manager.users.${flake.config.user}.programs.zsh.initContent = ''
     source <(${pkgs.netbird}/bin/netbird completion zsh)
   '';
   systemd.services.netbird.environment = env;
