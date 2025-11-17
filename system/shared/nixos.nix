@@ -2,6 +2,7 @@
   imports = with flake.self.unit.sys; [
     yubico
     ratbag
+    fwupd
   ];
   home-manager.backupFileExtension = "bkup";
   boot.initrd.systemd.dbus.enable = true;
@@ -9,6 +10,7 @@
     extraGroups = ["wheel" "docker" "dialout" "tty"];
     isNormalUser = true;
   };
+  programs.nix-ld.enable = true;
   nix = {
     optimise = {
       automatic = true;

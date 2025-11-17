@@ -41,10 +41,11 @@
     options = ["fmask=0077" "dmask=0077"];
   };
 
-  # fileSystems."/data/windows" = {
-  #  device = "/dev/disk/by-uuid/6C2E92512E921464";
-  #  fsType = "exfat";
-  # };
+  fileSystems."/data/windows" = {
+    device = "/dev/disk/by-uuid/7EDCE735DCE6E67D";
+    fsType = "ntfs";
+    options = ["noatime" "big_writes" "uid=1000" "gid=100" "dmask=027" "fmask=137"];
+  };
 
   swapDevices = [];
 

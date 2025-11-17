@@ -93,6 +93,7 @@ in {
       # List of packages used for local environment, include nixos and darwin
       local = {pkgs, ...}: {
         imports = with unit.home; [
+          rustfmt
           forgejo-cli
           syncthing
           headscale
@@ -101,6 +102,7 @@ in {
           core
           typst
           gpg-agent
+          kubespy
         ];
 
         home.file."hushlogin" = {
@@ -114,8 +116,9 @@ in {
               extensions = ["rust-src"];
             });
         in [
+          uv
+          unrar
           sops
-          rocq-core
           devenv
           cargo-feature
           vector
@@ -162,11 +165,11 @@ in {
         ];
 
         home.packages = with pkgs; [
-          code-cursor
+          stm32cubemx
           postman
           mpv
           qbittorrent
-          teamspeak3
+          teamspeak6-client
           bottles-unwrapped
           kicad
           freecad-wayland

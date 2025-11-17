@@ -1,9 +1,13 @@
-{flake, pkgs, ...}: {
+{
+  flake,
+  pkgs,
+  ...
+}: {
   environment.systemPackages = [
     pkgs.probe-rs-tools
   ];
 
-  users.users."${flake.config.user}".extraGroups = ["plugdev"];
+  users.groups.plugdev.members = [flake.config.user];
 
   services.udev.extraRules = ''
     # If rules fail to reload automatically, you can refresh udev rules
@@ -151,6 +155,5 @@
     ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="8011", MODE="660", GROUP="plugdev", TAG+="uaccess"
 
     LABEL="probe_rs_rules_end"
-
   '';
 }

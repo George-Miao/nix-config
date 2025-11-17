@@ -1,10 +1,21 @@
-{pkgs, ...}: {
+{
+  flake,
+  pkgs,
+  ...
+}: {
   hardware.logitech.wireless = {
     enable = true;
     enableGraphical = true;
   };
-  systemd.user.services.solaar = {
-    wantedBy = ["graphical-session.target"];
-    script = "${pkgs.solaar}/bin/solaar -w hide";
+  home-manager.users.${flake.config.user}.systemd.user.services.solaar = {
+    Unit = {
+      Description = "Logitech device manager";
+    };
+    Install.WantedBy = ["graphical-session.target"];
+    Service = {
+      RestartSec = 2;
+      Restart = "on-failure";
+      ExecStart = "${pkgs.solaar}/bin/solaar -w hide";
+    };
   };
 }

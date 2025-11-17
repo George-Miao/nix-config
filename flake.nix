@@ -2,7 +2,7 @@
   description = "My Nix configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -27,12 +27,16 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      inputs.utils.follows = "flake-utils";
     };
 
     forrit = {
       url = "github:George-Miao/forrit";
       inputs = {
+        crane.follows = "crane";
         nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
         rust-overlay.follows = "rust-overlay";
       };
     };
@@ -61,8 +65,28 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs = {
+        crane.follows = "crane";
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "flake-compat";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
+
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
+    crane.url = "github:ipetkov/crane";
     nixos-flake.url = "github:srid/nixos-flake";
+    flake-utils.url = "github:numtide/flake-utils";
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-compat.url = "github:edolstra/flake-compat";
   };
 
   outputs = inputs @ {
@@ -75,6 +99,8 @@
     deploy-rs,
     nixos-generators,
     sops-nix,
+    lanzaboote,
+    vscode-server,
     ...
   }:
     with builtins; let
@@ -128,6 +154,8 @@
               // {consts = consts // {os = "linux";};};
             modules =
               [
+                vscode-server.nixosModules.default
+                lanzaboote.nixosModules.lanzaboote
                 sops-nix.nixosModules.sops
                 self.nixosModules.nixosFlake
                 nur.modules.nixos.default

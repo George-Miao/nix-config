@@ -5,7 +5,7 @@
     fcitx5 = {
       waylandFrontend = true;
       addons = with pkgs; [
-        fcitx5-chinese-addons
+        qt6Packages.fcitx5-chinese-addons
         libsForQt5.fcitx5-qt
         fcitx5-gtk
         fcitx5-mozc

@@ -12,6 +12,7 @@
 
       # x
       # i3
+      spacenav
       probe-rs
       flipper
       printer

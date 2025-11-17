@@ -2,6 +2,7 @@
   flake,
   consts,
   lib,
+  pkgs,
   ...
 }: {
   imports = with flake.self.unit.sys; [
@@ -16,6 +17,9 @@
     obs-studio
     netbird-client
     postgresql
+    vscode-server
+    virtualbox
+
     (niri {
       display = ''
         output "LG Electronics LG TV SSCR2 0x01010101" {
@@ -43,9 +47,15 @@
     ./samba.nix
   ];
 
+  environment.systemPackages = [
+    pkgs.sbctl
+  ];
+
   home-manager.users.${flake.config.user} = {
-    # imports = [./hyprland.nix];
     programs.alacritty.settings.font.size = lib.mkForce 11;
+    programs.zsh.shellAliases = {
+      "win" = "sudo bootctl set-oneshot auto-windows && reboot";
+    };
   };
 
   system.stateVersion = "24.05";
@@ -61,12 +71,16 @@
       canTouchEfiVariables = true;
       efiSysMountPoint = "/boot";
     };
-    grub = {
-      efiSupport = true;
-      enable = true;
-      devices = ["nodev"];
-      useOSProber = true;
+    systemd-boot = {
+      enable = lib.mkForce false;
+      configurationLimit = 3;
+      edk2-uefi-shell.enable = true;
     };
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   time.timeZone = "America/New_York";
