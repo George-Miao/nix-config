@@ -1,7 +1,6 @@
 {
   pkgs,
   unit,
-  inputs,
   ...
 }:
 {
@@ -14,18 +13,18 @@
     users.pop = {
       imports = [
         unit.preset.local
-        unit.home.vscode.darwin.insider
         unit.home.alacritty
       ];
-      programs.zsh.shellAliases = with pkgs; {
+      programs.zsh.shellAliases = {
         copy = "pbcopy";
         paste = "pbpaste";
       };
     };
     home.username = "pop";
     home.homeDirectory = "/Users/pop";
-    home.packages = [
-      pkgs.tart
+    home.packages = with pkgs; [
+      tart
+      vscode-insider
     ];
   };
 

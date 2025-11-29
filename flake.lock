@@ -129,6 +129,30 @@
         "type": "github"
       }
     },
+    "flakes": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "vericert": "vericert"
+      },
+      "locked": {
+        "lastModified": 1764391827,
+        "narHash": "sha256-MPt+Dz4Oq0N4t6dcjeZ3GQP+RSfwWFYka3/p1nNQuDE=",
+        "owner": "George-Miao",
+        "repo": "flakes",
+        "rev": "fa48a77d5b1696ec6c9a465f2ea336453d6dbb17",
+        "type": "github"
+      },
+      "original": {
+        "owner": "George-Miao",
+        "repo": "flakes",
+        "type": "github"
+      }
+    },
     "forrit": {
       "inputs": {
         "crane": [
@@ -279,6 +303,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1682591986,
+        "narHash": "sha256-BU5dJ9MmZYsGr1Dnf8p5VV8cSbMKuNiqw4A14/V8pjo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1c8257a313a5eb4d5f86edc2d325a23ff8085b94",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "1c8257a313a5eb4d5f86edc2d325a23ff8085b94",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1764290847,
         "narHash": "sha256-VwPgoDgnd628GdE3KyLqTyPF1WWh0VwT5UoKygoi8sg=",
         "owner": "nixos",
@@ -328,12 +368,13 @@
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
+        "flakes": "flakes",
         "forrit": "forrit",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
         "nix-darwin": "nix-darwin",
         "nixos-generators": "nixos-generators",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay",
         "vscode-server": "vscode-server",
         "zen-browser": "zen-browser"
@@ -373,6 +414,22 @@
         "repo": "default",
         "type": "github"
       }
+    },
+    "vericert": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "path": "vericert",
+        "type": "path"
+      },
+      "original": {
+        "path": "vericert",
+        "type": "path"
+      },
+      "parent": [
+        "flakes"
+      ]
     },
     "vscode-server": {
       "inputs": {

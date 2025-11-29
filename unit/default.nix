@@ -174,6 +174,7 @@ rec {
         ];
 
         home.packages = with pkgs; [
+          vscode-insider
           stm32cubemx
           postman
           mpv

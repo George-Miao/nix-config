@@ -1,5 +1,4 @@
 {
-  tools,
   pkgs,
   ...
 }:
@@ -8,6 +7,6 @@
     enable = true;
     target = "Wallpapers";
     recursive = true;
-    source = (tools.generate pkgs).pop-wallpaper.src + "/wallpaper";
+    source = pkgs.pop-wallpaper.src + "/wallpaper";
   };
 }
