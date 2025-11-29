@@ -56,6 +56,7 @@ rec {
         imports = with home; [
           inputs.zen-browser.homeModules.twilight
 
+          nix-index
           jujutsu
           cargo
           git

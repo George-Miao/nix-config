@@ -83,6 +83,11 @@
       inputs.nixpkgs-lib.follows = "community-lib";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     crane.url = "github:ipetkov/crane";
     community-lib.url = "github:nix-community/nixpkgs.lib";
     flake-utils.url = "github:numtide/flake-utils";
@@ -101,6 +106,7 @@
       nixos-generators,
       lanzaboote,
       vscode-server,
+      nix-index-database,
       ...
     }:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -112,25 +118,11 @@
           gpg = readFile "${self}/static/gpg.pub";
           ssh = readFile "${self}/static/ssh.pub";
         };
-        tools = {
-          toList = a: if isList a then a else [ a ];
-          generate =
-            pkgs:
-            (import "${self}/_sources/generated.nix") {
-              inherit (pkgs)
-                fetchgit
-                fetchurl
-                fetchFromGitHub
-                dockerTools
-                ;
-            };
-        };
 
         unit = import ./unit;
         specialArgs = {
           inherit
             unit
-            tools
             inputs
             consts
             secrets
@@ -144,6 +136,10 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = specialArgs;
+
+                users.pop.imports = [
+                  nix-index-database.homeModules.nix-index
+                ];
               };
 
               nixpkgs.overlays = [ flakes.overlays.default ];

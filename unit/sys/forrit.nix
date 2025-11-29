@@ -1,7 +1,6 @@
 settings:
 {
   lib,
-  tools,
   pkgs,
   inputs,
   system,
