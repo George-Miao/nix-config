@@ -1,12 +1,11 @@
 {
-  flake,
   pkgs,
   ...
 }:
 {
   programs.zsh.enable = true;
 
-  users.users.${flake.config.user} = {
+  users.users.pop = {
     shell = pkgs.zsh;
   };
 }

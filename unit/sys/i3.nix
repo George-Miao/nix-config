@@ -1,6 +1,6 @@
 {
   lib,
-  flake,
+  config,
   ...
 }:
 {
@@ -11,7 +11,7 @@
     windowManager.i3.enable = true;
   };
 
-  home-manager.users.${flake.config.user}.xsession.windowManager.i3 = {
+  home-manager.users.pop.xsession.windowManager.i3 = {
     enable = true;
 
     config = {

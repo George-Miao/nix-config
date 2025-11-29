@@ -1,5 +1,5 @@
 {
-  flake,
+  config,
   pkgs,
   ...
 }:
@@ -8,7 +8,7 @@
     enable = true;
     enableGraphical = true;
   };
-  home-manager.users.${flake.config.user}.systemd.user.services.solaar = {
+  home-manager.users.pop.systemd.user.services.solaar = {
     Unit = {
       Description = "Logitech device manager";
     };

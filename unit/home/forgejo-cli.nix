@@ -28,16 +28,10 @@ in
     target = "forgejo/keys.json";
     text = content;
   };
+
+  home.file.forgejo_config = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    recursive = true;
+    target = "Library/Application Support/Cyborus.forgejo-cli/keys.json";
+    text = content;
+  };
 }
-// (
-  if consts.os == "darwin" then
-    {
-      home.file.forgejo_config = {
-        recursive = true;
-        target = "Library/Application Support/Cyborus.forgejo-cli/keys.json";
-        text = content;
-      };
-    }
-  else
-    { }
-)

@@ -4,7 +4,8 @@
 }:
 {
   pkgs,
-  flake,
+  config,
+  unit,
   lib,
   ...
 }:
@@ -34,8 +35,8 @@
     };
   };
 
-  home-manager.users.${flake.config.user} = {
-    imports = with flake.self.unit.home; [
+  home-manager.users.pop = {
+    imports = with unit.home; [
       waybar-niri
       fuzzel
       swaync
@@ -50,6 +51,11 @@
       wl-clipboard
       xwayland-satellite
     ];
+
+    programs.zsh.shellAliases = with pkgs; {
+      copy = "${wl-clipboard}/bin/wl-copy";
+      paste = "${wl-clipboard}/bin/wl-paste";
+    };
 
     xdg.configFile.niri =
       let
@@ -92,7 +98,7 @@
       default_session = with pkgs; {
         command = "${lib.getExe tuigreet} -t -r -s /etc/wayland-sessions";
         # command = "${lib.getExe tuigreet} --time --remember --cmd '${lib.getExe gamescope} -e -r 240 -- steam -tenfoot'";
-        user = flake.config.user;
+        user = "pop";
       };
     };
   };

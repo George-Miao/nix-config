@@ -1,6 +1,6 @@
 {
   config,
-  flake,
+  unit,
   ...
 }:
 {
@@ -12,7 +12,7 @@
   '';
   security.polkit.enable = true;
 
-  home-manager.users.${flake.config.user}.imports = [
-    flake.self.unit.home.obs-studio
+  home-manager.users.pop.imports = [
+    unit.home.obs-studio
   ];
 }

@@ -1,11 +1,12 @@
 {
   modulesPath,
-  flake,
+  inputs,
+  unit,
   ...
 }:
 {
   imports =
-    with flake.self.unit.sys;
+    with unit.sys;
     let
       vec = vector {
         hostname = "YUL";
@@ -27,8 +28,7 @@
       };
     in
     [
-      flake.self.nixosModules.server
-      flake.inputs.disko.nixosModules.disko
+      inputs.disko.nixosModules.disko
 
       "${modulesPath}/installer/scan/not-detected.nix"
 
@@ -46,7 +46,7 @@
       ./disk.nix
     ];
 
-  home-manager.users.${flake.config.user}.imports = [ ];
+  home-manager.users.pop.imports = [ ];
 
   networking =
     let

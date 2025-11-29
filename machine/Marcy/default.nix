@@ -1,7 +1,7 @@
-{ flake, ... }:
+{ unit, ... }:
 {
-  imports = with flake.self.unit.sys; [
-    flake.self.darwinModules.default
+  imports = with unit.sys; [
+    darwinModules.default
     # (tailscale {autoStart = true;})
   ];
 

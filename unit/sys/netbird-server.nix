@@ -1,6 +1,7 @@
 {
-  flake,
+  unit,
   secrets,
+  secret,
   ...
 }:
 let
@@ -11,7 +12,7 @@ let
   turn_secret = builtins.toFile "turn_secret" secret.turn_secret;
 in
 {
-  imports = [ flake.self.unit.sys.acme ];
+  imports = [ unit.sys.acme ];
   networking.firewall = {
     allowedTCPPorts = [
       80

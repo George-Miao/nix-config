@@ -1,13 +1,13 @@
 settings:
 {
-  flake,
+  inputs,
   pkgs,
   system,
   ...
 }:
 let
   cfg = builtins.toFile "forrit.json" (builtins.toJSON settings);
-  forrit-server = flake.self.inputs.forrit.outputs.forrit-server."x86_64-linux";
+  forrit-server = inputs.forrit.outputs.forrit-server."x86_64-linux";
 in
 {
   systemd.user.services.forrit-server = {

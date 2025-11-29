@@ -1,21 +1,18 @@
 {
   modulesPath,
-  flake,
+  inputs,
+  unit,
   lib,
   ...
 }:
-let
-  sys = flake.self.unit.sys;
-in
 {
   imports = [
-    flake.self.nixosModules.server
-    flake.inputs.disko.nixosModules.disko
+    inputs.disko.nixosModules.disko
 
     "${modulesPath}/installer/scan/not-detected.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
 
-    (sys.sshd)
+    (unit.sys.sshd)
     # (sys.tailscale {isServer = true;})
 
     ./disk.nix

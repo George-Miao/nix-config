@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 let
   map = {
     "image/x-sony-arw" = "org.gnome.eog.desktop";
@@ -17,7 +17,7 @@ let
   };
 in
 {
-  home-manager.users.${config.user}.xdg.mimeApps = {
+  home-manager.users.pop.xdg.mimeApps = {
     enable = true;
     defaultApplications = map;
     associations = {
