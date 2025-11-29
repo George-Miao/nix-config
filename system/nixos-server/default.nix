@@ -1,27 +1,23 @@
 {
-  self,
-  config,
-  lib,
   consts,
+  lib,
+  unit,
   ...
 }:
 {
-  flake.nixosModules.server = {
-    imports = [
-      ../shared
-      ../shared/nixos.nix
-      self.nixosModules.home-manager
-      self.unit.sys.sshd
+  imports = [
+    ../shared
+    ../shared/nixos.nix
+    unit.sys.sshd
+  ];
+
+  users.users = lib.attrsets.genAttrs [ "root" "pop" ] (user: {
+    openssh.authorizedKeys.keys = [
+      consts.ssh
     ];
+  });
 
-    users.users = lib.attrsets.genAttrs [ "root" config.user ] (user: {
-      openssh.authorizedKeys.keys = [
-        consts.ssh
-      ];
-    });
-
-    home-manager.users.${config.user} = {
-      imports = [ self.homeModules.server ];
-    };
+  home-manager.users.pop = {
+    imports = [ unit.preset.server ];
   };
 }

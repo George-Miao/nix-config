@@ -1,18 +1,13 @@
-{ flake, ... }:
-let
-  unit = flake.self.unit;
-  nixos = flake.self.nixosModules;
-in
+{ unit, ... }:
 {
   imports = [
-    nixos.desktop
     unit.sys.btrfs
     unit.sys.nvidia
 
     ./hardware.nix
   ];
 
-  home-manager.users.${flake.config.user}.imports = [ ./hyprland.nix ];
+  home-manager.users.pop.imports = [ ./hyprland.nix ];
 
   networking.hostName = "Atlas";
 
@@ -25,7 +20,6 @@ in
       efiSupport = true;
       enable = true;
       devices = [ "nodev" ];
-      # device = "/dev/nvme0n1p1";
       useOSProber = true;
     };
   };

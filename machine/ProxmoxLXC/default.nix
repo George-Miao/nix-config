@@ -1,13 +1,12 @@
 {
   pkgs,
-  flake,
+  unit,
   modulesPath,
   ...
 }:
 {
   imports = [
-    flake.self.unit.sys.sshd
-    flake.self.nixosModules.server
+    unit.sys.sshd
     (modulesPath + "/virtualisation/proxmox-lxc.nix")
   ];
 

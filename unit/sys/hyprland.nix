@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  flake,
+  unit,
   ...
 }:
 let
@@ -17,7 +17,7 @@ let
       map (service: {
         name = service;
         value = {
-          Service.RestartSec = lib.mkForce flake.config.wayland_restart_delay;
+          Service.RestartSec = lib.mkForce 2;
         };
       }) delayed_services
     );
@@ -93,8 +93,8 @@ in
     ];
   };
 
-  home-manager.users.${flake.config.user} = {
-    imports = with flake.self.unit.home; [
+  home-manager.users.pop = {
+    imports = with unit.home; [
       waybar-hyprland
       fuzzel
       swaync

@@ -9,13 +9,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -44,12 +44,7 @@
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixlib.follows = "community-lib";
     };
 
     zen-browser = {
@@ -60,13 +55,8 @@
       };
     };
 
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
       inputs = {
         crane.follows = "crane";
         nixpkgs.follows = "nixpkgs";
@@ -82,160 +72,158 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "community-lib";
+    };
+
     crane.url = "github:ipetkov/crane";
-    nixos-flake.url = "github:srid/nixos-flake";
+    community-lib.url = "github:nix-community/nixpkgs.lib";
     flake-utils.url = "github:numtide/flake-utils";
-    flake-parts.url = "github:hercules-ci/flake-parts";
     flake-compat.url = "github:edolstra/flake-compat";
   };
 
   outputs =
     inputs@{
       self,
-      nur,
       nixpkgs,
       flake-parts,
       nix-darwin,
-      nixos-flake,
       deploy-rs,
+      home-manager,
       nixos-generators,
-      sops-nix,
       lanzaboote,
       vscode-server,
       ...
     }:
-    with builtins;
-    let
-      secrets = import secrets/secrets.nix;
-      consts = {
-        gpg = readFile "${self}/static/gpg.pub";
-        ssh = readFile "${self}/static/ssh.pub";
-      };
-      tools = {
-        toArray = a: if isList a then a else [ a ];
-        inspect = a: b: builtins.trace (builtins.attrNames a) b;
-        isMac = pkgs: with builtins; isList (match ".*darwin" pkgs.system);
-        generate =
-          pkgs:
-          (import "${self}/_sources/generated.nix") {
-            inherit (pkgs)
-              fetchgit
-              fetchurl
-              fetchFromGitHub
-              dockerTools
-              ;
-          };
-      };
-    in
     flake-parts.lib.mkFlake { inherit inputs; } (
-      { flake-parts-lib, ... }:
+      { ... }:
+      with builtins;
       let
-        extra = {
+        secrets = import secrets/secrets.nix;
+        consts = {
+          gpg = readFile "${self}/static/gpg.pub";
+          ssh = readFile "${self}/static/ssh.pub";
+        };
+        tools = {
+          toList = a: if isList a then a else [ a ];
+          generate =
+            pkgs:
+            (import "${self}/_sources/generated.nix") {
+              inherit (pkgs)
+                fetchgit
+                fetchurl
+                fetchFromGitHub
+                dockerTools
+                ;
+            };
+        };
+
+        unit = import ./unit;
+        specialArgs = {
           inherit
+            unit
             tools
-            secrets
-            flake-parts-lib
+            inputs
             consts
+            secrets
             ;
         };
-        deployPkgs = import nixpkgs {
-          system = "x86_64-linux";
-          overlays = [
-            deploy-rs.overlays.default # or deploy-rs.overlays.default
-            (self: super: {
-              deploy-rs = {
-                inherit (pkgs) deploy-rs;
-                lib = deploy-rs.lib;
+        modules = [
+          (
+            { pkgs, config, ... }:
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = specialArgs;
               };
-            })
-          ];
-        };
-        mkMacosSystem =
+            }
+          )
+        ];
+        mkDarwinSystem =
           machine:
-          nix-darwin.lib.darwinSystem {
-            specialArgs =
-              self.nixos-flake.lib.specialArgsFor.darwin
-              // extra
-              // {
-                consts = consts // {
-                  os = "darwin";
-                };
-              };
-            modules = [
-              sops-nix.darwinModules.sops
-              self.darwinModules_.nixosFlake
-            ]
-            ++ (tools.toArray machine);
+          moduleWithSystem {
+            specialArgs = specialArgs;
+            modules = modules ++ [
+              machine
+              home-manager.darwinModules.home-manager
+
+              ./system/darwin
+            ];
           };
-        mkLinuxSystem =
+        mkLinuxDesktop =
           machine:
           nixpkgs.lib.nixosSystem {
-            specialArgs =
-              self.nixos-flake.lib.specialArgsFor.nixos
-              // extra
-              // {
-                consts = consts // {
-                  os = "linux";
-                };
-              };
-            modules = [
+            system = "x86_64-linux";
+            specialArgs = specialArgs;
+            modules = modules ++ [
+              machine
+              home-manager.nixosModules.home-manager
               vscode-server.nixosModules.default
               lanzaboote.nixosModules.lanzaboote
-              sops-nix.nixosModules.sops
-              self.nixosModules.nixosFlake
-              nur.modules.nixos.default
-            ]
-            ++ (tools.toArray machine);
+
+              ./system/nixos-desktop
+            ];
+          };
+        mkLinuxServer =
+          machine:
+          nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = specialArgs;
+            modules = modules ++ [
+              machine
+              home-manager.nixosModules.home-manager
+              vscode-server.nixosModules.default
+
+              ./system/nixos-server
+            ];
           };
         mkLinuxService =
           service:
           nixpkgs.lib.nixosSystem {
-            specialArgs =
-              self.nixos-flake.lib.specialArgsFor.nixos
-              // extra
-              // {
-                consts = consts // {
-                  os = "linux";
-                };
-              };
-            modules = [
-              sops-nix.nixosModules.sops
-              self.nixosModules.nixosFlake
+            system = "x86_64-linux";
+            specialArgs = specialArgs;
+            modules = modules ++ [
+              home-mnanager.nixosModules.home-manager
+              ({ imports = [ (service unit) ]; })
+
               machine/ProxmoxLXC
-              (
-                { flake, ... }:
-                {
-                  imports = tools.toArray (service flake.self.unit);
-                }
-              )
             ];
           };
-        mkLinuxDeploy = node: hostname: {
-          inherit hostname;
-          profiles.system = {
-            user = "root";
-            sshUser = "root";
-            sshOpts = [
-              "-p"
-              "2222"
-            ];
-            path = deployPkgs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
+        mkLinuxDeploy =
+          node: hostname:
+          let
+            pkgs = import nixpkgs {
+              system = "x86_64-linux";
+              overlays = [
+                deploy-rs.overlays.default
+                (self: super: {
+                  deploy-rs = {
+                    inherit (pkgs) deploy-rs;
+                    lib = deploy-rs.lib;
+                  };
+                })
+              ];
+            };
+          in
+          {
+            inherit hostname;
+            profiles.system = {
+              user = "root";
+              sshUser = "root";
+              sshOpts = [
+                "-p"
+                "2222"
+              ];
+              path = pkgs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations."${node}";
+            };
           };
-        };
       in
       {
         systems = [
           "x86_64-linux"
-          "aarch64-linux"
           "aarch64-darwin"
-        ];
-        imports = [
-          nixos-flake.flakeModule
-          ./config.nix
-          ./unit
-          ./system/darwin
-          ./system/nixos-desktop
-          ./system/nixos-server
         ];
 
         perSystem =
@@ -245,48 +233,59 @@
             ...
           }:
           {
-            packages = {
+            formatter = pkgs.nixfmt-tree;
+            packages = rec {
+              default = activate;
+
+              activate =
+                let
+                  activateCmd =
+                    if pkgs.stdenv.hostPlatform.isLinux then
+                      "nixos-rebuild switch --flake ."
+                    else if pkgs.stdenv.hostPlatform.isDarwin then
+                      "darwin-rebuild switch --flake ."
+                    else
+                      throw "Unsupported system: ${system}";
+                in
+                pkgs.writeShellScriptBin "activate" ''
+                  cd $HOME/.nix-config
+                  git add --all
+                  sudo ${activateCmd}
+                '';
+
               proxmox-lxc = nixos-generators.nixosGenerate {
                 inherit system;
-                specialArgs = {
+                format = "proxmox-lxc";
+                specialArgs = specialArgs // {
                   inherit pkgs;
-                }
-                // self.nixos-flake.lib.specialArgsFor.nixos
-                // extra;
+                };
                 modules = [
-                  self.nixosModules.nixosFlake
-                  (
-                    { ... }:
-                    {
-                      nix.registry.nixpkgs.flake = nixpkgs;
-                    }
-                  )
+                  { nix.registry.nixpkgs.flake = nixpkgs; }
                   machine/ProxmoxLXC
                 ];
-                format = "proxmox-lxc";
               };
             };
           };
 
         flake = {
-          inherit extra;
-
           checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+
           nixosConfigurations = {
-            Atlas = mkLinuxSystem machine/Atlas;
-            Everest = mkLinuxSystem machine/Everest;
-            Colden = mkLinuxSystem machine/Colden;
-            LUX = mkLinuxSystem machine/LUX;
-            LAX = mkLinuxSystem machine/LAX;
-            EWR = mkLinuxSystem machine/EWR;
-            HEL = mkLinuxSystem machine/HEL;
-            HND = mkLinuxSystem machine/HND;
-            YUL = mkLinuxSystem machine/YUL;
+            Atlas = mkLinuxDesktop machine/Atlas;
+            Everest = mkLinuxDesktop machine/Everest;
+            Colden = mkLinuxServer machine/Colden;
+            LUX = mkLinuxServer machine/LUX;
+            LAX = mkLinuxServer machine/LAX;
+            EWR = mkLinuxServer machine/EWR;
+            HEL = mkLinuxServer machine/HEL;
+            HND = mkLinuxServer machine/HND;
+            YUL = mkLinuxServer machine/YUL;
             Forrit = mkLinuxService (unit: (unit.sys.forrit secrets.syr.forrit));
           };
+
           darwinConfigurations = {
-            Fuji = mkMacosSystem machine/Fuji;
-            Marcy = mkMacosSystem machine/Marcy;
+            Fuji = mkDarwinSystem machine/Fuji;
+            Marcy = mkDarwinSystem machine/Marcy;
           };
 
           deploy.nodes = {

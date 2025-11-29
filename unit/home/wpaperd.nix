@@ -1,12 +1,9 @@
 {
   nixosConfig,
-  flake,
-  lib,
-  pkgs,
   ...
 }:
 let
-  home = nixosConfig.users.users.${flake.config.user}.home;
+  home = nixosConfig.users.users.pop.home;
 in
 {
   imports = [

@@ -1,13 +1,18 @@
-{ flake, ... }:
 {
-  imports = with flake.self.unit.sys; [
+  pkgs,
+  inputs,
+  unit,
+  ...
+}:
+{
+  imports = with unit.sys; [
     yubico
     ratbag
     fwupd
   ];
   home-manager.backupFileExtension = "bkup";
   boot.initrd.systemd.dbus.enable = true;
-  users.users.${flake.config.user} = {
+  users.users.pop = {
     extraGroups = [
       "wheel"
       "docker"
@@ -22,8 +27,10 @@
       automatic = true;
       dates = [ "03:45" ];
     };
-    gc = {
-      dates = "weekly";
-    };
   };
+  environment.systemPackages = [
+    (pkgs.writeShellScriptBin "rb" ''
+      (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)
+    '')
+  ];
 }

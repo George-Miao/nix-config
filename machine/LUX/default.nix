@@ -1,12 +1,10 @@
 {
   modulesPath,
-  flake,
+  unit,
   ...
 }:
 {
-  imports = with flake.self.unit.sys; [
-    flake.self.nixosModules.server
-
+  imports = with unit.sys; [
     "${modulesPath}/installer/scan/not-detected.nix"
 
     # (tailscale {isServer = true;})
@@ -23,7 +21,7 @@
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
-  home-manager.users.${flake.config.user}.imports = [ ];
+  home-manager.users.pop.imports = [ ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

@@ -7,7 +7,6 @@
   pkgs,
   lib,
   secrets,
-  flake,
   ...
 }:
 {
@@ -32,7 +31,7 @@
         "--advertise-tags=tag:node"
         "--accept-dns=false"
         "--login-server=${server}"
-        "--operator=${flake.config.user}"
+        "--operator=pop"
       ]
       ++ optional isServer "--advertise-exit-node"
       ++ optional (hostname != null) "--hostname=${hostname}";

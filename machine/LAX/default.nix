@@ -1,12 +1,12 @@
 {
   modulesPath,
-  flake,
+  inputs,
+  unit,
   ...
 }:
 {
-  imports = with flake.self.unit.sys; [
-    flake.self.nixosModules.server
-    flake.inputs.disko.nixosModules.disko
+  imports = with unit.sys; [
+    inputs.disko.nixosModules.disko
 
     "${modulesPath}/installer/scan/not-detected.nix"
     "${modulesPath}/profiles/qemu-guest.nix"
@@ -51,7 +51,7 @@
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
 
-  home-manager.users.${flake.config.user}.imports = [ ];
+  home-manager.users.pop.imports = [ ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
 

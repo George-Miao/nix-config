@@ -1,9 +1,5 @@
-{ flake, ... }:
+{ ... }:
 {
-  imports = [
-    flake.self.darwinModules.default
-  ];
-
   networking.hostName = "Fuji";
 
   nixpkgs.hostPlatform = "aarch64-darwin";

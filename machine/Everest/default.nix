@@ -1,14 +1,13 @@
 {
-  flake,
-  consts,
-  lib,
   pkgs,
+  lib,
+  unit,
+  consts,
+
   ...
 }:
 {
-  imports = with flake.self.unit.sys; [
-    flake.self.nixosModules.desktop
-
+  imports = with unit.sys; [
     logitech
     atd
     sshd
@@ -60,7 +59,7 @@
     pkgs.sbctl
   ];
 
-  home-manager.users.${flake.config.user} = {
+  home-manager.users.pop = {
     programs.alacritty.settings.font.size = lib.mkForce 11;
     programs.zsh.shellAliases = {
       "win" = "sudo bootctl set-oneshot auto-windows && reboot";
@@ -71,7 +70,7 @@
 
   networking.hostName = "Everest";
 
-  users.users.${flake.config.user}.openssh.authorizedKeys.keys = [
+  users.users.pop.openssh.authorizedKeys.keys = [
     consts.ssh
   ];
 
@@ -93,5 +92,4 @@
   };
 
   time.timeZone = "America/New_York";
-  # time.timeZone = "Asia/Shanghai";
 }

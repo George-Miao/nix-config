@@ -1,7 +1,5 @@
 {
-  flake,
-  pkgs,
-  specialArgs,
+  inputs,
   ...
 }:
 {
@@ -10,17 +8,13 @@
     ./user.nix
   ];
 
-  home-manager.extraSpecialArgs = {
-    inherit (specialArgs) consts tools secrets;
-  };
-
   nixpkgs = {
     config = {
       allowUnfree = true;
       allowInsecurePredicate = _: true;
     };
 
-    overlays = with flake.inputs; [
+    overlays = with inputs; [
       rust-overlay.overlays.default
     ];
   };
