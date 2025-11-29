@@ -24,7 +24,6 @@
     imports = with unit; [
       preset.local
       preset.gui
-      home.vscode.linux.insider
       home.dropbox
     ];
 

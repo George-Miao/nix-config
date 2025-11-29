@@ -14,6 +14,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flakes = {
+      url = "github:George-Miao/flakes";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
+
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -86,6 +92,7 @@
   outputs =
     inputs@{
       self,
+      flakes,
       nixpkgs,
       flake-parts,
       nix-darwin,
@@ -138,6 +145,8 @@
                 useUserPackages = true;
                 extraSpecialArgs = specialArgs;
               };
+
+              nixpkgs.overlays = [ flakes.overlays.default ];
             }
           )
         ];
