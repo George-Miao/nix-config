@@ -19,6 +19,10 @@ in
     tunnels.default = {
       environment = env;
     };
+    clients.default = {
+      environment = env;
+      autoStart = true;
+    };
   };
   home-manager.users.pop.programs.zsh.initContent = ''
     source <(${pkgs.netbird}/bin/netbird completion zsh)
