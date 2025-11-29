@@ -118,7 +118,6 @@
           gpg = readFile "${self}/static/gpg.pub";
           ssh = readFile "${self}/static/ssh.pub";
         };
-
         unit = import ./unit;
         specialArgs = {
           inherit
