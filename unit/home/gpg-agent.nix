@@ -5,7 +5,7 @@
 }:
 let
   isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
-  pinentry = if isDarwin then pkgs.pinentry_mac else pkgs.pinentry-qt;
+  pinentry = if isDarwin then pkgs.pinentry_mac else pkgs.pinentry-gnome3;
 in
 {
   services.gpg-agent = {

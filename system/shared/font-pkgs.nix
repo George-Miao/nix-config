@@ -18,6 +18,8 @@ let
 in
 with pkgs;
 [
+  alegreya
+  alegreya-sans
   xcharter
   ubuntu-classic
   corefonts

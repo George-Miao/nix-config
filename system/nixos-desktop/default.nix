@@ -29,6 +29,7 @@
 
     home = {
       packages = with pkgs; [
+        pciutils
         glibc
         plex-desktop
         usbutils
@@ -39,7 +40,7 @@
         gnome-2048
       ];
       sessionVariables = {
-        BROWSER = "firefox";
+        BROWSER = "zen";
         TERMINAL = "alacritty";
       };
     };

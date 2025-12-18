@@ -17,6 +17,8 @@
       "c" = "clear";
       "sys" = "sudo systemctl";
       "sysu" = "systemctl --user";
+      "log" = "journalctl -efu";
+      "logu" = "journalctl --user -efu";
       "sync_conf" =
         "(cd $HOME/.nix-config && git add --all && git commit --all --message Update && git pull && git push)";
       "sync_typst" =
