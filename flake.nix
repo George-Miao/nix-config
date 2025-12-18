@@ -61,16 +61,26 @@
       };
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.3";
+    zed-editor = {
+      url = "github:zed-industries/zed";
       inputs = {
-        crane.follows = "crane";
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-        flake-compat.follows = "flake-compat";
+        crane.follows = "crane";
         rust-overlay.follows = "rust-overlay";
+        flake-compat.follows = "flake-compat";
       };
     };
+
+    # lanzaboote = {
+    #   url = "github:nix-community/lanzaboote/v0.4.3";
+    #   inputs = {
+    #     crane.follows = "crane";
+    #     nixpkgs.follows = "nixpkgs";
+    #     flake-parts.follows = "flake-parts";
+    #     flake-compat.follows = "flake-compat";
+    #     rust-overlay.follows = "rust-overlay";
+    #   };
+    # };
 
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
@@ -99,12 +109,13 @@
       self,
       flakes,
       nixpkgs,
-      flake-parts,
-      nix-darwin,
       deploy-rs,
+      nix-darwin,
+      zed-editor,
+      flake-parts,
       home-manager,
       nixos-generators,
-      lanzaboote,
+      # lanzaboote,
       vscode-server,
       nix-index-database,
       ...
@@ -141,7 +152,10 @@
                 ];
               };
 
-              nixpkgs.overlays = [ flakes.overlays.default ];
+              nixpkgs.overlays = [
+                flakes.overlays.default
+                zed-editor.overlays.default
+              ];
             }
           )
         ];
@@ -165,7 +179,7 @@
               machine
               home-manager.nixosModules.home-manager
               vscode-server.nixosModules.default
-              lanzaboote.nixosModules.lanzaboote
+              # lanzaboote.nixosModules.lanzaboote
 
               ./system/nixos-desktop
             ];

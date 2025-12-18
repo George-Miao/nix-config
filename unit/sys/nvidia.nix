@@ -1,13 +1,28 @@
-{ config, ... }:
+{ pkgs, config, ... }:
 {
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.graphics.enable = true;
-  hardware.nvidia = {
-    open = false;
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
+  environment.systemPackages = [
+    pkgs.nvtopPackages.nvidia
+  ]; 
+  hardware = {
+    graphics.enable = true;
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      open = true;
+      nvidiaSettings = true;
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+    };
   };
-  boot.initrd.kernelModules = [ "nvidia" ];
-  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  services.xserver.videoDrivers = [ "nvidia" ];
+  boot = {
+    initrd.kernelModules = [ 
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
+      "i2c-nvidia_gpu" 
+    ];
+    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  };
 }

@@ -28,6 +28,7 @@
       dates = [ "03:45" ];
     };
   };
+  environment.localBinInPath = true;
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "rb" ''
       (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)

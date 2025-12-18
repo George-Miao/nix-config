@@ -25,8 +25,6 @@ rec {
         };
 
         imports = with home; [
-          inputs.zen-browser.homeModules.twilight
-
           git
           zsh
           lsd
@@ -69,6 +67,7 @@ rec {
         ];
 
         home.packages = with pkgs; [
+          dust
           dig
           pv
           rnr
@@ -161,9 +160,10 @@ rec {
 
     # List of GUI packages
     gui =
-      { pkgs, ... }:
+      { pkgs, inputs, ... }:
       {
         imports = with home; [
+          thunderbird
           bambu-studio
           zen-browser
           wine
@@ -175,6 +175,7 @@ rec {
         ];
 
         home.packages = with pkgs; [
+          openwebstart
           vscode-insider
           stm32cubemx
           postman

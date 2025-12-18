@@ -62,7 +62,7 @@
         font_family = "Cascadia Code";
         cursor_shape = "bar";
         env = {
-          EDITOR = "zed --wait";
+          EDITOR = "${pkgs.zed-editor}/bin/zeditor --wait";
         };
       };
       minimap = {
@@ -200,6 +200,7 @@
       {
         bindings = {
           "ctrl-," = "zed::OpenSettingsFile";
+          "ctrl-<" = "zed::OpenProjectSettingsFile";
           "ctrl-alt-," = "zed::OpenSettings";
           "ctrl-{" = "pane::ActivatePreviousItem";
           "ctrl-}" = "pane::ActivateNextItem";
@@ -230,6 +231,8 @@
       {
         context = "Editor";
         bindings = {
+          "ctrl-[" = "editor::FindPreviousMatch";
+          "ctrl-]" = "editor::FindNextMatch";
           alt-enter = "editor::GoToDefinition";
           ctrl-enter = "editor::Hover";
           shift-enter = "editor::NewlineBelow";

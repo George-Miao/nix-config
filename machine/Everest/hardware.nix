@@ -21,7 +21,7 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
   boot.tmp.useTmpfs = true;
 
@@ -59,19 +59,6 @@
     options = [
       "fmask=0077"
       "dmask=0077"
-    ];
-  };
-
-  fileSystems."/data/windows" = {
-    device = "/dev/disk/by-uuid/7EDCE735DCE6E67D";
-    fsType = "ntfs";
-    options = [
-      "noatime"
-      "big_writes"
-      "uid=1000"
-      "gid=100"
-      "dmask=027"
-      "fmask=137"
     ];
   };
 
