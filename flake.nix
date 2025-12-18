@@ -161,7 +161,7 @@
         ];
         mkDarwinSystem =
           machine:
-          moduleWithSystem {
+          nix-darwin.lib.darwinSystem {
             specialArgs = specialArgs;
             modules = modules ++ [
               machine
