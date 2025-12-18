@@ -18,6 +18,7 @@
       tag.gpgSign = true;
       push.autoSetupRemote = true;
       pull.rebase = true;
+      rerere.enabled = true;
 
       credential.helper = lib.mkBefore [ "cache --timeout=7200" ];
       "credential \"https://git.miao.dev\"" = {

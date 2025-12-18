@@ -1,6 +1,5 @@
 {
   pkgs,
-  inputs,
   unit,
   ...
 }:
@@ -23,6 +22,7 @@
   };
   programs.nix-ld.enable = true;
   nix = {
+    gc.dates = "weekly";
     optimise = {
       automatic = true;
       dates = [ "03:45" ];

@@ -9,23 +9,34 @@
     ./fonts.nix
   ];
 
+  nixpkgs.config = {
+    allowBroken = true;
+  };
+
+  # Only available on Nix-Darwin
+  nix.gc.interval = [
+    {
+      Hour = 3;
+      Minute = 15;
+      Weekday = 7;
+    }
+  ];
+
   home-manager = {
     users.pop = {
       imports = [
         unit.preset.local
-        unit.home.alacritty
       ];
       programs.zsh.shellAliases = {
         copy = "pbcopy";
         paste = "pbpaste";
       };
+      home.username = "pop";
+      home.homeDirectory = "/Users/pop";
+      home.packages = with pkgs; [
+        tart
+      ];
     };
-    home.username = "pop";
-    home.homeDirectory = "/Users/pop";
-    home.packages = with pkgs; [
-      tart
-      vscode-insider
-    ];
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
@@ -36,7 +47,7 @@
 
   environment.systemPackages = [
     (pkgs.writeShellScriptBin "rb" ''
-      (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)
+      (cd $HOME/.nix-config && git add --all && sudo darwin-rebuild switch --flake .)
     '')
   ];
 
@@ -56,13 +67,12 @@
         "/Applications/Spark Desktop.app"
         "/Applications/Reeder.app"
         "/Applications/Fantastical.app"
-        "/Users/pop/Applications/Home Manager Apps/Alacritty.app"
-        "/Users/pop/Applications/Home Manager Apps/Visual Studio Code - Insiders.app"
+        "${pkgs.alacritty}/Applications/Alacritty.app"
+        "${pkgs.zed-editor}/Applications/Zed.app"
         "/Applications/Telegram.app"
         "/Applications/WeChat.app"
         "/System/Applications/System Settings.app"
         "/Applications/Things3.app"
-        "/Users/pop/Applications/Home Manager Apps/Obsidian.app"
         "/System/Applications/iPhone Mirroring.app"
       ];
     };

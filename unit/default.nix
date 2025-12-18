@@ -92,6 +92,9 @@ rec {
       { pkgs, ... }:
       {
         imports = with home; [
+          alacritty
+          vscode
+          zed
           rustfmt
           forgejo-cli
           syncthing
@@ -133,7 +136,6 @@ rec {
             espup
             arp-scan
             deploy-rs
-            obsidian
             rust
             flyctl
             libiconv
@@ -160,23 +162,19 @@ rec {
 
     # List of GUI packages
     gui =
-      { pkgs, inputs, ... }:
+      { pkgs, lib, ... }:
       {
         imports = with home; [
-          thunderbird
+          vscode
           bambu-studio
           zen-browser
           wine
           # kdeconnect
           fcitx5
-          alacritty
           gtk
-          zed
         ];
 
         home.packages = with pkgs; [
-          openwebstart
-          vscode-insider
           stm32cubemx
           postman
           mpv
