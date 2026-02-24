@@ -126,6 +126,8 @@ rec {
             devbox
             codex
             nixfmt
+            lean4
+            bacon
             nixfmt-tree
             uv
             unrar
