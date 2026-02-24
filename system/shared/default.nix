@@ -11,6 +11,7 @@
   nixpkgs = {
     config = {
       allowUnfree = true;
+      nvidia.acceptLicense = true;
       allowInsecurePredicate = _: true;
     };
 

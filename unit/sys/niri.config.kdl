@@ -1,6 +1,5 @@
 debug {
-  preview-render "screencast"
-  enable-overlay-planes
+  emulate-zero-presentation-time
 }
 
 input {

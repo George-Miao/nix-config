@@ -3,7 +3,6 @@
   lib,
   unit,
   consts,
-
   ...
 }:
 {
@@ -12,7 +11,7 @@
       niri = unit.sys.niri {
         display = ''
           output "LG Electronics LG TV SSCR2 0x01010101" {
-            mode "3840x2160@60"
+            mode "3840x2160@119.880"
             scale 1.3
             transform "normal"
             position x=0 y=0
@@ -35,6 +34,8 @@
     in
     with unit.sys;
     [
+      globalprotect
+      wacom
       logitech
       atd
       sshd
@@ -55,11 +56,10 @@
       ./samba.nix
     ];
 
-  environment.systemPackages = [
-    # pkgs.sbctl
-  ];
-
-  home-manager.users.pop.programs.alacritty.settings.font.size = lib.mkForce 11;
+  home-manager.users.pop = {
+    home.packages = with pkgs; [ osu-lazer-bin ];
+    programs.alacritty.settings.font.size = lib.mkForce 11;
+  };
 
   system.stateVersion = "24.05";
 
@@ -80,11 +80,6 @@
       edk2-uefi-shell.enable = true;
     };
   };
-
-  # boot.lanzaboote = {
-  #   enable = true;
-  #   pkiBundle = "/var/lib/sbctl";
-  # };
 
   time.timeZone = "America/New_York";
 }

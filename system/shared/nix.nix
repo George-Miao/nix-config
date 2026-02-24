@@ -13,7 +13,7 @@
         "wheel"
       ];
       substituters = [
-        "https://cache.nixos.org/"
+        "https://aseipp-nix-cache.global.ssl.fastly.net"
         "https://zed.cachix.org"
         "https://cache.garnix.io"
       ];
