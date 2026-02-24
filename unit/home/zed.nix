@@ -78,7 +78,7 @@
           font_family = "Cascadia Code";
           cursor_shape = "bar";
           env = {
-            EDITOR = "${pkgs.zed-editor}/bin/zeditor --wait";
+            EDITOR = "${pkgs.zed-editor}/bin/zed --wait";
           };
         };
         minimap = {
@@ -246,6 +246,7 @@
         {
           context = "Editor";
           bindings = {
+            cmd-space = "editor::ShowCompletions";
             alt-enter = "editor::GoToDefinition";
             ctrl-enter = "editor::Hover";
             shift-enter = "editor::NewlineBelow";

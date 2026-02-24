@@ -1,6 +1,7 @@
-{ ... }:
+{ inputs, ... }:
 {
   nix = {
+    registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
       download-buffer-size = 4294967296;
       experimental-features = [

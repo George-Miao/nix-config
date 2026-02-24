@@ -68,7 +68,7 @@
         "/Applications/Reeder.app"
         "/Applications/Fantastical.app"
         "${pkgs.alacritty}/Applications/Alacritty.app"
-        "${pkgs.zed-editor}/Applications/Zed.app"
+        "${pkgs.zed-editor}/Applications/Zed Nightly.app"
         "/Applications/Telegram.app"
         "/Applications/WeChat.app"
         "/System/Applications/System Settings.app"
