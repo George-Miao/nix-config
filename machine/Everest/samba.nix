@@ -18,6 +18,7 @@ let
     "immich"
     "photo"
     "video"
+    "reolink"
   ];
 in
 {

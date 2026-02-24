@@ -39,6 +39,7 @@ let
         hack-font
       ];
   };
+  # bambu-studio = pkgs.bambu-studio;
 in
 {
   home.packages = [ bambu-studio ];

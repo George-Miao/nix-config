@@ -348,13 +348,18 @@
         };
       }
       {
+        context = "Editor && !BufferSearchBar";
+        bindings = {
+          shift-enter = "editor::NewlineBelow";
+        };
+      }
+      {
         context = "Editor";
         bindings = {
           "ctrl-[" = "editor::FindPreviousMatch";
           "ctrl-]" = "editor::FindNextMatch";
           alt-enter = "editor::GoToDefinition";
           ctrl-enter = "editor::Hover";
-          shift-enter = "editor::NewlineBelow";
           ctrl-shift-enter = "editor::NewlineAbove";
           ctrl-alt-enter = "editor::FindAllReferences";
           alt-down = [

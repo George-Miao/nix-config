@@ -62,7 +62,6 @@ rec {
           zsh
           gpg
           direnv
-          yazi
           lsd
         ];
 
@@ -124,8 +123,10 @@ rec {
             );
           in
           [
+            devbox
+            codex
+            nixfmt
             nixfmt-tree
-            nixfmt-rfc-style
             uv
             unrar
             devenv
@@ -168,27 +169,27 @@ rec {
           vscode
           bambu-studio
           zen-browser
-          wine
-          # kdeconnect
+          # wine
           fcitx5
           gtk
         ];
 
         home.packages = with pkgs; [
-          stm32cubemx
+          openwebstart
+          vscode-insider
+          # stm32cubemx
           postman
           mpv
           qbittorrent
-          teamspeak6-client
-          bottles-unwrapped
-          kicad
-          freecad-wayland
+          # bottles-unwrapped
+          teamspeak3
+          # kicad
+          # freecad-wayland
           appimage-run
-          gui-for-clash
+          # gui-for-clash
           wechat-uos
           yubioath-flutter
           chromium
-          nemo-with-extensions
           zotero
           libreoffice
           kooha

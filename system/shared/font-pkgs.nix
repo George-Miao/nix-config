@@ -18,6 +18,9 @@ let
 in
 with pkgs;
 [
+  fira
+  fira-sans
+  fira-go
   alegreya
   alegreya-sans
   xcharter

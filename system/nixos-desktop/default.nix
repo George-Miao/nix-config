@@ -10,6 +10,7 @@
     ./fonts.nix
     ./xdg.nix
 
+    adb
     spacenav
     probe-rs
     flipper

@@ -1,19 +1,29 @@
 { pkgs, ... }:
 {
-  programs.steam = {
-    enable = true;
+  programs = {
+    steam = {
+      enable = true;
 
-    # Open ports in the firewall for Steam Remote Play
-    remotePlay.openFirewall = true;
-    # Open ports in the firewall for Source Dedicated Server
-    dedicatedServer.openFirewall = true;
-    # Open ports in the firewall for Steam Local Network Game Transfers
-    localNetworkGameTransfers.openFirewall = true;
-    # Enable the gamescope compositor
-    gamescopeSession.enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+      gamescopeSession.enable = true;
 
-    package = pkgs.steam.override {
-      extraPkgs = pkgs: [ pkgs.mesa-demos ];
+      package = pkgs.steam.override {
+        extraPkgs =
+          pkgs: with pkgs; [
+            mesa-demos
+            bumblebee
+          ];
+      };
     };
+
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+
+    gamemode.enable = true;
+    # nix-ld.enable = true;
   };
 }
