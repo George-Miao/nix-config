@@ -91,8 +91,8 @@ rec {
       { pkgs, ... }:
       {
         imports = with home; [
+          # vscode
           alacritty
-          vscode
           zed
           rustfmt
           forgejo-cli
@@ -168,7 +168,6 @@ rec {
       { pkgs, lib, ... }:
       {
         imports = with home; [
-          vscode
           bambu-studio
           zen-browser
           # wine
@@ -178,7 +177,6 @@ rec {
 
         home.packages = with pkgs; [
           openwebstart
-          vscode-insider
           # stm32cubemx
           postman
           mpv
@@ -191,7 +189,7 @@ rec {
           # gui-for-clash
           wechat-uos
           yubioath-flutter
-          chromium
+          # chromium
           zotero
           libreoffice
           kooha

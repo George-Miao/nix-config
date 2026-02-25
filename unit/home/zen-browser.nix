@@ -35,7 +35,6 @@ in
           (extension_latest "styl-us")
           (extension_latest "return-youtube-dislikes")
           (extension_latest "csgofloat")
-          (extension_latest "ecosia-the-green-search")
           (extension_latest "react-devtools")
         ];
       };

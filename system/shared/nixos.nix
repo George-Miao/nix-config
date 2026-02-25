@@ -34,4 +34,15 @@
       (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)
     '')
   ];
+  systemd.settings.Manager = {
+    DefaultLimitNOFILE = "8192:524288";
+  };
+  security.pam.loginLimits = [
+    {
+      domain = "*";
+      type = "soft";
+      item = "nofile";
+      value = "8192";
+    }
+  ];
 }
