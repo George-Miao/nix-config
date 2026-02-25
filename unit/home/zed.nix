@@ -22,17 +22,14 @@
       mutableUserSettings = true;
       mutableUserKeymaps = true;
       userSettings = {
+        text_rendering_mode = "grayscale";
         agent = {
-          always_allow_tool_actions = true;
           default_profile = "write";
           default_model = {
             provider = "copilot_chat";
             model = "claude-sonnet-4.5";
           };
           model_parameters = [ ];
-        };
-        features = {
-          edit_prediction_provider = "copilot";
         };
         git = {
           inline_blame = {
@@ -316,117 +313,6 @@
         }
       ];
     };
-    userKeymaps = [
-      {
-        bindings = {
-          "ctrl-," = "zed::OpenSettingsFile";
-          "ctrl-<" = "zed::OpenProjectSettingsFile";
-          "ctrl-alt-," = "zed::OpenSettings";
-          "ctrl-{" = "pane::ActivatePreviousItem";
-          "ctrl-}" = "pane::ActivateNextItem";
-          ctrl-p = "file_finder::Toggle";
-          ctrl-shift-k = "zed::OpenKeymapFile";
-        };
-      }
-      {
-        context = "Workspace";
-        bindings = {
-          ctrl-shift-s = "workspace::SaveWithoutFormat";
-          ctrl-shift-n = null;
-        };
-      }
-      {
-        context = "Pane";
-        bindings = {
-          ctrl-alt-_ = null;
-          ctrl-alt-- = null;
-        };
-      }
-      {
-        context = "ProjectPanel";
-        bindings = {
-          ctrl-shift-n = "project_panel::NewDirectory";
-        };
-      }
-      {
-        context = "Editor && !BufferSearchBar";
-        bindings = {
-          shift-enter = "editor::NewlineBelow";
-        };
-      }
-      {
-        context = "Editor";
-        bindings = {
-          "ctrl-[" = "editor::FindPreviousMatch";
-          "ctrl-]" = "editor::FindNextMatch";
-          alt-enter = "editor::GoToDefinition";
-          ctrl-enter = "editor::Hover";
-          ctrl-shift-enter = "editor::NewlineAbove";
-          ctrl-alt-enter = "editor::FindAllReferences";
-          alt-down = [
-            "editor::MoveDownByLines"
-            {
-              lines = 3;
-            }
-          ];
-          alt-up = [
-            "editor::MoveUpByLines"
-            {
-              lines = 3;
-            }
-          ];
-          alt-f = "editor::Format";
-          ctrl-i = "assistant::Assist";
-          alt-backspace = "editor::DeleteToPreviousWordStart";
-          alt-shift-left = "editor::SelectToPreviousWordStart";
-          alt-shift-right = "editor::SelectToNextWordEnd";
-          ctrl-k = "editor::DeleteLine";
-          alt-left = "editor::MoveToPreviousWordStart";
-          alt-right = "editor::MoveToNextWordEnd";
-          ctrl-up = "editor::MoveLineUp";
-          ctrl-down = "editor::MoveLineDown";
-          ctrl-right = "editor::MoveToEndOfLine";
-          ctrl-left = "editor::MoveToBeginningOfLine";
-          ctrl-alt-up = "editor::DuplicateLineUp";
-          ctrl-alt-down = "editor::DuplicateLineDown";
-          ctrl-alt-right = "pane::GoForward";
-          ctrl-alt-left = "pane::GoBack";
-          ctrl-e = "editor::GoToDiagnostic";
-          ctrl-alt-e = "editor::GoToPreviousDiagnostic";
-          ctrl-shift-right = [
-            "editor::SelectToEndOfLine"
-            {
-              stop_at_soft_wraps = true;
-            }
-          ];
-          ctrl-shift-left = [
-            "editor::SelectToBeginningOfLine"
-            {
-              stop_at_soft_wraps = true;
-              stop_at_indent = true;
-            }
-          ];
-        };
-      }
-      {
-        context = "Editor && multibuffer";
-        bindings = {
-          ctrl-shift-up = "editor::ExpandExcerptsUp";
-          ctrl-shift-down = "editor::ExpandExcerptsDown";
-        };
-      }
-      {
-        context = "Editor && extension == rs";
-        bindings = { };
-      }
-      {
-        context = "GitDiff";
-        bindings = {
-          ctrl-s = "git::StageAndNext";
-        };
-      }
-    ];
-  };
 
   programs.zsh.shellAliases."zed" = "${pkgs.zed-editor}/bin/zeditor";
 }

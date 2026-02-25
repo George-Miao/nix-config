@@ -2,10 +2,10 @@
   description = "My Nix configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/release-25.11";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -15,7 +15,8 @@
     };
 
     flakes = {
-      url = "github:George-Miao/flakes";
+      # url = "github:George-Miao/flakes";
+      url = "path:/home/pop/Dev/Projects/flakes";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };
@@ -33,7 +34,6 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "flake-compat";
       inputs.utils.follows = "flake-utils";
     };
 
@@ -67,7 +67,6 @@
         nixpkgs.follows = "nixpkgs";
         crane.follows = "crane";
         rust-overlay.follows = "rust-overlay";
-        flake-compat.follows = "flake-compat";
       };
     };
 
