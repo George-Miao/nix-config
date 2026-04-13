@@ -10,6 +10,8 @@ in
 {
   programs.vscode = {
     enable = true;
-    package = lib.mkForce inputs.flakes.packages.${system}.vscode-insider;
+    package = lib.mkForce (
+      pkgs.callPackage inputs.flakes.packages.${system}.vscode-insider.override { }
+    );
   };
 }

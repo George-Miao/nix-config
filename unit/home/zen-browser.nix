@@ -3,8 +3,13 @@ let
   extension_latest = name: "https://addons.mozilla.org/firefox/downloads/latest/${name}/latest.xpi";
 in
 {
+  home.sessionVariables = {
+    BROWSER = "zen";
+  };
   programs.zen-browser = {
     enable = true;
+
+    suppressXdgMigrationWarning = true;
 
     policies = {
       AppAutoUpdate = false;

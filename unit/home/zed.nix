@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  secrets,
+  ...
+}:
 {
   programs.zed-editor =
     with builtins;
@@ -19,17 +24,82 @@
     {
       enable = true;
       package = pkgs.zed-editor;
-      mutableUserSettings = true;
-      mutableUserKeymaps = true;
+      mutableUserKeymaps = false;
+      mutableUserSettings = false;
       userSettings = {
         text_rendering_mode = "grayscale";
+        format_on_save = "on";
+        context_servers = {
+          mcp-server-github = {
+            settings = {
+              github_personal_access_token = secrets.github.zed_mcp_token;
+            };
+          };
+        };
         agent = {
+          dock = "left";
           default_profile = "write";
           default_model = {
             provider = "copilot_chat";
             model = "claude-sonnet-4.5";
           };
+          play_sound_when_agent_done = true;
           model_parameters = [ ];
+          tool_permissions = {
+            tools = {
+              fetch = {
+                default = "confirm";
+                always_allow = [
+                  {
+                    pattern = "docs\\.rs";
+                  }
+                  {
+                    pattern = "github\\.com";
+                  }
+                ];
+                always_deny = [
+                  {
+                    pattern = "internal\\.company\\.com";
+                  }
+                ];
+              };
+              terminal = {
+                always_allow =
+                  let
+                    cmds = [
+                      "ls"
+                      "wc"
+                      "grep"
+                      "cat"
+                      "head"
+                      "tail"
+                      "less"
+                      "bat"
+                      "awk"
+                      "sed"
+                    ];
+                  in
+                  [
+                    {
+                      pattern = "^cargo\\s+(build|nextest|test|check|clippy|expand|bench)";
+                    }
+                    {
+                      pattern = "^npm\\s+(install|test|run)";
+                    }
+                    {
+                      pattern = "^verus";
+                    }
+                    {
+                      pattern = "cd\\s+compio";
+                    }
+                    {
+                      pattern = "^timeout\\s+";
+                    }
+                  ]
+                  ++ builtins.map (c: { pattern = "^${c}(\\s|$)"; }) cmds;
+              };
+            };
+          };
         };
         git = {
           inline_blame = {
@@ -68,6 +138,7 @@
         git_panel = {
           sort_by_path = true;
           dock = "left";
+          tree_view = true;
         };
         terminal = {
           dock = "bottom";
@@ -104,11 +175,15 @@
         base_keymap = "VSCode";
         ui_font_size = 16;
         buffer_font_size = 15;
-        cursor_shape = "bar";
+        cursor_shape = "block";
         preferred_line_length = 120;
         remove_trailing_whitespace_on_save = true;
         show_whitespaces = "none";
-        show_edit_predictions = true;
+        show_edit_predictions = false;
+        edit_predictions = {
+          provider = "copilot";
+          mode = "subtle";
+        };
         gutter = {
           min_line_number_digits = 3;
         };
@@ -118,40 +193,37 @@
         inlay_hints = {
           enabled = false;
         };
-        languages = {
-          Markdown = {
-            soft_wrap = "preferred_line_length";
-            remove_trailing_whitespace_on_save = false;
-          };
-          Typst = {
-            soft_wrap = "preferred_line_length";
-            remove_trailing_whitespace_on_save = false;
-          };
-          Nix = {
-            language_servers = [
-              "nil"
-              "!nixd"
-            ];
-          };
-          Rust = {
-            tab_size = 4;
-          };
-          TypeScript = {
-            prettier = {
-              allowed = false;
+        languages =
+          let
+            disablePrettier = {
+              prettier = {
+                allowed = false;
+              };
             };
-          };
-          TSX = {
-            prettier = {
-              allowed = false;
+            content = {
+              soft_wrap = "preferred_line_length";
+              remove_trailing_whitespace_on_save = false;
             };
-          };
-          JavaScript = {
-            prettier = {
-              allowed = false;
+          in
+          {
+            Kdl = {
+              tab_size = 4;
             };
+            Markdown = content;
+            Typst = content;
+            Nix = {
+              language_servers = [
+                "nil"
+                "!nixd"
+              ];
+            };
+            Rust = {
+              tab_size = 4;
+            };
+            TypeScript = disablePrettier;
+            JavaScript = disablePrettier;
+            TSX = disablePrettier;
           };
-        };
         lsp = {
           rust-analyzer = {
             enable_lsp_tasks = true;
@@ -218,6 +290,7 @@
             "ctrl-}" = "pane::ActivateNextItem";
             ctrl-p = "file_finder::Toggle";
             ctrl-shift-k = "zed::OpenKeymapFile";
+            ctrl-shift-j = "terminal_panel::ToggleFocus";
           };
         }
         {
@@ -243,11 +316,9 @@
         {
           context = "Editor";
           bindings = {
-            cmd-space = "editor::ShowCompletions";
+            ctrl-space = "editor::ShowCompletions";
             alt-enter = "editor::GoToDefinition";
             ctrl-enter = "editor::Hover";
-            shift-enter = "editor::NewlineBelow";
-            ctrl-shift-enter = "editor::NewlineAbove";
             ctrl-alt-enter = "editor::FindAllReferences";
             alt-down = [
               "editor::MoveDownByLines"
@@ -262,11 +333,11 @@
               }
             ];
             alt-f = "editor::Format";
-            ctrl-i = "assistant::Assist";
             alt-backspace = "editor::DeleteToPreviousWordStart";
             alt-shift-left = "editor::SelectToPreviousWordStart";
             alt-shift-right = "editor::SelectToNextWordEnd";
             ctrl-k = "editor::DeleteLine";
+            super-k = null;
             alt-left = "editor::MoveToPreviousWordStart";
             alt-right = "editor::MoveToNextWordEnd";
             ctrl-up = "editor::MoveLineUp";
@@ -279,6 +350,8 @@
             ctrl-alt-left = "pane::GoBack";
             ctrl-e = "editor::GoToDiagnostic";
             ctrl-alt-e = "editor::GoToPreviousDiagnostic";
+            alt-i = "editor::GoToImplementation";
+            ctrl-shift-enter = "editor::NewlineAbove";
             ctrl-shift-right = [
               "editor::SelectToEndOfLine"
               {
@@ -295,6 +368,13 @@
           };
         }
         {
+          context = "Editor && !BufferSearchBar";
+          bindings = {
+            ctrl-i = "assistant::InlineAssist";
+            shift-enter = "editor::NewlineBelow";
+          };
+        }
+        {
           context = "Editor && multibuffer";
           bindings = {
             ctrl-shift-up = "editor::ExpandExcerptsUp";
@@ -303,7 +383,9 @@
         }
         {
           context = "Editor && extension == rs";
-          bindings = { };
+          bindings = {
+            alt-e = "editor::ExpandMacroRecursively";
+          };
         }
         {
           context = "GitDiff";

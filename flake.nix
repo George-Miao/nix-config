@@ -2,7 +2,7 @@
   description = "My Nix configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
@@ -15,8 +15,7 @@
     };
 
     flakes = {
-      # url = "github:George-Miao/flakes";
-      url = "path:/home/pop/Dev/Projects/flakes";
+      url = "github:George-Miao/flakes";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-parts.follows = "flake-parts";
     };

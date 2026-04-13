@@ -1,7 +1,6 @@
 debug {
   emulate-zero-presentation-time
 }
-
 input {
     keyboard {
         xkb {
@@ -41,6 +40,14 @@ layout {
         off
     }
 }
+
+blur {
+   passes 3
+   offset 5
+   noise 0.02
+   saturation 1
+}
+
 prefer-no-csd
 screenshot-path "~/Pictures/Screenshots/Screenshot-%Y-%m-%d %H-%M-%S.png"
 animations {
@@ -66,13 +73,6 @@ window-rule {
     }
 }
 window-rule {
-    match app-id="^zen"
-    exclude title="^Extension:"
-    default-column-width {
-        proportion 0.33333
-    }
-}
-window-rule {
     match app-id="^zen" title="^Picture-in-Picture$"
     open-floating true
     default-column-width {
@@ -84,7 +84,10 @@ window-rule {
 }
 window-rule {
     match app-id="^Alacritty$"
-    opacity 0.9
+    background-effect {
+      blur true
+    }
+    opacity 0.95
     default-column-width {
         proportion 0.33333
     }
