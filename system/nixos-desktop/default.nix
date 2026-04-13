@@ -40,10 +40,6 @@
         eog
         gnome-2048
       ];
-      sessionVariables = {
-        BROWSER = "zen";
-        TERMINAL = "alacritty";
-      };
     };
     programs.zsh.shellAliases = {
       "open" = "setsid xdg-open";

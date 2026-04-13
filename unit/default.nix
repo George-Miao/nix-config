@@ -168,6 +168,9 @@ rec {
       { pkgs, lib, ... }:
       {
         imports = with home; [
+          vscode
+          chromium
+          thunderbird
           bambu-studio
           zen-browser
           # wine

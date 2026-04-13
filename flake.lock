@@ -30,6 +30,21 @@
         "type": "github"
       }
     },
+    "crane_2": {
+      "locked": {
+        "lastModified": 1772560058,
+        "narHash": "sha256-NuVKdMBJldwUXgghYpzIWJdfeB7ccsu1CC7B+NfSoZ8=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "db590d9286ed5ce22017541e36132eab4e8b3045",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
     "deploy-rs": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -163,6 +178,7 @@
     },
     "flakes": {
       "inputs": {
+        "crane": "crane_2",
         "flake-parts": [
           "flake-parts"
         ],
@@ -172,14 +188,17 @@
         "vericert": "vericert"
       },
       "locked": {
-        "lastModified": 1771998459,
-        "narHash": "sha256-/BxIR+K3Sri30hFiUS0RGmaLpFbACZPbKvG/DgV7/gI=",
-        "path": "/home/pop/Dev/Projects/flakes",
-        "type": "path"
+        "lastModified": 1773122414,
+        "narHash": "sha256-gtOGV3mU0iL2zerSF+i639y8SCeZRrQpo46cTGXMXa4=",
+        "owner": "George-Miao",
+        "repo": "flakes",
+        "rev": "9f7ca9ec0e553c3d4695ec666099f2ab575801ca",
+        "type": "github"
       },
       "original": {
-        "path": "/home/pop/Dev/Projects/flakes",
-        "type": "path"
+        "owner": "George-Miao",
+        "repo": "flakes",
+        "type": "github"
       }
     },
     "forrit": {
@@ -328,16 +347,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1771994693,
-        "narHash": "sha256-fGrh8pwY/V1tq/iz/LKvwlP4k8gyMM2aZc9rTTUt/Qk=",
+        "lastModified": 1772465433,
+        "narHash": "sha256-ywy9troNEfpgh0Ee+zaV1UTgU8kYBVKtvPSxh6clYGU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "9cb8c5161f9d0dd263d48d4c7c8f986b1fe05801",
+        "rev": "c581273b8d5bdf1c6ce7e0a54da9841e6a763913",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-25.11",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }

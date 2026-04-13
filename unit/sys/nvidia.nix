@@ -23,6 +23,6 @@
       "nvidia_drm"
       "i2c-nvidia_gpu"
     ];
-    extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+    # extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
   };
 }

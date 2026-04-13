@@ -43,7 +43,7 @@
       nvidia
       steam
       obs-studio
-      netbird-client
+      # netbird-client
       postgresql
       vscode-server
       virtualbox
