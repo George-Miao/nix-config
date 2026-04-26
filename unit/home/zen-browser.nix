@@ -4,12 +4,10 @@ let
 in
 {
   home.sessionVariables = {
-    BROWSER = "zen";
+    BROWSER = "zen-twilight";
   };
   programs.zen-browser = {
     enable = true;
-
-    suppressXdgMigrationWarning = true;
 
     policies = {
       AppAutoUpdate = false;

@@ -30,6 +30,7 @@
 
     home = {
       packages = with pkgs; [
+        nautilus
         pciutils
         glibc
         plex-desktop

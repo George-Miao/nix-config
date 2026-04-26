@@ -25,7 +25,7 @@
       enable = true;
       package = pkgs.zed-editor;
       mutableUserKeymaps = false;
-      mutableUserSettings = false;
+      mutableUserSettings = true;
       userSettings = {
         text_rendering_mode = "grayscale";
         format_on_save = "on";
@@ -36,6 +36,11 @@
             };
           };
         };
+        agent_servers = {
+          codex-acp = {
+            type = "registry";
+          };
+        };
         agent = {
           dock = "left";
           default_profile = "write";
@@ -43,7 +48,7 @@
             provider = "copilot_chat";
             model = "claude-sonnet-4.5";
           };
-          play_sound_when_agent_done = true;
+          play_sound_when_agent_done = "always";
           model_parameters = [ ];
           tool_permissions = {
             tools = {

@@ -2,6 +2,13 @@
 let
   map = {
     "image/x-sony-arw" = "org.gnome.eog.desktop";
+    "image/jpeg" = "org.gnome.eog.desktop";
+    "image/png" = "org.gnome.eog.desktop";
+    "image/gif" = "org.gnome.eog.desktop";
+    "image/webp" = "org.gnome.eog.desktop";
+    "image/bmp" = "org.gnome.eog.desktop";
+    "image/tiff" = "org.gnome.eog.desktop";
+    "image/svg+xml" = "org.gnome.eog.desktop";
     "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
     "application/pdf" = "org.gnome.Evince.desktop";
     "x-scheme-handler/http" = "zen-twilight.desktop";

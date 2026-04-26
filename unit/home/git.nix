@@ -4,6 +4,7 @@
     enable = true;
 
     signing = {
+      format = null;
       key = "DB4536E20EB42CE6";
       signByDefault = true;
     };
