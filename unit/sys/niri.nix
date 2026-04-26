@@ -14,7 +14,7 @@
     enable = true;
     package = pkgs.niri.overrideAttrs (
       final: prev: {
-        cargoHash = "sha256-uo4AWT4nGV56iiSLhXK30goI7HCPc7AUZjRLgUvLfUE=";
+        cargoHash = "sha256-Iaqr19d52MgDkNZyNoE44K7VeZmU8NCp7jpUoaHCYt4=";
         cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
           inherit (final) src;
           name = "${final.pname}-${final.version}";
@@ -22,8 +22,8 @@
         };
         src = pkgs.fetchgit {
           "url" = "https://github.com/niri-wm/niri";
-          "rev" = "c837d944f0cc08580ee86574dd0c3a68ca9379a4";
-          "hash" = "sha256-+7Utz+oPW++kMf3rYT4S/5AAdz284spkB15d8nSNHI8=";
+          "rev" = "74d2b18603366b98ec9045ecf4a632422f472365";
+          "hash" = "sha256-OGorFif714JwKW/FEIrSJ2i2BsBaiLRd2TPbMq86RTs=";
         };
         postPatch = ''
           patchShebangs resources/niri-session

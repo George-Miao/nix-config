@@ -2,10 +2,10 @@
   description = "My Nix configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -60,15 +60,6 @@
       };
     };
 
-    zed-editor = {
-      url = "github:zed-industries/zed";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        crane.follows = "crane";
-        rust-overlay.follows = "rust-overlay";
-      };
-    };
-
     # lanzaboote = {
     #   url = "github:nix-community/lanzaboote/v0.4.3";
     #   inputs = {
@@ -109,7 +100,6 @@
       nixpkgs,
       deploy-rs,
       nix-darwin,
-      zed-editor,
       flake-parts,
       home-manager,
       nixos-generators,
@@ -152,7 +142,6 @@
 
               nixpkgs.overlays = [
                 flakes.overlays.default
-                zed-editor.overlays.default
               ];
             }
           )

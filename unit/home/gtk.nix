@@ -4,7 +4,7 @@
   ...
 }:
 {
-  gtk = {
+  gtk = rec {
     enable = true;
 
     theme = {
@@ -36,8 +36,12 @@
       gtk-im-module = "fcitx";
     };
 
-    gtk4.extraConfig = {
-      gtk-im-module = "fcitx";
+    gtk4 = {
+      inherit theme;
+
+      extraConfig = {
+        gtk-im-module = "fcitx";
+      };
     };
   };
 

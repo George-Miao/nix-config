@@ -9,10 +9,6 @@
     ./fonts.nix
   ];
 
-  nixpkgs.config = {
-    allowBroken = true;
-  };
-
   # Only available on Nix-Darwin
   nix.gc.interval = [
     {

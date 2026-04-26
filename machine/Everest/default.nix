@@ -46,7 +46,7 @@
       # netbird-client
       postgresql
       vscode-server
-      virtualbox
+      # virtualbox # Wait for https://github.com/NixOS/nixpkgs/pull/512148
 
       niri
       scrutiny
@@ -69,16 +69,20 @@
     consts.ssh
   ];
 
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+  boot = {
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot";
+      };
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 3;
+        edk2-uefi-shell.enable = true;
+      };
     };
-    systemd-boot = {
-      enable = true;
-      configurationLimit = 3;
-      edk2-uefi-shell.enable = true;
-    };
+
+    kernelPackages = pkgs.linuxKernel.packages.linux_7_0;
   };
 
   time.timeZone = "America/New_York";
