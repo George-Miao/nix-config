@@ -290,6 +290,7 @@
         {
           bindings = {
             "ctrl-," = "zed::OpenSettingsFile";
+            "ctrl-<" = "zed::OpenProjectSettingsFile";
             "ctrl-alt-," = "zed::OpenSettings";
             "ctrl-{" = "pane::ActivatePreviousItem";
             "ctrl-}" = "pane::ActivateNextItem";
@@ -319,11 +320,20 @@
           };
         }
         {
+          context = "Editor && !BufferSearchBar";
+          bindings = {
+            shift-enter = "editor::NewlineBelow";
+          };
+        }
+        {
           context = "Editor";
           bindings = {
             ctrl-space = "editor::ShowCompletions";
             alt-enter = "editor::GoToDefinition";
             ctrl-enter = "editor::Hover";
+            "ctrl-[" = "editor::FindPreviousMatch";
+            "ctrl-]" = "editor::FindNextMatch";
+            ctrl-shift-enter = "editor::NewlineAbove";
             ctrl-alt-enter = "editor::FindAllReferences";
             alt-down = [
               "editor::MoveDownByLines"
@@ -400,6 +410,4 @@
         }
       ];
     };
-
-  programs.zsh.shellAliases."zed" = "${pkgs.zed-editor}/bin/zeditor";
 }
