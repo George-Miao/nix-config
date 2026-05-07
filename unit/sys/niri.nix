@@ -10,28 +10,7 @@
   ...
 }:
 {
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri.overrideAttrs (
-      final: prev: {
-        cargoHash = "sha256-Iaqr19d52MgDkNZyNoE44K7VeZmU8NCp7jpUoaHCYt4=";
-        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-          inherit (final) src;
-          name = "${final.pname}-${final.version}";
-          hash = final.cargoHash;
-        };
-        src = pkgs.fetchgit {
-          "url" = "https://github.com/niri-wm/niri";
-          "rev" = "74d2b18603366b98ec9045ecf4a632422f472365";
-          "hash" = "sha256-OGorFif714JwKW/FEIrSJ2i2BsBaiLRd2TPbMq86RTs=";
-        };
-        postPatch = ''
-          patchShebangs resources/niri-session
-          substituteInPlace resources/niri.service --replace-fail 'ExecStart=niri' "ExecStart=$out/bin/niri"
-        '';
-      }
-    );
-  };
+  programs.niri.enable = true;
 
   environment.etc = {
     "wayland-sessions/steam.desktop" = {

@@ -280,10 +280,7 @@
             Everest = mkLinuxDesktop machine/Everest;
             Colden = mkLinuxServer machine/Colden;
             LUX = mkLinuxServer machine/LUX;
-            LAX = mkLinuxServer machine/LAX;
-            EWR = mkLinuxServer machine/EWR;
             HEL = mkLinuxServer machine/HEL;
-            HND = mkLinuxServer machine/HND;
             YUL = mkLinuxServer machine/YUL;
             Forrit = mkLinuxService (unit: (unit.sys.forrit secrets.syr.forrit));
           };

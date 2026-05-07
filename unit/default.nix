@@ -123,8 +123,11 @@ rec {
             );
           in
           [
+            nmap
             devbox
             codex
+            claude-code
+            github-copilot-cli
             nixfmt
             lean4
             bacon
@@ -170,8 +173,8 @@ rec {
         imports = with home; [
           vscode
           chromium
-          thunderbird
           bambu-studio
+          mailspring
           zen-browser
           # wine
           fcitx5
@@ -179,13 +182,14 @@ rec {
         ];
 
         home.packages = with pkgs; [
+          foliate
           openwebstart
           # stm32cubemx
           postman
           mpv
           qbittorrent
           # bottles-unwrapped
-          teamspeak3
+          # teamspeak3
           # kicad
           # freecad-wayland
           appimage-run

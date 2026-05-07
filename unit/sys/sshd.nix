@@ -5,6 +5,8 @@
     ports = [ 2222 ];
     settings = {
       PasswordAuthentication = false;
+      UsePAM = true;
+      KbdInteractiveAuthentication = true;
     };
   };
 }

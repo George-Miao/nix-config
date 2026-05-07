@@ -34,7 +34,6 @@
     in
     with unit.sys;
     [
-      globalprotect
       wacom
       logitech
       atd
@@ -43,7 +42,6 @@
       nvidia
       steam
       obs-studio
-      # netbird-client
       postgresql
       vscode-server
       # virtualbox # Wait for https://github.com/NixOS/nixpkgs/pull/512148

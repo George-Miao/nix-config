@@ -1,11 +1,13 @@
 {
   pkgs,
   unit,
+  secrets,
   ...
 }:
 {
   imports = with unit.sys; [
     yubico
+    netbird-client
     ratbag
     fwupd
   ];
@@ -20,6 +22,7 @@
       "tty"
     ];
     isNormalUser = true;
+    password = secrets.user.password;
   };
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
