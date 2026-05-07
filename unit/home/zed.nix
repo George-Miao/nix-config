@@ -5,6 +5,8 @@
   ...
 }:
 {
+  programs.zsh.shellAliases."zed" = "${pkgs.zed-editor}/bin/zeditor";
+
   programs.zed-editor =
     with builtins;
     let
@@ -23,7 +25,7 @@
     in
     {
       enable = true;
-      package = pkgs.zed-editor;
+      package = pkgs.zed-editor-fhs;
       mutableUserKeymaps = false;
       mutableUserSettings = true;
       userSettings = {
@@ -333,7 +335,6 @@
             ctrl-enter = "editor::Hover";
             "ctrl-[" = "editor::FindPreviousMatch";
             "ctrl-]" = "editor::FindNextMatch";
-            ctrl-shift-enter = "editor::NewlineAbove";
             ctrl-alt-enter = "editor::FindAllReferences";
             alt-down = [
               "editor::MoveDownByLines"
