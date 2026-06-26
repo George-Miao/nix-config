@@ -134,6 +134,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = specialArgs;
+                backupFileExtension = "bkup";
 
                 users.pop.imports = [
                   nix-index-database.homeModules.nix-index
