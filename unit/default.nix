@@ -53,6 +53,7 @@ rec {
 
         imports = with home; [
           inputs.zen-browser.homeModules.twilight
+          inputs.nix-index-database.homeModules.nix-index
 
           nix-index
           jujutsu
@@ -91,7 +92,7 @@ rec {
       { pkgs, ... }:
       {
         imports = with home; [
-          # vscode
+          zellij
           alacritty
           zed
           rustfmt
@@ -123,6 +124,8 @@ rec {
             );
           in
           [
+            colima
+            bitwarden-cli
             nmap
             devbox
             codex

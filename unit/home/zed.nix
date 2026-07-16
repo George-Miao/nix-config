@@ -25,7 +25,7 @@
     in
     {
       enable = true;
-      package = pkgs.zed-editor-fhs;
+      package = pkgs.zed-editor;
       mutableUserKeymaps = false;
       mutableUserSettings = true;
       userSettings = {
@@ -150,10 +150,10 @@
         terminal = {
           dock = "bottom";
           font_size = 12.0;
-          font_family = "Cascadia Code";
+          font_family = "CaskaydiaCove Nerd Font Mono";
           cursor_shape = "bar";
           env = {
-            EDITOR = "${pkgs.zed-editor}/bin/zed --wait";
+            EDITOR = "${pkgs.zed-editor}/bin/zeditor --wait";
           };
         };
         minimap = {
@@ -330,6 +330,14 @@
         {
           context = "Editor";
           bindings = {
+            shift-alt-up = [
+              "editor::AddSelectionAbove"
+              { "skip_soft_wrap" = true; }
+            ];
+            shift-alt-down = [
+              "editor::AddSelectionBelow"
+              { "skip_soft_wrap" = true; }
+            ];
             ctrl-space = "editor::ShowCompletions";
             alt-enter = "editor::GoToDefinition";
             ctrl-enter = "editor::Hover";
@@ -353,7 +361,6 @@
             alt-shift-left = "editor::SelectToPreviousWordStart";
             alt-shift-right = "editor::SelectToNextWordEnd";
             ctrl-k = "editor::DeleteLine";
-            super-k = null;
             alt-left = "editor::MoveToPreviousWordStart";
             alt-right = "editor::MoveToNextWordEnd";
             ctrl-up = "editor::MoveLineUp";

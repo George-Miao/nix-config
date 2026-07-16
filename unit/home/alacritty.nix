@@ -17,7 +17,14 @@ in
       general.import = [
         "${theme}/themes/everforest_light_soft.toml"
       ];
-      # colors = nordic;
+      terminal.shell = {
+        program = "${pkgs.zellij}/bin/zellij";
+        args = [
+          "attach"
+          "--create"
+          "main"
+        ];
+      };
       scrolling.multiplier = 3;
       font = {
         normal.family = "CaskaydiaCove Nerd Font Mono";
@@ -25,36 +32,19 @@ in
       };
       cursor = {
         style = {
-          shape = "Beam";
+          shape = "Block";
           blinking = "On";
         };
       };
       window = {
         option_as_alt = "Both";
         dynamic_title = false;
-        decorations = "Transparent";
+        decorations = "Buttonless";
         padding = {
           x = 10;
           y = 10;
         };
       };
-      keyboard.bindings = [
-        {
-          key = "C";
-          mods = "Command";
-          chars = "\\u0003";
-        }
-        {
-          key = "C";
-          mods = "Command | Shift";
-          action = "Copy";
-        }
-        {
-          key = "V";
-          mods = "Command | Shift";
-          action = "Paste";
-        }
-      ];
     };
   };
   programs.zsh = {

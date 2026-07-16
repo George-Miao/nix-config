@@ -14,7 +14,8 @@
         name = "George Miao";
         email = "gm@miao.dev";
       };
-
+      
+      core.excludesfile = "~/.gitignore";
       init.defaultBranch = "main";
       tag.gpgSign = true;
       push.autoSetupRemote = true;
