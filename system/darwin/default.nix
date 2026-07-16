@@ -1,3 +1,4 @@
+username:
 {
   pkgs,
   unit,
@@ -19,7 +20,7 @@
   ];
 
   home-manager = {
-    users.pop = {
+    users."${username}" = {
       imports = [
         unit.preset.local
       ];
@@ -27,8 +28,8 @@
         copy = "pbcopy";
         paste = "pbpaste";
       };
-      home.username = "pop";
-      home.homeDirectory = "/Users/pop";
+      home.username = username;
+      home.homeDirectory = "/Users/${username}";
       home.packages = with pkgs; [
         tart
       ];
@@ -36,9 +37,9 @@
   };
 
   security.pam.services.sudo_local.touchIdAuth = true;
-  users.users.pop = {
-    name = "pop";
-    home = "/Users/pop";
+  users.users."${username}" = {
+    name = username;
+    home = "/Users/${username}";
   };
 
   environment.systemPackages = [
@@ -47,7 +48,7 @@
     '')
   ];
 
-  system.primaryUser = "pop";
+  system.primaryUser = username;
   system.defaults = {
     dock = {
       autohide = false;
@@ -61,15 +62,15 @@
       persistent-apps = [
         "/Applications/Zen.app"
         "/Applications/Spark Desktop.app"
-        "/Applications/Reeder.app"
+        # "/Applications/Reeder.app"
         "/Applications/Fantastical.app"
         "${pkgs.alacritty}/Applications/Alacritty.app"
-        "${pkgs.zed-editor}/Applications/Zed Nightly.app"
-        "/Applications/Telegram.app"
-        "/Applications/WeChat.app"
+        "${pkgs.zed-editor}/Applications/Zed.app"
+        # "/Applications/Telegram.app"
+        # "/Applications/WeChat.app"
         "/System/Applications/System Settings.app"
-        "/Applications/Things3.app"
-        "/System/Applications/iPhone Mirroring.app"
+        # "/Applications/Things3.app"
+        # "/System/Applications/iPhone Mirroring.app"
       ];
     };
 

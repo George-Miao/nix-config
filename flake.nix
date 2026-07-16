@@ -149,13 +149,14 @@
         ];
         mkDarwinSystem =
           machine:
+          username:
           nix-darwin.lib.darwinSystem {
             specialArgs = specialArgs;
             modules = modules ++ [
               machine
               home-manager.darwinModules.home-manager
 
-              ./system/darwin
+              (import ./system/darwin username)
             ];
           };
         mkLinuxDesktop =
@@ -287,7 +288,9 @@
           };
 
           darwinConfigurations = {
-            Fuji = mkDarwinSystem machine/Fuji;
+            Fuji = mkDarwinSystem machine/Fuji "pop";
+            FWLT9207DY = mkDarwinSystem machine/FWLT9207DY "george.miao";
+            Kong = mkDarwinSystem machine/FWLT9207DY "george.miao";
             Marcy = mkDarwinSystem machine/Marcy;
           };
 
