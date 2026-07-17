@@ -55,6 +55,7 @@ rec {
           inputs.zen-browser.homeModules.twilight
           inputs.nix-index-database.homeModules.nix-index
 
+          rust
           nix-index
           jujutsu
           cargo
@@ -64,6 +65,7 @@ rec {
           gpg
           direnv
           lsd
+          gh
         ];
 
         home.packages = with pkgs; [
@@ -100,7 +102,6 @@ rec {
           syncthing
           headscale
           rbw
-          gh
           typst
           gpg-agent
           kubespy
@@ -113,53 +114,43 @@ rec {
           text = "";
         };
 
-        home.packages =
-          with pkgs;
-          let
-            rust = rust-bin.selectLatestNightlyWith (
-              toolchain:
-              toolchain.default.override {
-                extensions = [ "rust-src" ];
-              }
-            );
-          in
-          [
-            colima
-            bitwarden-cli
-            nmap
-            devbox
-            codex
-            claude-code
-            github-copilot-cli
-            nixfmt
-            lean4
-            bacon
-            nixfmt-tree
-            uv
-            unrar
-            devenv
-            cargo-feature
-            vector
-            discord
-            nix-search-cli
-            espup
-            arp-scan
-            deploy-rs
-            rust
-            flyctl
-            libiconv
-            cargo-release
-            dua
-            websocat
-            jq
-            jless
-            rclone
-            nil
-            alejandra
-            htop
-            gcc
-            pkg-config
-          ];
+        home.packages = with pkgs; [
+          opencode
+          colima
+          bitwarden-cli
+          nmap
+          devbox
+          codex
+          claude-code
+          github-copilot-cli
+          nixfmt
+          lean4
+          bacon
+          nixfmt-tree
+          uv
+          unrar
+          devenv
+          cargo-feature
+          vector
+          discord
+          nix-search-cli
+          espup
+          arp-scan
+          deploy-rs
+          flyctl
+          libiconv
+          cargo-release
+          dua
+          websocat
+          jq
+          jless
+          rclone
+          nil
+          alejandra
+          htop
+          gcc
+          pkg-config
+        ];
       };
 
     # List of packages server used for servers

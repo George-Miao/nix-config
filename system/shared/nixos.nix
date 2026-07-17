@@ -2,28 +2,39 @@
   pkgs,
   unit,
   secrets,
+  consts,
   ...
 }:
 {
   imports = with unit.sys; [
     yubico
     netbird-client
-    ratbag
-    fwupd
   ];
   home-manager.backupFileExtension = "bkup";
   documentation.dev.enable = true;
   boot.initrd.systemd.dbus.enable = true;
-  users.users.pop = {
-    extraGroups = [
-      "wheel"
-      "docker"
-      "dialout"
-      "tty"
-    ];
-    isNormalUser = true;
-    password = secrets.user.password;
+
+  users.users = {
+    root = {
+      openssh.authorizedKeys.keys = [
+        consts.ssh
+      ];
+    };
+    pop = {
+      extraGroups = [
+        "wheel"
+        "docker"
+        "dialout"
+        "tty"
+      ];
+      isNormalUser = true;
+      password = secrets.user.password;
+      openssh.authorizedKeys.keys = [
+        consts.ssh
+      ];
+    };
   };
+
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     libcap
@@ -40,12 +51,10 @@
   environment = {
     localBinInPath = true;
     systemPackages = with pkgs; [
+      gcc
       libcap
       man-pages
       man-pages-posix
-      (writeShellScriptBin "rb" ''
-        (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)
-      '')
     ];
   };
   systemd.settings.Manager = {

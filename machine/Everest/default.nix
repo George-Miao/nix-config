@@ -63,10 +63,6 @@
 
   networking.hostName = "Everest";
 
-  users.users.pop.openssh.authorizedKeys.keys = [
-    consts.ssh
-  ];
-
   boot = {
     loader = {
       efi = {
