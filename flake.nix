@@ -126,7 +126,7 @@
             secrets
             ;
         };
-        modules = [
+        modules = username: [
           (
             { pkgs, config, ... }:
             {
@@ -136,7 +136,7 @@
                 extraSpecialArgs = specialArgs;
                 backupFileExtension = "bkup";
 
-                users.pop.imports = [
+                users.${username}.imports = [
                   nix-index-database.homeModules.nix-index
                 ];
               };
@@ -148,11 +148,10 @@
           )
         ];
         mkDarwinSystem =
-          machine:
-          username:
+          machine: username:
           nix-darwin.lib.darwinSystem {
             specialArgs = specialArgs;
-            modules = modules ++ [
+            modules = (modules username) ++ [
               machine
               home-manager.darwinModules.home-manager
 
@@ -164,11 +163,10 @@
           nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = specialArgs;
-            modules = modules ++ [
+            modules = (modules "pop") ++ [
               machine
               home-manager.nixosModules.home-manager
               vscode-server.nixosModules.default
-              # lanzaboote.nixosModules.lanzaboote
 
               ./system/nixos-desktop
             ];
@@ -178,7 +176,7 @@
           nixpkgs.lib.nixosSystem {
             system = "x86_64-linux";
             specialArgs = specialArgs;
-            modules = modules ++ [
+            modules = (modules "pop") ++ [
               machine
               home-manager.nixosModules.home-manager
               vscode-server.nixosModules.default
@@ -284,13 +282,14 @@
             LUX = mkLinuxServer machine/LUX;
             HEL = mkLinuxServer machine/HEL;
             YUL = mkLinuxServer machine/YUL;
+            KIX = mkLinuxServer machine/KIX;
             Forrit = mkLinuxService (unit: (unit.sys.forrit secrets.syr.forrit));
           };
 
           darwinConfigurations = {
             Fuji = mkDarwinSystem machine/Fuji "pop";
-            FWLT9207DY = mkDarwinSystem machine/FWLT9207DY "george.miao";
-            Kong = mkDarwinSystem machine/FWLT9207DY "george.miao";
+            FWLT9207DY = mkDarwinSystem machine/Kong "george.miao";
+            Kong = mkDarwinSystem machine/Kong "george.miao";
             Marcy = mkDarwinSystem machine/Marcy;
           };
 

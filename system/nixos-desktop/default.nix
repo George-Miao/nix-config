@@ -10,6 +10,8 @@
     ./fonts.nix
     ./xdg.nix
 
+    ratbag
+    fwupd
     adb
     spacenav
     probe-rs
@@ -20,6 +22,14 @@
     keyring
     kdeconnect
   ];
+
+  environment = {
+    systemPackages = [
+      (pkgs.writeShellScriptBin "rb" ''
+        (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)
+      '')
+    ];
+  };
 
   home-manager.users.pop = {
     imports = with unit; [

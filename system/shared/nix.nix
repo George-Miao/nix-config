@@ -9,7 +9,6 @@
   nix = {
     registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
-      access-tokens = secrets.github.oauth_token;
       download-buffer-size = 4294967296;
       experimental-features = [
         "nix-command"
