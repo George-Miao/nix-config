@@ -1,0 +1,7 @@
+default_permissions = "project-safe"
+
+[permissions.project-safe]
+extends = ":workspace"
+
+[permissions.project-safe.filesystem.":workspace_roots"]
+"secrets" = "deny"
