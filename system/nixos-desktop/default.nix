@@ -25,9 +25,11 @@
 
   environment = {
     systemPackages = [
-      (pkgs.writeShellScriptBin "rb" ''
-        (cd $HOME/.nix-config && git add --all && sudo nixos-rebuild switch --flake .)
-      '')
+      (import ../../lib/mk-apply.nix {
+        inherit pkgs;
+        name = "rb";
+        rebuildCommand = "nixos-rebuild switch";
+      })
     ];
   };
 

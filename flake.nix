@@ -60,23 +60,6 @@
       };
     };
 
-    # lanzaboote = {
-    #   url = "github:nix-community/lanzaboote/v0.4.3";
-    #   inputs = {
-    #     crane.follows = "crane";
-    #     nixpkgs.follows = "nixpkgs";
-    #     flake-parts.follows = "flake-parts";
-    #     flake-compat.follows = "flake-compat";
-    #     rust-overlay.follows = "rust-overlay";
-    #   };
-    # };
-
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "community-lib";
@@ -91,6 +74,7 @@
     community-lib.url = "github:nix-community/nixpkgs.lib";
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat.url = "github:edolstra/flake-compat";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
   };
 
   outputs =
@@ -103,7 +87,6 @@
       flake-parts,
       home-manager,
       nixos-generators,
-      # lanzaboote,
       vscode-server,
       nix-index-database,
       ...
@@ -112,7 +95,8 @@
       { ... }:
       with builtins;
       let
-        secrets = import secrets/secrets.nix;
+        secretsFile = getEnv "SECRETS_FILE";
+        secrets = if secretsFile == "" then throw "Cannot load secret" else fromJSON (readFile secretsFile);
         consts = {
           gpg = readFile "${self}/static/gpg.pub";
           ssh = readFile "${self}/static/ssh.pub";
@@ -239,24 +223,26 @@
           }:
           {
             formatter = pkgs.nixfmt-tree;
+            devShells.default = pkgs.mkShell {
+              packages = with pkgs; [
+                infisical
+                jq
+              ];
+            };
             packages = rec {
               default = activate;
 
-              activate =
-                let
-                  activateCmd =
-                    if pkgs.stdenv.hostPlatform.isLinux then
-                      "nixos-rebuild switch --flake ."
-                    else if pkgs.stdenv.hostPlatform.isDarwin then
-                      "darwin-rebuild switch --flake ."
-                    else
-                      throw "Unsupported system: ${system}";
-                in
-                pkgs.writeShellScriptBin "activate" ''
-                  cd $HOME/.nix-config
-                  git add --all
-                  sudo ${activateCmd}
-                '';
+              activate = import ./lib/mk-apply.nix {
+                inherit pkgs;
+                name = "activate";
+                rebuildCommand =
+                  if pkgs.stdenv.hostPlatform.isLinux then
+                    "nixos-rebuild switch"
+                  else if pkgs.stdenv.hostPlatform.isDarwin then
+                    "darwin-rebuild switch"
+                  else
+                    throw "Unsupported system: ${system}";
+              };
 
               proxmox-lxc = nixos-generators.nixosGenerate {
                 inherit system;

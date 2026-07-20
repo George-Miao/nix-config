@@ -81,6 +81,43 @@ The flake defines specialized builders:
 
 Just run `rb` anywhere.
 
+Enter the development shell to make the pinned Infisical CLI available:
+
+```bash
+nix develop
+```
+
+Before rebuilding, `rb` fetches secrets with the Infisical CLI. Authenticate the
+CLI and link this directory to a project with `infisical init` (or provide the
+usual Infisical machine-identity environment variables). Dotted secret names
+form the Nix attribute path: for example, `github.oauth_token` becomes
+`secrets.github.oauth_token`. Infisical values override matching values from
+`secrets/secrets.nix` for that evaluation only.
+
+The equivalent flake command is:
+
+```bash
+nix run .#activate
+```
+
+Both commands stream the root-folder export into a root-owned `0600` file inside
+a root-only temporary directory under `/var/run`. They invoke the rebuild with
+impure evaluation and remove the file and directory afterward.
+
+Import a JSON object into Infisical with:
+
+```bash
+printf '%s\n' '{"github":{"oauth_token":"secret"}}' \
+  | ./scripts/import-infisical-secrets.sh --env prod
+```
+
+Nested objects become dotted root-level secrets, so this example writes the
+Infisical secret `github.oauth_token`. Activation expands it back into a nested
+Nix attribute set. Every Infisical value is stored as JSON text, including quoted
+JSON strings, so activation can restore its exact type with `fromjson`. All
+values are staged in permission-restricted temporary files and sent in one
+`infisical secrets set` call using `name=@file` arguments.
+
 ### Remote Deployment
 
 Remote servers are deployed using `deploy-rs`:

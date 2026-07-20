@@ -43,9 +43,11 @@ username:
   };
 
   environment.systemPackages = [
-    (pkgs.writeShellScriptBin "rb" ''
-      (cd $HOME/.nix-config && git add --all && sudo darwin-rebuild switch --flake .)
-    '')
+    (import ../../lib/mk-apply.nix {
+      inherit pkgs;
+      name = "rb";
+      rebuildCommand = "darwin-rebuild switch";
+    })
   ];
 
   system.primaryUser = username;
