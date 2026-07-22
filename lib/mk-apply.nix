@@ -21,7 +21,7 @@ pkgs.writeShellApplication {
     cd "$config_dir"
 
     echo "fetching secrets from infisical..."
-    if ! infisical export --format=json --env=prod \
+    if ! ${pkgs.infisical}/bin/infisical export --format=json --env=prod \
       | ${pkgs.jq}/bin/jq -e '
           if type != "array" then
             error("expected an array")
