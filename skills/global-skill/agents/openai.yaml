@@ -1,0 +1,4 @@
+interface:
+  display_name: "Global Skill"
+  short_description: "Manage globally shared skills from Nix"
+  default_prompt: "Use $global-skill to inspect or manage a globally available agent skill."

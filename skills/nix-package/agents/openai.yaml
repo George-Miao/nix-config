@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nix Package"
+  short_description: "Manage globally provisioned Nix packages"
+  default_prompt: "Use $nix-package to inspect or manage a package in this Nix configuration."

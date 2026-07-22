@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Changes"
+  short_description: "Split changes into focused local commits"
+  default_prompt: "Use $commit-changes to split the changes in this repository into focused commits without pushing."
