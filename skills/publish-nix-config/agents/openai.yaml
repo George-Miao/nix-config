@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish Nix Config"
+  short_description: "Split, commit, and push Nix configuration"
+  default_prompt: "Use $publish-nix-config to split my Nix configuration changes into focused commits and push them."
