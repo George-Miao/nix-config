@@ -32,6 +32,7 @@ username:
       home.homeDirectory = "/Users/${username}";
       home.packages = with pkgs; [
         tart
+        chatgpt
       ];
     };
   };
