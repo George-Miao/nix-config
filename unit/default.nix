@@ -55,6 +55,7 @@ rec {
           inputs.zen-browser.homeModules.twilight
           inputs.nix-index-database.homeModules.nix-index
 
+          python
           rust
           nix-index
           jujutsu
