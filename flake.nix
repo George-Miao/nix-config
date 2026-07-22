@@ -227,6 +227,7 @@
               packages = with pkgs; [
                 infisical
                 jq
+                uv
               ];
             };
             packages = rec {
