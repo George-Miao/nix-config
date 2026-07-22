@@ -1,5 +1,5 @@
 {
-  pkgs,
+  unit,
   modulesPath,
   ...
 }:
@@ -17,10 +17,9 @@
   zramSwap.enable = true;
 
   home-manager.users.pop = {
-    imports = [ ];
-    home.packages = with pkgs; [
+    imports = with unit.home; [
       claude-code
-      github-copilot-cli
+      copilot-cli
     ];
   };
 
