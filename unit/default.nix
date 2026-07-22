@@ -99,6 +99,11 @@ rec {
           zed
           rustfmt
           forgejo-cli
+          claude-code
+          ccusage
+          codex
+          opencode
+          copilot-cli
           syncthing
           headscale
           rbw
@@ -115,14 +120,10 @@ rec {
         };
 
         home.packages = with pkgs; [
-          opencode
           colima
           bitwarden-cli
           nmap
           devbox
-          codex
-          claude-code
-          github-copilot-cli
           nixfmt
           lean4
           bacon
