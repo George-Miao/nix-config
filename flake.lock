@@ -290,6 +290,26 @@
         "type": "github"
       }
     },
+    "nix-skills": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1784760175,
+        "narHash": "sha256-wxf7LNRMP8sw1s64z/w3yj/FHBYrkMEuQuEHhVbWTgw=",
+        "owner": "sudosubin",
+        "repo": "nix-skills",
+        "rev": "e50b0a223ade945864a77b0cde7221457d02fb2b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sudosubin",
+        "repo": "nix-skills",
+        "type": "github"
+      }
+    },
     "nixos-generators": {
       "inputs": {
         "nixlib": [
@@ -374,6 +394,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
+        "nix-skills": "nix-skills",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay",

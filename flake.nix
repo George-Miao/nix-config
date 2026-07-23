@@ -70,6 +70,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-skills = {
+      url = "github:sudosubin/nix-skills";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     crane.url = "github:ipetkov/crane";
     community-lib.url = "github:nix-community/nixpkgs.lib";
     flake-utils.url = "github:numtide/flake-utils";
@@ -84,6 +89,7 @@
       nixpkgs,
       deploy-rs,
       nix-darwin,
+      nix-skills,
       flake-parts,
       home-manager,
       nixos-generators,
@@ -127,6 +133,7 @@
 
               nixpkgs.overlays = [
                 flakes.overlays.default
+                nix-skills.overlays.default
               ];
             }
           )
