@@ -105,6 +105,7 @@ rec {
           codex
           opencode
           copilot-cli
+          agent-skills
           syncthing
           headscale
           rbw
