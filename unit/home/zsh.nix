@@ -57,9 +57,6 @@
     };
 
     initContent = ''
-      autoload -Uz compinit
-      compinit
-
       zstyle ':completion:*:git-checkout:*' sort false
       zstyle ':completion:*:descriptions' format '[%d]'
       zstyle ':completion:*' menu no
