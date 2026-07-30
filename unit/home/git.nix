@@ -15,7 +15,10 @@
         email = "gm@miao.dev";
       };
 
-      core.excludesfile = "~/.gitignore";
+      core = {
+        excludesfile = "~/.gitignore";
+        fsmonitor = false;
+      };
       init.defaultBranch = "main";
       tag.gpgSign = true;
       push.autoSetupRemote = true;
