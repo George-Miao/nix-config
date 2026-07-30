@@ -27,7 +27,7 @@ rec {
         imports = with home; [
           git
           zsh
-          lsd
+          eza
         ];
 
         home.packages = with pkgs; [
@@ -65,7 +65,7 @@ rec {
           zsh
           gpg
           direnv
-          lsd
+          eza
           gh
         ];
 
