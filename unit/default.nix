@@ -106,6 +106,7 @@ rec {
           opencode
           copilot-cli
           agent-skills
+          clashx-meta
           syncthing
           headscale
           rbw
