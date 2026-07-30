@@ -104,6 +104,7 @@ rec {
           ccusage
           codex
           opencode
+          rtk
           copilot-cli
           agent-skills
           clashx-meta
