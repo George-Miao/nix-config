@@ -10,6 +10,24 @@
     enable = true;
     settings = {
       approvals_reviewer = "auto_review";
+      tui = {
+        theme = "inspired-github";
+        status_line = [
+          "model-with-reasoning"
+          "current-dir"
+          "git-branch"
+          "pull-request-number"
+          "branch-changes"
+          "run-state"
+          "context-used"
+          "weekly-limit"
+          "codex-version"
+          "used-tokens"
+          "fast-mode"
+          "task-progress"
+        ];
+        status_line_use_colors = true;
+      };
     };
   };
 
