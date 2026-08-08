@@ -33,6 +33,7 @@ username:
       home.packages = with pkgs; [
         tart
         chatgpt
+        unixtools.watch
       ];
     };
   };
