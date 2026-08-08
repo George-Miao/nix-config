@@ -97,6 +97,7 @@ rec {
         imports = with home; [
           zellij
           alacritty
+          ghostty
           zed
           rustfmt
           forgejo-cli

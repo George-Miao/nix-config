@@ -57,6 +57,7 @@
   home-manager.users.pop = {
     home.packages = with pkgs; [ osu-lazer-bin ];
     programs.alacritty.settings.font.size = lib.mkForce 11;
+    programs.ghostty.settings.font-size = lib.mkForce 11;
   };
 
   system.stateVersion = "24.05";
