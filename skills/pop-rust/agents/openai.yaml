@@ -1,0 +1,4 @@
+interface:
+  display_name: "Pop Rust"
+  short_description: "Write Rust in Pop’s preferred systems style"
+  default_prompt: "Use $pop-rust to implement this Rust change in my preferred coding style."
