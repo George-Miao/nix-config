@@ -39,9 +39,19 @@ keybinds clear-defaults=true {
         bind "Super Shift down" { NewPane "down"; }
         bind "Super Shift up" { NewPane "up"; }
         bind "Super Shift right" { NewPane "right"; }
+        bind "Alt Shift left" { NewPane "left"; }
+        bind "Alt Shift down" { NewPane "down"; }
+        bind "Alt Shift up" { NewPane "up"; }
+        bind "Alt Shift right" { NewPane "right"; }
+        bind "Super Alt Shift left" { NewPane "left"; }
+        bind "Super Alt Shift down" { NewPane "down"; }
+        bind "Super Alt Shift up" { NewPane "up"; }
+        bind "Super Alt Shift right" { NewPane "right"; }
         bind "Super Shift Backspace" { CloseFocus; }
         bind "Super Shift [" { GoToPreviousTab; }
         bind "Super Shift ]" { GoToNextTab; }
+        bind "Ctrl Shift [" { GoToPreviousTab; }
+        bind "Ctrl Shift ]" { GoToNextTab; }
         bind "Super Shift t" { NewTab; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt +" { Resize "Increase"; }
