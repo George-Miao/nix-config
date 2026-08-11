@@ -1,4 +1,23 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  fzf = pkgs.fzf.overrideAttrs (old: {
+    # ZLE is a read-only Zsh option. fzf snapshots every option and restores
+    # the snapshot twice, which makes each interactive shell print an error.
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace shell/key-bindings.zsh \
+        --replace-fail \
+          '__fzf_key_bindings_options="options=(''${(j: :)''${(kv)options[@]}})"' \
+          '__fzf_key_bindings_options="options=(''${(j: :)''${(kv)options[@]}})"
+      __fzf_key_bindings_options=''${__fzf_key_bindings_options/zle ''${options[zle]}/}'
+
+      substituteInPlace shell/completion.zsh \
+        --replace-fail \
+          '__fzf_completion_options="options=(''${(j: :)''${(kv)options[@]}})"' \
+          '__fzf_completion_options="options=(''${(j: :)''${(kv)options[@]}})"
+      __fzf_completion_options=''${__fzf_completion_options/zle ''${options[zle]}/}'
+    '';
+  });
+in
 {
   home.shell.enableZshIntegration = true;
 
@@ -12,6 +31,7 @@
 
   programs.fzf = {
     enable = true;
+    package = fzf;
   };
 
   programs.zsh = {
