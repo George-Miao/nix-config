@@ -26,4 +26,9 @@ in
     source = "${skillsDirectory}";
     recursive = true;
   };
+
+  home.file.".omp/agent/skills" = {
+    source = "${skillsDirectory}";
+    recursive = true;
+  };
 }

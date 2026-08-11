@@ -188,11 +188,11 @@
         "vericert": "vericert"
       },
       "locked": {
-        "lastModified": 1784790469,
-        "narHash": "sha256-2uJqJlc/nUWQ7gU5MrQC4TqGXusXW5HtgPIo/g/3lqE=",
+        "lastModified": 1786379727,
+        "narHash": "sha256-UTIFa+KxKU6SFoLQydpXycEvOLmaKmEcriIUVoDLQ+E=",
         "owner": "George-Miao",
         "repo": "flakes",
-        "rev": "295bf3bee3bd5101e7fb02477d48f0b42486a293",
+        "rev": "3587951f6e8605de0ae915e0bb975866401dacbc",
         "type": "github"
       },
       "original": {
