@@ -105,6 +105,7 @@ rec {
           ccusage
           codex
           opencode
+          oh-my-pi
           rtk
           copilot-cli
           agent-skills
