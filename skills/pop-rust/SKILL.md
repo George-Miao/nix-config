@@ -63,6 +63,11 @@ among common Rust libraries.
 - Organize by domain concept, not by generic technical layer. Split a concept into
   a directory when it gains distinct runtime, state, error, handle, or platform
   responsibilities.
+- Map source files to logical modules and use `mod.rs` for directory modules. Split
+  large files when they contain distinct components, such as types and impls that
+  are not closely coupled.
+- Never use `include!` to split handwritten source files. Declare a module instead;
+  reserve `include!` for generated source.
 - Keep implementation modules private by default. Make visibility no wider than
   required.
 - Mirror real implementation matrices explicitly, such as `sync`/`unsync`,
@@ -77,8 +82,10 @@ among common Rust libraries.
 
 - Run repository `rustfmt`; for a new project, start with the official Rust style
   and the preferred nightly settings in `references/rust-guidelines.md`.
-- Put every comment associated with an item before every attribute on that item.
+- Always put every comment associated with an item before every attribute on that item.
   This rule applies to doc comments and ordinary explanatory comments.
+- Separate a struct or union field or an enum variant that has an attribute or
+  associated comment from adjacent fields or variants with a blank line.
 
   ```rust
   /// A typed reference to an actor.
