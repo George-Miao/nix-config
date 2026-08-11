@@ -1,12 +1,20 @@
 { lib, pkgs, ... }:
 let
   plugins = [
-    "pi-web-access"
-    "@juicesharp/rpiv-ask-user-question"
-    "pi-condense"
-    "@czottmann/pi-automode"
+    { name = "pi-web-access"; }
+    { name = "@juicesharp/rpiv-ask-user-question"; }
+    # 2.4.1+ requires the upstream Pi ModelRegistry.getProviderAuth API, which OMP does not expose.
+    {
+      name = "pi-condense";
+      version = "2.4.0";
+    }
+    { name = "@czottmann/pi-automode"; }
   ];
   configFile = (pkgs.formats.yaml { }).generate "omp-config.yml" {
+    modelRoles.default = "openai-codex/gpt-5.6-sol";
+    setupVersion = 1;
+    symbolPreset = "nerd";
+    theme.light = "light";
     # pi-automode owns approval decisions. Keeping OMP's native prompt enabled
     # would ask again after the classifier already approved an action.
     tools.approvalMode = "yolo";
@@ -102,11 +110,22 @@ in
   home.file.".pi/agent/automode.json".source = automodeConfig;
 
   home.activation.installOmpPlugins = lib.hm.dag.entryAfter [ "syncOmpConfig" ] ''
-    ${lib.concatMapStringsSep "\n" (plugin: ''
-      pluginManifest="$HOME/.omp/plugins/node_modules/${plugin}/package.json"
-      if [ ! -e "$pluginManifest" ]; then
-        $DRY_RUN_CMD ${omp}/bin/omp plugin install ${lib.escapeShellArg plugin}
-      fi
-    '') plugins}
+    ${lib.concatMapStringsSep "\n" (
+      plugin:
+      let
+        package = plugin.name + lib.optionalString (plugin ? version) "@${plugin.version}";
+        needsInstall =
+          if plugin ? version then
+            ''[ ! -e "$pluginManifest" ] || [ "$(${lib.getExe pkgs.jq} -r '.version // empty' "$pluginManifest" 2>/dev/null || true)" != ${lib.escapeShellArg plugin.version} ]''
+          else
+            ''[ ! -e "$pluginManifest" ]'';
+      in
+      ''
+        pluginManifest="$HOME/.omp/plugins/node_modules/${plugin.name}/package.json"
+        if ${needsInstall}; then
+          $DRY_RUN_CMD ${omp}/bin/omp plugin install ${lib.escapeShellArg package}
+        fi
+      ''
+    ) plugins}
   '';
 }
