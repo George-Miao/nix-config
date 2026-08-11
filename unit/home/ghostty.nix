@@ -1,17 +1,44 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  zellijPackage,
+  ...
+}:
 {
   programs.ghostty = {
     enable = true;
     package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
     settings = {
       theme = "everforest-light-soft";
-      command = "direct:${pkgs.zellij}/bin/zellij attach --create main";
+      command = "direct:${zellijPackage}/bin/zellij attach --create main";
       font-family = "CaskaydiaCove Nerd Font Mono";
       font-size = 14;
       cursor-style = "block";
       cursor-style-blink = true;
       shell-integration-features = "no-cursor";
       keybind = [
+        "ctrl+shift+tab=unbind"
+        "ctrl+tab=unbind"
+        "super+digit_1=unbind"
+        "super+1=unbind"
+        "super+digit_2=unbind"
+        "super+2=unbind"
+        "super+digit_3=unbind"
+        "super+3=unbind"
+        "super+digit_4=unbind"
+        "super+4=unbind"
+        "super+digit_5=unbind"
+        "super+5=unbind"
+        "super+digit_6=unbind"
+        "super+6=unbind"
+        "super+digit_7=unbind"
+        "super+7=unbind"
+        "super+digit_8=unbind"
+        "super+8=unbind"
+        "super+9=unbind"
+        "super+alt+w=unbind"
+        "super+t=unbind"
+        "super+shift+t=unbind"
         "super+shift+arrow_up=unbind"
         "super+shift+arrow_down=unbind"
         "super+shift+[=unbind"
