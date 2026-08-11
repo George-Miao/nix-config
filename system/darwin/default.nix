@@ -68,7 +68,7 @@ username:
         "/Applications/Spark Desktop.app"
         # "/Applications/Reeder.app"
         "/Applications/Fantastical.app"
-        "${pkgs.alacritty}/Applications/Alacritty.app"
+        "${pkgs.ghostty-bin}/Applications/Ghostty.app"
         "${pkgs.zed-editor}/Applications/Zed.app"
         # "/Applications/Telegram.app"
         # "/Applications/WeChat.app"
