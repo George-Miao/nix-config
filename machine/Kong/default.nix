@@ -11,14 +11,8 @@
   nix.linux-builder.enable = true;
 
   nix.settings.substituters = [
-    # "https://mirror.sjtu.edu.cn/nix-channels/store"
     # status: https://mirror.sjtu.edu.cn/
-
-    # status: https://mirrors.tuna.tsinghua.edu.cn/
-    "https://mirrors.tuna.tsinghua.edu.cn/nix-channels/store"
-
-    # status: https://mirrors.ustc.edu.cn/status/
-    "https://mirrors.ustc.edu.cn/nix-channels/store"
+    "https://mirror.sjtu.edu.cn/nix-channels/store"
   ];
 
   system.defaults.dock.orientation = lib.mkForce "right";
