@@ -9,9 +9,13 @@
   programs.codex = {
     enable = true;
     settings = {
+      default_permissions = "git-workspace";
+      approval_policy = "on-request";
       approvals_reviewer = "auto_review";
+      permissions."git-workspace".extends = ":workspace";
       tui = {
         theme = "inspired-github";
+        notifications = [ "agent-turn-complete" ];
         status_line = [
           "model-with-reasoning"
           "current-dir"
