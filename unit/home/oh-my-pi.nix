@@ -11,6 +11,33 @@ let
     # would ask again after the classifier already approved an action.
     tools.approvalMode = "yolo";
   };
+  syncConfig = pkgs.writeShellApplication {
+    name = "sync-omp-config";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.yq-go
+    ];
+    text = ''
+      configPath="''${1:?usage: sync-omp-config CONFIG_PATH}"
+      configDir="$(dirname "$configPath")"
+
+      mkdir -p "$configDir"
+      tempPath="$(mktemp "$configDir/.config.yml.XXXXXX")"
+      trap 'rm -f -- "$tempPath"' EXIT
+
+      if [[ -e "$configPath" || -L "$configPath" ]]; then
+        yq eval-all --prettyPrint \
+          ". as \$item ireduce ({}; . * \$item)" \
+          ${configFile} "$configPath" > "$tempPath"
+      else
+        cp ${configFile} "$tempPath"
+      fi
+
+      chmod 0644 "$tempPath"
+      mv -f "$tempPath" "$configPath"
+      trap - EXIT
+    '';
+  };
   automodeConfig = (pkgs.formats.json { }).generate "omp-automode.json" {
     autoMode = {
       enabled = true;
@@ -62,13 +89,19 @@ in
 {
   home.packages = [ omp ];
 
-  home.file.".omp/agent/config.yml".source = configFile;
+  # OMP writes runtime settings to this file. Keep it outside Home Manager's
+  # read-only store links, and merge new Nix defaults underneath runtime edits.
+  home.file.".omp/agent/config.yml".enable = false;
+
+  home.activation.syncOmpConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${syncConfig}/bin/sync-omp-config "$HOME/.omp/agent/config.yml"
+  '';
 
   # pi-automode deliberately reads Pi-owned configuration even under OMP.
   # Per-project, uncommitted overrides belong in .pi/automode.local.json.
   home.file.".pi/agent/automode.json".source = automodeConfig;
 
-  home.activation.installOmpPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  home.activation.installOmpPlugins = lib.hm.dag.entryAfter [ "syncOmpConfig" ] ''
     ${lib.concatMapStringsSep "\n" (plugin: ''
       pluginManifest="$HOME/.omp/plugins/node_modules/${plugin}/package.json"
       if [ ! -e "$pluginManifest" ]; then
