@@ -46,6 +46,34 @@ let
       trap - EXIT
     '';
   };
+  settingsFile = (pkgs.formats.json { }).generate "omp-settings.json" {
+    contextPrune.summarizerModel = "openai-codex/gpt-5.6-luna";
+  };
+  syncSettings = pkgs.writeShellApplication {
+    name = "sync-omp-settings";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.jq
+    ];
+    text = ''
+      settingsPath="''${1:?usage: sync-omp-settings SETTINGS_PATH}"
+      settingsDir="$(dirname "$settingsPath")"
+
+      mkdir -p "$settingsDir"
+      tempPath="$(mktemp "$settingsDir/.settings.json.XXXXXX")"
+      trap 'rm -f -- "$tempPath"' EXIT
+
+      if [[ -e "$settingsPath" || -L "$settingsPath" ]]; then
+        jq --slurp '.[0] * .[1]' "$settingsPath" ${settingsFile} > "$tempPath"
+      else
+        cp ${settingsFile} "$tempPath"
+      fi
+
+      chmod 0644 "$tempPath"
+      mv -f "$tempPath" "$settingsPath"
+      trap - EXIT
+    '';
+  };
   automodeConfig = (pkgs.formats.json { }).generate "omp-automode.json" {
     autoMode = {
       enabled = true;
@@ -103,6 +131,14 @@ in
 
   home.activation.syncOmpConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ${syncConfig}/bin/sync-omp-config "$HOME/.omp/agent/config.yml"
+  '';
+
+  # pi-condense shares OMP's writable settings file. Enforce only the selected
+  # summarizer while preserving every other runtime-managed setting.
+  home.file.".omp/agent/settings.json".enable = false;
+
+  home.activation.syncOmpSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    $DRY_RUN_CMD ${syncSettings}/bin/sync-omp-settings "$HOME/.omp/agent/settings.json"
   '';
 
   # pi-automode deliberately reads Pi-owned configuration even under OMP.
