@@ -304,6 +304,7 @@
         {
           context = "Workspace";
           bindings = {
+            ctrl-r = "projects::OpenRecent";
             ctrl-shift-s = "workspace::SaveWithoutFormat";
             ctrl-shift-n = null;
           };
