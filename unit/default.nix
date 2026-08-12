@@ -106,6 +106,7 @@ rec {
           codex
           opencode
           oh-my-pi
+          orca
           rtk
           copilot-cli
           agent-skills
