@@ -136,6 +136,8 @@ in
   # pi-condense shares OMP's writable settings file. Enforce only the selected
   # summarizer while preserving every other runtime-managed setting.
   home.file.".omp/agent/settings.json".enable = false;
+  home.file.".omp/agent/APPEND_SYSTEM.md".text =
+    "Only report to the user in ASD-STE100 Simplified Technical English.";
 
   home.activation.syncOmpSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ${syncSettings}/bin/sync-omp-settings "$HOME/.omp/agent/settings.json"

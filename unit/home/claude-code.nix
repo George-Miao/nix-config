@@ -30,6 +30,7 @@ in
   programs.claude-code = {
     enable = true;
     plugins = [ plugin ];
+    context = "Only report to me in ASD-STE100 Simplified Technical English.";
     settings = {
       model = "claude-opus-4-8";
       theme = "auto";
