@@ -1,7 +1,11 @@
 { lib, pkgs, ... }:
 let
   plugins = [
-    { name = "pi-web-access"; }
+    # 0.18.0+ imports resizeImage, which OMP's legacy coding-agent shim does not expose.
+    {
+      name = "pi-web-access";
+      version = "0.17.1";
+    }
     { name = "@juicesharp/rpiv-ask-user-question"; }
     # 2.4.1+ requires the upstream Pi ModelRegistry.getProviderAuth API, which OMP does not expose.
     {
