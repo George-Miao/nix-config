@@ -1,4 +1,9 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   plugins = [
     # 0.18.0+ imports resizeImage, which OMP's legacy coding-agent shim does not expose.
@@ -140,8 +145,7 @@ in
   # pi-condense shares OMP's writable settings file. Enforce only the selected
   # summarizer while preserving every other runtime-managed setting.
   home.file.".omp/agent/settings.json".enable = false;
-  home.file.".omp/agent/APPEND_SYSTEM.md".text =
-    "Only report to the user in ASD-STE100 Simplified Technical English.";
+  home.file.".omp/agent/APPEND_SYSTEM.md".text = config.agent.context;
 
   home.activation.syncOmpSettings = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ${syncSettings}/bin/sync-omp-settings "$HOME/.omp/agent/settings.json"

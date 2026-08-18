@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   secrets,
@@ -7,8 +8,7 @@
 {
   programs.zsh.shellAliases."zed" = "${pkgs.zed-editor}/bin/zeditor";
 
-  xdg.configFile."zed/AGENTS.md".text =
-    "Only report to me in ASD-STE100 Simplified Technical English.";
+  xdg.configFile."zed/AGENTS.md".text = config.agent.context;
 
   programs.zed-editor =
     with builtins;
