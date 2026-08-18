@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   version = "1.40.1";
   source = pkgs.fetchFromGitHub {
@@ -30,7 +30,7 @@ in
   programs.claude-code = {
     enable = true;
     plugins = [ plugin ];
-    context = "Only report to me in ASD-STE100 Simplified Technical English.";
+    context = config.agent.context;
     settings = {
       model = "claude-opus-4-8";
       theme = "auto";

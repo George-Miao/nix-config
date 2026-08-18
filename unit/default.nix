@@ -101,6 +101,7 @@ rec {
           zed
           rustfmt
           forgejo-cli
+          agent
           claude-code
           ccusage
           codex
