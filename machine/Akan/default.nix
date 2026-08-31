@@ -27,6 +27,7 @@
       inputs.disko.nixosModules.disko
       inputs.nixos-hardware.nixosModules.framework-intel-core-ultra-series3
 
+      fprintd
       logitech
       atd
       btrfs
@@ -66,5 +67,8 @@
 
   time.timeZone = lib.mkDefault "America/New_York";
 
-  services.automatic-timezoned.enable = true;
+  services = {
+    automatic-timezoned.enable = true;
+    fprintd.tod.enable = lib.mkForce false;
+  };
 }
