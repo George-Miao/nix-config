@@ -11,7 +11,9 @@
     let
       niri = unit.sys.niri {
         display = ''
-
+          output "China Star Optoelectronics Technology Co., Ltd MND508ZB1-1 Unknown" {
+            scale 1.7
+          }
         '';
       };
       scrutiny = unit.sys.scrutiny {
@@ -23,6 +25,7 @@
     with unit.sys;
     [
       inputs.disko.nixosModules.disko
+      inputs.nixos-hardware.nixosModules.framework-intel-core-ultra-series3
 
       logitech
       atd
@@ -44,7 +47,8 @@
 
   system.stateVersion = "26.05";
 
-  networking.hostName = "Everest";
+  networking.hostName = "Akan";
+  networking.networkmanager.enable = true;
 
   boot = {
     loader = {
