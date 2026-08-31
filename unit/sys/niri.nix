@@ -2,7 +2,11 @@
   battery ? false,
   brightness ? false,
   display ? "",
-  gaps ? 10,
+  extraKeybinds ? "",
+  gestureSwipeFingers ? "",
+  gaps ? "",
+  radius ? "",
+  threeFingerDrag ? false,
   ...
 }:
 {
@@ -12,8 +16,18 @@
   lib,
   ...
 }:
+let
+  niri = pkgs.niri.overrideAttrs (old: {
+    patches = (old.patches or [ ]) ++ [
+      ../../patch/niri/three-finger-drag.patch
+    ];
+  });
+in
 {
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    package = niri;
+  };
 
   environment.etc = {
     "wayland-sessions/steam.desktop" = {
@@ -31,7 +45,7 @@
         [Desktop Entry]
         Name=Niri
         Comment=Wayland session for Niri
-        Exec=${pkgs.niri}/bin/niri-session
+        Exec=${niri}/bin/niri-session
         Type=Application
         DesktopNames=Niri
       '';
@@ -60,18 +74,19 @@
       paste = "${wl-clipboard}/bin/wl-paste";
     };
 
-    xdg.configFile.niri =
-      let
-        base = builtins.readFile ./niri.config.kdl;
-      in
-      {
-        recursive = true;
-        target = "niri/config.kdl";
-        text = ''
-          ${base}
-          ${display}
-        '';
+    xdg.configFile.niri = {
+      target = "niri/config.kdl";
+      text = import ./niri.config.nix {
+        inherit
+          display
+          extraKeybinds
+          gestureSwipeFingers
+          gaps
+          radius
+          threeFingerDrag
+          ;
       };
+    };
   };
 
   environment = {

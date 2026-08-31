@@ -17,6 +17,32 @@
             scale 1.7
           }
         '';
+        extraKeybinds = ''
+          XF86AudioPrev allow-when-locked=true {
+              spawn "${lib.getExe pkgs.playerctl}" "previous"
+          }
+          XF86AudioPlay allow-when-locked=true {
+              spawn "${lib.getExe pkgs.playerctl}" "play-pause"
+          }
+          XF86AudioNext allow-when-locked=true {
+              spawn "${lib.getExe pkgs.playerctl}" "next"
+          }
+          XF86MonBrightnessDown allow-when-locked=true {
+              spawn "${lib.getExe pkgs.brightnessctl}" "--class=backlight" "set" "5%-"
+          }
+          XF86MonBrightnessUp allow-when-locked=true {
+              spawn "${lib.getExe pkgs.brightnessctl}" "--class=backlight" "set" "+5%"
+          }
+          XF86RFKill allow-when-locked=true repeat=false {
+              spawn "${lib.getExe' pkgs.util-linux "rfkill"}" "toggle" "all"
+          }
+          XF86AudioMedia repeat=false {
+              spawn "${lib.getExe pkgs.playerctl}" "play-pause"
+          }
+        '';
+        gestureSwipeFingers = "4";
+        gaps = "5";
+        threeFingerDrag = true;
       };
       scrutiny = unit.sys.scrutiny {
         devices = [

@@ -1,0 +1,134 @@
+diff --git a/Cargo.toml b/Cargo.toml
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -74,6 +74,6 @@
+ git-version = "0.3.9"
+ glam = "0.32.1"
+-input = { version = "0.10.0", features = ["libinput_1_21"] }
++input = { version = "0.10.0", features = ["libinput_1_28"] }
+ keyframe = { version = "1.1.1", default-features = false }
+ libc = "0.2.185"
+ libdisplay-info = "0.3.0"
+diff --git a/niri-config/src/input.rs b/niri-config/src/input.rs
+--- a/niri-config/src/input.rs
++++ b/niri-config/src/input.rs
+@@ -21,6 +21,7 @@ pub struct Input {
+     pub warp_mouse_to_focus: Option<WarpMouseToFocus>,
+     pub focus_follows_mouse: Option<FocusFollowsMouse>,
+     pub workspace_auto_back_and_forth: bool,
++    pub gesture_swipe_fingers: Option<u32>,
+     pub mod_key: Option<ModKey>,
+     pub mod_key_nested: Option<ModKey>,
+ }
+@@ -49,6 +50,8 @@ pub struct InputPart {
+     pub focus_follows_mouse: Option<FocusFollowsMouse>,
+     #[knuffel(child)]
+     pub workspace_auto_back_and_forth: Option<Flag>,
++    #[knuffel(child, unwrap(argument))]
++    pub gesture_swipe_fingers: Option<u32>,
+     #[knuffel(child, unwrap(argument, str))]
+     pub mod_key: Option<ModKey>,
+     #[knuffel(child, unwrap(argument, str))]
+@@ -79,5 +82,6 @@ impl MergeWith<InputPart> for Input {
+             warp_mouse_to_focus,
+             focus_follows_mouse,
++            gesture_swipe_fingers,
+             mod_key,
+             mod_key_nested,
+         );
+@@ -197,6 +201,8 @@ pub struct Touchpad {
+     pub drag: Option<bool>,
+     #[knuffel(child)]
+     pub drag_lock: bool,
++    #[knuffel(child, unwrap(argument, str))]
++    pub three_finger_drag: Option<ThreeFingerDrag>,
+     #[knuffel(child)]
+     pub natural_scroll: bool,
+     #[knuffel(child, unwrap(argument, str))]
+@@ -293,0 +300,17 @@
++#[derive(Debug, Clone, Copy, PartialEq, Eq)]
++pub enum ThreeFingerDrag {
++    Disabled,
++    EnabledThreeFinger,
++    EnabledFourFinger,
++}
++
++impl From<ThreeFingerDrag> for input::ThreeFingerDragState {
++    fn from(value: ThreeFingerDrag) -> Self {
++        match value {
++            ThreeFingerDrag::Disabled => Self::Disabled,
++            ThreeFingerDrag::EnabledThreeFinger => Self::EnabledThreeFinger,
++            ThreeFingerDrag::EnabledFourFinger => Self::EnabledFourFinger,
++        }
++    }
++}
++
+@@ -452,0 +476,14 @@
++impl FromStr for ThreeFingerDrag {
++    type Err = miette::Error;
++
++    fn from_str(s: &str) -> Result<Self, Self::Err> {
++        match s {
++            "disabled" => Ok(Self::Disabled),
++            "3fg" => Ok(Self::EnabledThreeFinger),
++            "4fg" => Ok(Self::EnabledFourFinger),
++            _ => Err(miette!(
++                r#"invalid three-finger drag mode, can be "disabled", "3fg", or "4fg""#
++            )),
++        }
++    }
++}
+diff --git a/niri-config/src/lib.rs b/niri-config/src/lib.rs
+--- a/niri-config/src/lib.rs
++++ b/niri-config/src/lib.rs
+@@ -675,6 +675,7 @@ mod tests {
+                     dwt
+                     dwtp
+                     drag true
++                    three-finger-drag "3fg"
+                     click-method "clickfinger"
+                     accel-speed 0.2
+                     accel-profile "flat"
+@@ -735,0 +737 @@
++                gesture-swipe-fingers 4
+@@ -994,6 +996,9 @@ mod tests {
+                         true,
+                     ),
+                     drag_lock: false,
++                    three_finger_drag: Some(
++                        EnabledThreeFinger,
++                    ),
+                     natural_scroll: false,
+                     click_method: Some(
+                         Clickfinger,
+@@ -1134,6 +1139,9 @@ mod tests {
+                     },
+                 ),
+                 workspace_auto_back_and_forth: true,
++                gesture_swipe_fingers: Some(
++                    4,
++                ),
+                 mod_key: Some(
+                     IsoLevel3Shift,
+                 ),
+diff --git a/src/input/mod.rs b/src/input/mod.rs
+--- a/src/input/mod.rs
++++ b/src/input/mod.rs
+@@ -3747 +3747,8 @@ impl State {
+-        if event.fingers() == 3 {
++        let gesture_swipe_fingers = self
++            .niri
++            .config
++            .borrow()
++            .input
++            .gesture_swipe_fingers
++            .unwrap_or(3);
++        if event.fingers() == gesture_swipe_fingers {
+@@ -4705,0 +4713,7 @@ pub fn apply_libinput_settings(config: &niri_config::Input, device: &mut input::
++        if let Some(three_finger_drag) = c.three_finger_drag {
++            let _ = device.config_3fg_drag_set_enabled(three_finger_drag.into());
++        } else {
++            let default = device.config_3fg_drag_get_default_enabled();
++            let _ = device.config_3fg_drag_set_enabled(default);
++        }
++
