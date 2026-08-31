@@ -5,6 +5,7 @@ input {
     keyboard {
         xkb {
             layout "us"
+            options "ctrl:swapcaps"
         }
         repeat-delay 200
         repeat-rate 50
@@ -12,6 +13,12 @@ input {
     touchpad {
         tap
         natural-scroll
+        accel-profile "adaptive"
+        accel-speed 0.1
+        scroll-factor 0.6
+        drag false
+        dwt
+        dwtp
     }
     warp-mouse-to-focus
     focus-follows-mouse
