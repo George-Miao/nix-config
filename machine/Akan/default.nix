@@ -10,6 +10,8 @@
   imports =
     let
       niri = unit.sys.niri {
+        battery = true;
+        brightness = true;
         display = ''
           output "China Star Optoelectronics Technology Co., Ltd MND508ZB1-1 Unknown" {
             scale 1.7
