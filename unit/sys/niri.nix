@@ -1,4 +1,6 @@
 {
+  battery ? false,
+  brightness ? false,
   display ? "",
   gaps ? 10,
   ...
@@ -38,7 +40,7 @@
 
   home-manager.users.pop = {
     imports = with unit.home; [
-      waybar-niri
+      (waybar-niri { inherit battery brightness; })
       fuzzel
       swaync
       wpaperd

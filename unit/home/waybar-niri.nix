@@ -1,4 +1,8 @@
-{ ... }:
+{
+  battery ? false,
+  brightness ? false,
+}:
+{ lib, pkgs, ... }:
 {
   programs.waybar = {
     enable = true;
@@ -26,9 +30,13 @@
         ];
         modules-right = [
           "wireplumber#sink"
-          # "backlight"
+        ]
+        ++ lib.optional brightness "backlight"
+        ++ [
           "network"
-          # "battery"
+        ]
+        ++ lib.optional battery "battery"
+        ++ [
           "group/session"
           "tray"
         ];
@@ -47,7 +55,7 @@
           };
         };
         "custom/hardware-wrap" = {
-          format = "";
+          format = "";
           tooltip-format = "Resource Usage";
         };
         # "group/hardware" = {
@@ -191,16 +199,16 @@
           on-scroll-down = "wpctl set-volume @DEFAULT_SINK@ 1%-";
           on-scroll-up = "wpctl set-volume @DEFAULT_SINK@ 1%+";
         };
-        # backlight = {
-        #   format = "{icon} {percent}%";
-        #   format-icons = [
-        #     "󰃞"
-        #     "󰃟"
-        #     "󰃠"
-        #   ];
-        #   on-scroll-up = "brightnessctl set +5%";
-        #   on-scroll-down = "brightnessctl set 5%-";
-        # };
+        backlight = {
+          format = "{icon} {percent}%";
+          format-icons = [
+            "󰃞"
+            "󰃟"
+            "󰃠"
+          ];
+          on-scroll-up = "${lib.getExe pkgs.brightnessctl} --class=backlight set +5%";
+          on-scroll-down = "${lib.getExe pkgs.brightnessctl} --class=backlight set 5%-";
+        };
         disk = {
           interval = 30;
           format = "󰋊 {percentage_used}%";
