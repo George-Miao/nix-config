@@ -84,7 +84,7 @@
               EnableEmoji = true;
               EnableQuickPhraseEmoji = true;
               "Choose Modifier" = "Alt";
-              EnableHintByDefault = true;
+              EnableHintByDefault = false;
               UseNewComposeBehavior = true;
               EnableLongPress = true;
             };
