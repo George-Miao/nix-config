@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  zellijPackage,
   ...
 }:
 {
@@ -10,7 +9,7 @@
     package = if pkgs.stdenv.hostPlatform.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
     settings = {
       theme = "everforest-light-soft";
-      command = "direct:${zellijPackage}/bin/zellij attach --create main";
+      command = "direct:${pkgs.zellij}/bin/zellij attach --create main";
       font-family = "CaskaydiaCove Nerd Font Mono";
       font-size = 14;
       cursor-style = "block";
