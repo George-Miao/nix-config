@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  pname = "bambustudio";
   version = "2.2.1";
   appimageName = "Bambu_Studio_ubuntu-24.04_PR-8017.AppImage";
   zipUrl = "https://github.com/bambulab/BambuStudio/releases/download/v02.02.01.60/BambuStudio_ubuntu-24.04_PR-8017.zip";
@@ -11,10 +12,10 @@ let
   appimagePath = "${srcZipped}/${appimageName}";
   bambu-studio = pkgs.appimageTools.wrapType2 {
     name = "BambuStudio";
-    pname = "bambustudio";
-    inherit version;
+    inherit pname version;
     appimageContents = pkgs.appimageTools.extract {
       src = appimagePath;
+      inherit pname version;
     };
     src = appimagePath;
     profile = ''

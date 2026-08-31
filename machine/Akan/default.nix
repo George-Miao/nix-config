@@ -3,6 +3,7 @@
   lib,
   unit,
   consts,
+  inputs,
   ...
 }:
 {
@@ -10,48 +11,29 @@
     let
       niri = unit.sys.niri {
         display = ''
-          output "LG Electronics LG TV SSCR2 0x01010101" {
-            mode "3840x2160@119.880"
-            scale 1.3
-            transform "normal"
-            position x=0 y=0
-            focus-at-startup
-          }
+
         '';
       };
       scrutiny = unit.sys.scrutiny {
         devices = [
-          "/dev/nvme0"
-        ];
-      };
-      vector = unit.sys.vector {
-        hostname = "Everest";
-        include_units = [
-          "home-manager-pop"
-          "netbird"
+          # "/dev/nvme0"
         ];
       };
     in
     with unit.sys;
     [
-      wacom
+      inputs.disko.nixosModules.disko
+
       logitech
       atd
-      sshd
       btrfs
-      nvidia
       steam
-      obs-studio
-      postgresql
-      vscode-server
-      # virtualbox # Wait for https://github.com/NixOS/nixpkgs/pull/512148
 
       niri
       scrutiny
-      vector
 
+      ./disk.nix
       ./hardware.nix
-      ./samba.nix
     ];
 
   home-manager.users.pop = {
@@ -60,7 +42,7 @@
     programs.ghostty.settings.font-size = lib.mkForce 11;
   };
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 
   networking.hostName = "Everest";
 
@@ -78,5 +60,7 @@
     };
   };
 
-  time.timeZone = "America/New_York";
+  time.timeZone = lib.mkDefault "America/New_York";
+
+  services.automatic-timezoned.enable = true;
 }

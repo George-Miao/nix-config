@@ -103,7 +103,7 @@ in
     home = {
       packages = with pkgs; [
         qt6.qtwayland
-        libsForQt5.qt5.qtwayland
+        qt5.qtwayland
         grim
         slurp
         wl-clipboard

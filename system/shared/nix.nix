@@ -2,7 +2,7 @@
 {
   nixpkgs.config = {
     problems.handlers = {
-      nvidia-x11.broken = "warn"; # or "ignore"
+      nvidia-x11.broken = "ignore"; # or "ignore"
     };
   };
 
