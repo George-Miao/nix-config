@@ -1,4 +1,4 @@
-{ pkgs, zellijPackage, ... }:
+{ pkgs, ... }:
 let
   theme = pkgs.fetchFromGitHub {
     owner = "alacritty";
@@ -18,7 +18,7 @@ in
         "${theme}/themes/everforest_light_soft.toml"
       ];
       terminal.shell = {
-        program = "${zellijPackage}/bin/zellij";
+        program = "${pkgs.zellij}/bin/zellij";
         args = [
           "attach"
           "--create"
