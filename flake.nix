@@ -101,8 +101,9 @@
       { ... }:
       with builtins;
       let
-        secretsFile = getEnv "SECRETS_FILE";
-        secrets = if secretsFile == "" then throw "Cannot load secret" else fromJSON (readFile secretsFile);
+        # secretsFile = getEnv "SECRETS_FILE";
+        # secrets = if secretsFile == "" then throw "Cannot load secret" else fromJSON (readFile secretsFile);
+        secrets = import ./secrets/secrets.nix;
         consts = {
           gpg = readFile "${self}/static/gpg.pub";
           ssh = readFile "${self}/static/ssh.pub";
@@ -271,6 +272,7 @@
 
           nixosConfigurations = {
             Atlas = mkLinuxDesktop machine/Atlas;
+            Akan = mkLinuxDesktop machine/Akan;
             Everest = mkLinuxDesktop machine/Everest;
             Colden = mkLinuxServer machine/Colden;
             LUX = mkLinuxServer machine/LUX;

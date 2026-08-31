@@ -6,7 +6,7 @@
   hardware = {
     graphics.enable = true;
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      branch = "beta";
       open = true;
       nvidiaSettings = true;
       modesetting.enable = true;

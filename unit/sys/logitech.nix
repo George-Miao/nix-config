@@ -1,13 +1,10 @@
 {
-  config,
   pkgs,
   ...
 }:
 {
-  hardware.logitech.wireless = {
-    enable = true;
-    enableGraphical = true;
-  };
+  hardware.logitech.wireless.enable = true;
+  programs.solaar.enable = true;
   home-manager.users.pop.systemd.user.services.solaar = {
     Unit = {
       Description = "Logitech device manager";

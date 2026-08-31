@@ -107,7 +107,7 @@ rec {
           codex
           opencode
           oh-my-pi
-          orca
+          # orca
           rtk
           copilot-cli
           agent-skills
@@ -197,7 +197,7 @@ rec {
           # freecad-wayland
           appimage-run
           # gui-for-clash
-          wechat-uos
+          # wechat-uos
           yubioath-flutter
           # chromium
           zotero

@@ -76,8 +76,6 @@
         edk2-uefi-shell.enable = true;
       };
     };
-
-    kernelPackages = pkgs.linuxKernel.packages.linux_7_0;
   };
 
   time.timeZone = "America/New_York";
