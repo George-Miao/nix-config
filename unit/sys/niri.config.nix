@@ -23,7 +23,7 @@
           tap
           natural-scroll
           accel-profile "adaptive"
-          scroll-factor 0.6
+          scroll-factor 0.5
           drag false
           ${if threeFingerDrag then "three-finger-drag \"3fg\"" else ""}
           dwt
