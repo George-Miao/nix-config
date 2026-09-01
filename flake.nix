@@ -106,8 +106,6 @@
       { ... }:
       with builtins;
       let
-        # secretsFile = getEnv "SECRETS_FILE";
-        # secrets = if secretsFile == "" then throw "Cannot load secret" else fromJSON (readFile secretsFile);
         secrets = import ./secrets/secrets.nix;
         consts = {
           gpg = readFile "${self}/static/gpg.pub";
@@ -238,8 +236,6 @@
             formatter = pkgs.nixfmt-tree;
             devShells.default = pkgs.mkShell {
               packages = with pkgs; [
-                infisical
-                jq
                 uv
               ];
             };
