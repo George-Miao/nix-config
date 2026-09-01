@@ -4,6 +4,7 @@
   gestureSwipeFingers ? "",
   gaps ? "",
   radius ? "",
+  swapCaps ? false,
   threeFingerDrag ? false,
 }:
 ''
@@ -14,7 +15,7 @@
       keyboard {
           xkb {
               layout "us"
-              options "ctrl:swapcaps"
+              ${if swapCaps then ''options "ctrl:swapcaps"'' else ""}
           }
           repeat-delay 200
           repeat-rate 50

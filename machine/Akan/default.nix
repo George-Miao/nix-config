@@ -42,6 +42,7 @@
         '';
         gestureSwipeFingers = "4";
         gaps = "5";
+        swapCaps = true;
         threeFingerDrag = true;
       };
       scrutiny = unit.sys.scrutiny {
