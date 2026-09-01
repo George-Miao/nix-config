@@ -185,6 +185,7 @@ rec {
         ];
 
         home.packages = with pkgs; [
+          slack
           foliate
           openwebstart
           # stm32cubemx
