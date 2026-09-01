@@ -29,7 +29,7 @@ in
 {
   programs.claude-code = {
     enable = true;
-    plugins = [ plugin ];
+    plugins.claude-notifications-go = plugin;
     context = config.agent.context;
     settings = {
       model = "claude-opus-4-8";
