@@ -62,6 +62,7 @@
       steam
 
       niri
+      swaylock
       scrutiny
 
       ./disk.nix
