@@ -6,6 +6,7 @@
   gestureSwipeFingers ? "",
   gaps ? "",
   radius ? "",
+  swapCaps ? false,
   threeFingerDrag ? false,
   ...
 }:
@@ -83,6 +84,7 @@ in
           gestureSwipeFingers
           gaps
           radius
+          swapCaps
           threeFingerDrag
           ;
       };
