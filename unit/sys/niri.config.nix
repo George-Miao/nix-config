@@ -119,9 +119,6 @@
       Mod+Shift+Slash {
           show-hotkey-overlay
       }
-      Mod+Return hotkey-overlay-title="Open a Terminal: Ghostty" {
-          spawn "ghostty"
-      }
       Alt+Space hotkey-overlay-title="Run an Application: fuzzel" {
           spawn "fuzzel"
       }
