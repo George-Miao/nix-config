@@ -24,14 +24,20 @@
   ];
 
   environment = {
-    systemPackages = [
+    systemPackages = with pkgs; [
       (import ../../lib/mk-apply.nix {
         inherit pkgs;
         name = "rb";
         rebuildCommand = "nixos-rebuild switch";
       })
+      gnome-calendar
+      gnome-control-center
+      gnome-online-accounts-gtk
     ];
   };
+
+  services.gnome.gnome-online-accounts.enable = true;
+  services.gnome.evolution-data-server.enable = true;
 
   home-manager.users.pop = {
     imports = with unit; [
