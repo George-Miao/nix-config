@@ -75,6 +75,29 @@
       networkmanagerapplet
       osu-lazer-bin
     ];
+
+    services.wluma = {
+      enable = true;
+      settings = {
+        als.iio = {
+          path = "/sys/bus/iio/devices";
+          thresholds = {
+            "0" = "night";
+            "20" = "dark";
+            "80" = "dim";
+            "250" = "normal";
+            "500" = "bright";
+            "800" = "outdoors";
+          };
+        };
+        output.backlight = [
+          {
+            name = "eDP-1";
+            path = "/sys/class/backlight/intel_backlight";
+          }
+        ];
+      };
+    };
     programs.alacritty.settings.font.size = lib.mkForce 11;
     programs.ghostty.settings.font-size = lib.mkForce 11;
   };
