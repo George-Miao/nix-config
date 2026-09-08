@@ -19,6 +19,7 @@
       keybind = [
         "ctrl+shift+tab=unbind"
         "ctrl+tab=unbind"
+        "ctrl+enter=csi:13;5u"
         "ctrl+shift+t=unbind"
         "ctrl+shift+arrow_up=unbind"
         "ctrl+shift+arrow_down=unbind"
