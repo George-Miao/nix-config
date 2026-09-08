@@ -19,6 +19,7 @@ let
     "photo"
     "video"
     "reolink"
+    "dev"
   ];
 in
 {
