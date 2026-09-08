@@ -36,6 +36,8 @@
     };
   };
 
+  home.packages = lib.optionals pkgs.stdenv.hostPlatform.isLinux [ pkgs.bubblewrap ];
+
   # Codex persists runtime state (e.g. trusted-directory decisions) by
   # writing straight into config.toml. Home Manager normally manages that
   # file as a read-only symlink into the Nix store, which silently breaks
