@@ -188,11 +188,11 @@
         "vericert": "vericert"
       },
       "locked": {
-        "lastModified": 1786603333,
-        "narHash": "sha256-9d9+MQYscFu/jYrjpTnabnlk2V9unyImR2E6G/pKaCc=",
+        "lastModified": 1788776026,
+        "narHash": "sha256-Pqmkd2weEs/dtJu6A1rCBXq7IhJPvwaAfXPYY0BSOms=",
         "owner": "George-Miao",
         "repo": "flakes",
-        "rev": "f51ae50939dbe67ee361d7020eda7353bac13b9d",
+        "rev": "3f7d2f14f2e10b58f0267ee5940ba8c1f40eab60",
         "type": "github"
       },
       "original": {
@@ -386,11 +386,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1788039129,
-        "narHash": "sha256-pa4Q0qErvCvzCaaUph7Sm37RhR4xvPrYI8Lgz6k85+A=",
+        "lastModified": 1788614874,
+        "narHash": "sha256-7QYjT2vHLuX9Z1pdxHXDKCbh1CR3D/2rywB9Tx0MPRg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d2f67949798825fe853f7c5d0492b8bf016d3f88",
+        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
         "type": "github"
       },
       "original": {
