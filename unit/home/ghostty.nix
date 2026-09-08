@@ -10,6 +10,7 @@
     settings = {
       theme = "everforest-light-soft";
       command = "direct:${pkgs.zellij}/bin/zellij attach --create main";
+      confirm-close-surface = false;
       font-family = "CaskaydiaCove Nerd Font Mono";
       font-size = 14;
       cursor-style = "block";
