@@ -91,7 +91,7 @@ in
           bind "enter" { SwitchToMode "normal"; }
       }
       shared_except "locked" "session" {
-          ${bind "Super o" "SwitchToMode \"session\";"}
+          bind "Super o" { SwitchToMode "session"; }
       }
       shared_except "locked" "scroll" {
           ${bind "Super s" "SwitchToMode \"scroll\";"}
@@ -111,7 +111,7 @@ in
           bind "e" { EditScrollback; SwitchToMode "normal"; }
       }
       session {
-          ${bind "Super o" "SwitchToMode \"normal\";"}
+          bind "Super o" { SwitchToMode "normal"; }
           bind "a" {
               LaunchOrFocusPlugin "zellij:about" {
                   floating true
