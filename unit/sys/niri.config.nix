@@ -101,6 +101,11 @@
       }
   }
   window-rule {
+      match title="(?i)^rotatrix$"
+      open-floating true
+      default-floating-position x=10 y=10 relative-to="bottom-right"
+  }
+  window-rule {
       match app-id="^Alacritty$"
       background-effect {
         blur true
