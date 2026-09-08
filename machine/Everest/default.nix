@@ -42,6 +42,7 @@
       nvidia
       steam
       obs-studio
+      rotatrix
       postgresql
       vscode-server
       # virtualbox # Wait for https://github.com/NixOS/nixpkgs/pull/512148
