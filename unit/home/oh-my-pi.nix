@@ -31,7 +31,11 @@ let
     { name = "@czottmann/pi-automode"; }
   ];
   configFile = (pkgs.formats.yaml { }).generate "omp-config.yml" {
-    modelRoles.default = "openai-codex/gpt-5.6-sol";
+    advisor.enabled = true;
+    modelRoles = {
+      default = "openai-codex/gpt-6-astra";
+      advisor = "openai-codex/gpt-5.6-luna";
+    };
     setupVersion = 1;
     symbolPreset = "nerd";
     theme.light = "light";
