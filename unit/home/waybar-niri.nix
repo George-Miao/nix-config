@@ -3,6 +3,89 @@
   brightness ? false,
 }:
 { lib, pkgs, ... }:
+let
+  codexUsage = pkgs.writeShellApplication {
+    name = "waybar-codex-usage";
+    runtimeInputs = with pkgs; [
+      coreutils
+      jq
+    ];
+    text = ''
+      emit_error() {
+        jq -cn \
+          --arg text "Codex ?" \
+          --arg tooltip "Codex usage is unavailable" \
+          '{ text: $text, tooltip: $tooltip }'
+      }
+
+      if ! usage="$(omp usage --json --redact --provider openai-codex 2>/dev/null)"; then
+        emit_error
+        exit 0
+      fi
+
+      if ! row="$(
+        jq -r '
+          (.reports // [] | map(select(.provider == "openai-codex")) | first) as $report
+          | (
+              ($report.limits // [])
+              | map(
+                  select(
+                    .scope.windowId == "7d"
+                    and (.scope.tier == null)
+                  )
+                )
+              | first
+            ) as $weekly
+          | if
+              $report == null
+              or $weekly == null
+              or $weekly.amount.used == null
+              or $weekly.window.resetsAt == null
+            then
+              empty
+            else
+              [
+                ($weekly.amount.used | floor),
+                $weekly.window.resetsAt,
+                ($report.resetCredits.availableCount // 0)
+              ]
+              | @tsv
+            end
+        ' <<< "$usage"
+      )"; then
+        emit_error
+        exit 0
+      fi
+
+      if [[ -z "$row" ]]; then
+        emit_error
+        exit 0
+      fi
+
+      IFS=$'\t' read -r used resets_at banked <<< "$row"
+      seconds_left=$((resets_at / 1000 - $(date +%s)))
+      if ((seconds_left < 0)); then
+        seconds_left=0
+      fi
+      days=$((seconds_left / 86400))
+      hours=$(((seconds_left % 86400) / 3600))
+
+      case "$banked" in
+        0) resets_text="No Reset" ;;
+        1) resets_text="1 Reset" ;;
+        *) resets_text="$banked Resets" ;;
+      esac
+
+      text="$used% ''${days}d''${hours}h | $resets_text"
+      tooltip="Codex weekly limit: $used% used"$'\n'"Resets in ''${days}d''${hours}h"$'\n'"Banked resets: $resets_text"
+
+      jq -cn \
+        --arg text "$text" \
+        --arg tooltip "$tooltip" \
+        '{ text: $text, tooltip: $tooltip }'
+    '';
+  };
+in
 {
   programs.waybar = {
     enable = true;
@@ -29,6 +112,7 @@
           "clock"
         ];
         modules-right = [
+          "custom/codex-usage"
           "wireplumber#sink"
         ]
         ++ lib.optional brightness "backlight"
@@ -107,6 +191,12 @@
           on-click = "systemctl poweroff";
           tooltip = true;
           tooltip-format = "Power Off";
+        };
+        "custom/codex-usage" = {
+          exec = lib.getExe codexUsage;
+          return-type = "json";
+          interval = 60;
+          tooltip = true;
         };
         clock = {
           interval = 1;
@@ -274,6 +364,7 @@
       @define-color wireplumber-muted-color @red;
       @define-color backlight-color @yellow;
       @define-color disk-color @cyan;
+      @define-color codex-usage-color @cyan;
       @define-color updates-color @orange;
       @define-color quote-color @green;
       @define-color idle-inhibitor-color @foreground;
@@ -311,6 +402,7 @@
       #wireplumber,
       #backlight,
       #disk,
+      #custom-codex-usage,
       #power-profiles-daemon,
       #idle_inhibitor,
       #tray {
@@ -465,6 +557,11 @@
       #disk {
           color: @disk-color;
           border-bottom-color: @disk-color;
+      }
+
+      #custom-codex-usage {
+          color: @codex-usage-color;
+          border-bottom-color: @codex-usage-color;
       }
 
       #idle_inhibitor {
