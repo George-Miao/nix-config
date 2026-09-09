@@ -10,6 +10,12 @@ let
       pkgs.oh-my-pi.overrideAttrs { nativeBuildInputs = [ ]; }
     else
       pkgs.oh-my-pi;
+  linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
+    lib.makeLibraryPath [
+      pkgs.alsa-lib
+      pkgs.libpulseaudio
+    ]
+  );
   plugins = [
     # 0.18.0+ imports resizeImage, which OMP's legacy coding-agent shim does not expose.
     {
@@ -114,6 +120,9 @@ let
     name = "omp";
     runtimeInputs = [ pkgs.bun ];
     text = ''
+      ${lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+        export LD_LIBRARY_PATH=${lib.escapeShellArg linuxAudioLibraryPath}"''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+      ''}
       case "''${1-}" in
         plugin | completions | --help | -h | --version | -V)
           exec ${ohMyPi}/bin/omp "$@"
