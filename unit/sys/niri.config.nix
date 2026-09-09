@@ -157,8 +157,11 @@
       Mod+Y {
           spawn-sh "
               niri msg action move-window-to-floating &&
+              sleep 0.1 &&
               niri msg action set-window-height 70% &&
+              sleep 0.1 &&
               niri msg action set-window-width 60% &&
+              sleep 0.1 &&
               niri msg action center-window
           "
       }
