@@ -52,5 +52,15 @@ in
     rotatrix
   ];
 
+  home-manager.users.pop.systemd.user.services.rotatrix = {
+    Unit.Description = "Rotatrix desktop controller";
+    Install.WantedBy = [ "graphical-session.target" ];
+    Service = {
+      ExecStart = "${rotatrix}/bin/rotatrix";
+      Restart = "on-failure";
+      RestartSec = 2;
+    };
+  };
+
   services.udev.packages = udevRules;
 }
