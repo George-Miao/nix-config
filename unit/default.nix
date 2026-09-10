@@ -198,7 +198,7 @@ rec {
           # freecad-wayland
           appimage-run
           # gui-for-clash
-          # wechat-uos
+          wechat-uos
           yubioath-flutter
           # chromium
           zotero
