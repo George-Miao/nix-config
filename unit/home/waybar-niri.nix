@@ -105,6 +105,9 @@ in
           "memory"
           "temperature"
           "disk"
+        ]
+        ++ lib.optional battery "battery"
+        ++ [
           "niri/workspaces"
           "niri/window"
         ];
@@ -118,9 +121,6 @@ in
         ++ lib.optional brightness "backlight"
         ++ [
           "network"
-        ]
-        ++ lib.optional battery "battery"
-        ++ [
           "group/session"
           "tray"
         ];
@@ -251,7 +251,7 @@ in
             critical = 15;
           };
           format = "{icon} {capacity}%";
-          format-charging = "󰂄 {capacity}%";
+          format-charging = "󰂄 {capacity}% {power:.1f}W";
           format-plugged = "󰚥 {capacity}%";
           format-alt = "{icon} {time}";
           format-icons = [

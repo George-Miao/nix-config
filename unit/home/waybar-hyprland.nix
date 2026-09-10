@@ -134,7 +134,7 @@
             critical = 20;
           };
           format = "{icon} {capacity}%";
-          format-charging = " {capacity}%";
+          format-charging = " {capacity}% {power:.1f}W";
           format-plugged = " {capacity}%";
           format-alt = "{time} {icon}";
           format-icons = [
