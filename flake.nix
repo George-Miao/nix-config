@@ -237,6 +237,7 @@
             devShells.default = pkgs.mkShell {
               packages = with pkgs; [
                 uv
+                git-lfs
               ];
             };
             packages = rec {
