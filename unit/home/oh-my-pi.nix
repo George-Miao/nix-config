@@ -30,6 +30,29 @@ let
     }
     { name = "@czottmann/pi-automode"; }
   ];
+  # OMP stops message_end handlers after 30 seconds. Cancel automatic
+  # summarization first so pi-condense restores the pending batches for retry.
+  piCondensePatch = pkgs.writeText "pi-condense-message-end-timeout.patch" ''
+    --- a/index.ts
+    +++ b/index.ts
+    @@ -795,8 +795,15 @@
+       // before awaiting summarization so print-mode shutdown cannot invalidate the
+       // persistence path while the summarizer model is running.
+       pi.on("message_end", async (event, ctx) => {
+         if (!currentConfig.value.enabled) return;
+         if (currentConfig.value.pruneOn !== "agent-message") return;
+         if (!isFinalAssistantMessage(event.message)) return;
+    -    await flushPending(ctx, { delivery: "session", closingMessage: event.message });
+    +    const timeoutController = new AbortController();
+    +    const timeoutId = setTimeout(() => timeoutController.abort(), 25_000);
+    +    timeoutId.unref?.();
+    +    try {
+    +      await flushPending(ctx, { delivery: "session", closingMessage: event.message, signal: timeoutController.signal });
+    +    } finally {
+    +      clearTimeout(timeoutId);
+    +    }
+       });
+  '';
   configFile = (pkgs.formats.yaml { }).generate "omp-config.yml" {
     advisor.enabled = true;
     modelRoles = {
@@ -71,7 +94,11 @@ let
     '';
   };
   settingsFile = (pkgs.formats.json { }).generate "omp-settings.json" {
-    contextPrune.summarizerModel = "openai-codex/gpt-5.6-luna";
+    contextPrune = {
+      summarizerModel = "openai-codex/gpt-5.6-luna";
+      # The automatic flush deadline above cancels first and retries silently.
+      summarizerIdleTimeoutMs = 45000;
+    };
   };
   syncSettings = pkgs.writeShellApplication {
     name = "sync-omp-settings";
@@ -191,5 +218,13 @@ in
         fi
       ''
     ) plugins}
+
+    piCondenseDir="$HOME/.omp/plugins/node_modules/pi-condense"
+    piCondenseIndex="$piCondenseDir/index.ts"
+    if [[ -f "$piCondenseIndex" ]] && ! ${lib.getExe pkgs.gnugrep} -q "timeoutController.abort(), 25_000" "$piCondenseIndex"; then
+      $DRY_RUN_CMD ${lib.getExe pkgs.git} \
+        -C "$piCondenseDir" \
+        apply ${piCondensePatch}
+    fi
   '';
 }
