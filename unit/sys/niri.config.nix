@@ -1,4 +1,6 @@
 {
+  cursorName,
+  cursorSize,
   display ? "",
   extraKeybinds ? "",
   gestureSwipeFingers ? "",
@@ -10,6 +12,10 @@
 ''
   debug {
     emulate-zero-presentation-time
+  }
+  cursor {
+      xcursor-theme "${cursorName}"
+      xcursor-size ${toString cursorSize}
   }
   input {
       keyboard {
