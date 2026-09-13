@@ -13,6 +13,7 @@
     ratbag
     fwupd
     adb
+    (unit.sys."usb-automount")
     spacenav
     probe-rs
     flipper
