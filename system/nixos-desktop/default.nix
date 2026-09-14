@@ -3,6 +3,30 @@
   unit,
   ...
 }:
+let
+  vncdo = pkgs.python3Packages.vncdotool.overridePythonAttrs (oldAttrs: rec {
+    pname = "vncdotool";
+    version = "1.4.2";
+
+    src = pkgs.fetchPypi {
+      inherit pname version;
+      hash = "sha256-A8RuGiGFSFB3Ipypd1IhKXa91kyzblXotHpUYUjn6bA=";
+    };
+
+    propagatedBuildInputs = with pkgs.python3Packages; [
+      cryptography
+      pillow
+      twisted
+    ];
+
+    # Functional tests require the vncdo entry point before installation.
+    enabledTestPaths = [ "tests/unit" ];
+
+    meta = oldAttrs.meta // {
+      changelog = "https://github.com/sibson/vncdotool/releases/tag/v${version}";
+    };
+  });
+in
 {
   imports = with unit.sys; [
     ../shared
@@ -34,6 +58,8 @@
       gnome-calendar
       gnome-control-center
       gnome-online-accounts-gtk
+      vncdo
+      pkgs.wayvnc
     ];
   };
 
