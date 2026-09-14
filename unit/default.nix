@@ -194,7 +194,8 @@ rec {
           qbittorrent
           # bottles-unwrapped
           # teamspeak3
-          # kicad
+          kicad
+          horizon-eda
           # freecad-wayland
           appimage-run
           # gui-for-clash
