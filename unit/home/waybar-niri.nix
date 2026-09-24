@@ -176,7 +176,7 @@ in
         };
         "custom/lock" = {
           format = "<span color='#00FFFF'>  </span>";
-          on-click = "swaylock -c 000000";
+          on-click = "swaylock --screenshots --effect-blur 10x10";
           tooltip = true;
           tooltip-format = "Lock screen";
         };
