@@ -18,6 +18,9 @@
           }
         '';
         extraKeybinds = ''
+          Mod+L hotkey-overlay-title="Lock the Computer" repeat=false {
+              spawn "${lib.getExe pkgs.swaylock-effects}" "--screenshots" "--effect-blur" "10x10"
+          }
           XF86AudioPrev allow-when-locked=true {
               spawn "${lib.getExe pkgs.playerctl}" "previous"
           }
