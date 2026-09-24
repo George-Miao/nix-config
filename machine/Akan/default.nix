@@ -111,6 +111,8 @@
   networking.networkmanager.enable = true;
 
   boot = {
+    kernel.sysctl."vm.swappiness" = 100;
+    zswap.enable = true;
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -125,6 +127,23 @@
   };
 
   time.timeZone = lib.mkDefault "America/New_York";
+
+  systemd.services.btintel-pcie-hibernate = {
+    description = "Unload Intel Bluetooth before hibernation";
+    requiredBy = [ "systemd-hibernate.service" ];
+    before = [ "systemd-hibernate.service" ];
+    path = [ pkgs.kmod ];
+    script = "modprobe -r btintel_pcie";
+    postStop = "modprobe btintel_pcie";
+    unitConfig = {
+      DefaultDependencies = false;
+      StopWhenUnneeded = true;
+    };
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+  };
 
   services = {
     automatic-timezoned.enable = true;
