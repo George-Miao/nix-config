@@ -5,11 +5,7 @@
   ...
 }:
 let
-  ohMyPi =
-    if pkgs.stdenv.hostPlatform.isLinux then
-      pkgs.oh-my-pi.overrideAttrs { nativeBuildInputs = [ ]; }
-    else
-      pkgs.oh-my-pi;
+  ompPackage = pkgs.omp;
   linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
       pkgs.alsa-lib
@@ -156,7 +152,7 @@ let
       ''}
       case "''${1-}" in
         plugin | completions | --help | -h | --version | -V)
-          exec ${ohMyPi}/bin/omp "$@"
+          exec ${ompPackage}/bin/omp "$@"
           ;;
       esac
 
@@ -166,13 +162,13 @@ let
         exit 1
       fi
 
-      if ! ${ohMyPi}/bin/omp plugin doctor --json >/dev/null; then
+      if ! ${ompPackage}/bin/omp plugin doctor --json >/dev/null; then
         echo "omp: refusing to start because an OMP plugin failed validation" >&2
         echo "omp: run 'omp plugin doctor' for details" >&2
         exit 1
       fi
 
-      exec ${ohMyPi}/bin/omp "$@"
+      exec ${ompPackage}/bin/omp "$@"
     '';
   };
 in
