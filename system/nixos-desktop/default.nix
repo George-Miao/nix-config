@@ -78,7 +78,10 @@ in
         nautilus
         pciutils
         glibc
-        plex-desktop
+        # Native Wayland falls back to llvmpipe on NVIDIA.
+        (plex-desktop.override {
+          extraEnv.WAYLAND_DISPLAY = "";
+        })
         usbutils
         grub2
         evince
