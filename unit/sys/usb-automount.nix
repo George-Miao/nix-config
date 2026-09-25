@@ -20,11 +20,11 @@ let
       state_file="$state_dir/$device_name"
 
       mkdir -p "$state_dir"
-      exec 9>"$state_dir/lock"
-      flock 9
 
       case "$action" in
         mount)
+          exec 9>"$state_dir/lock"
+          flock 9
           if [[ ! -b "$device" ]]; then
             echo "Block device does not exist: $device" >&2
             exit 1
@@ -68,7 +68,30 @@ let
 
           echo "Mounted $device at $mountpoint"
           ;;
+        monitor)
+          if [[ ! -f "$state_file" ]]; then
+            exit 0
+          fi
+
+          IFS= read -r mountpoint <"$state_file"
+          if [[ ! "$mountpoint" =~ ^/data/usb[1-9][0-9]*$ ]]; then
+            echo "Invalid mountpoint state: $mountpoint" >&2
+            exit 1
+          fi
+
+          # Keep the service active until the mount disappears.
+          while mountpoint --quiet "$mountpoint"; do
+            findmnt \
+              --poll=umount \
+              --first-only \
+              --timeout 1000 \
+              --mountpoint "$mountpoint" \
+              --noheadings >/dev/null || true
+          done
+          ;;
         unmount)
+          exec 9>"$state_dir/lock"
+          flock 9
           if [[ ! -f "$state_file" ]]; then
             exit 0
           fi
@@ -105,9 +128,9 @@ in
     bindsTo = [ "dev-%i.device" ];
     after = [ "dev-%i.device" ];
     serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStart = "${usbAutomount}/bin/usb-automount mount %I";
+      Type = "simple";
+      ExecStartPre = "${usbAutomount}/bin/usb-automount mount %I";
+      ExecStart = "${usbAutomount}/bin/usb-automount monitor %I";
       ExecStopPost = "${usbAutomount}/bin/usb-automount unmount %I";
       TimeoutStartSec = 30;
       TimeoutStopSec = 30;
