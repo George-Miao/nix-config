@@ -99,7 +99,6 @@ rec {
           alacritty
           ghostty
           zed
-          rustfmt
           forgejo-cli
           agent
           claude-code

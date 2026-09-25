@@ -1,0 +1,44 @@
+$ niri msg windows --help
+List open windows
+
+Usage: niri msg windows
+
+Options:
+  -h, --help  Print help
+
+$ niri msg action screenshot-window --help
+Screenshot the focused window
+
+Usage: niri msg action screenshot-window [OPTIONS]
+
+Options:
+      --id <ID>
+          Id of the window to screenshot.
+
+          If `None`, uses the focused window.
+
+  -d, --write-to-disk <WRITE_TO_DISK>
+          Write the screenshot to disk in addition to putting it in your clipboard.
+
+          The screenshot is saved according to the `screenshot-path` config setting.
+
+          [default: true]
+          [possible values: true, false]
+
+  -p, --show-pointer <SHOW_POINTER>
+          Whether to include the mouse pointer in the screenshot.
+
+          The pointer will be included only if the window is currently receiving pointer input (usually this means the pointer is on top of the window).
+
+          [default: false]
+          [possible values: true, false]
+
+      --path <PATH>
+          Path to save the screenshot to.
+
+          The path must be absolute, otherwise an error is returned.
+
+          If `None`, the screenshot is saved according to the `screenshot-path` config setting.
+
+  -h, --help
+          Print help (see a summary with '-h')
