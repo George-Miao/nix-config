@@ -177,6 +177,7 @@ rec {
           chromium
           bambu-studio
           mailspring
+          spotifast
           zen-browser
           # wine
           fcitx5
