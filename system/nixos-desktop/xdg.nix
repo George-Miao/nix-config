@@ -10,6 +10,7 @@ let
     "image/tiff" = "org.gnome.eog.desktop";
     "image/svg+xml" = "org.gnome.eog.desktop";
     "x-scheme-handler/tg" = "org.telegram.desktop.desktop";
+    "x-scheme-handler/spotify" = "spotifast.desktop";
     "application/pdf" = "org.gnome.Evince.desktop";
     "x-scheme-handler/http" = "zen-twilight.desktop";
     "x-scheme-handler/https" = "zen-twilight.desktop";
