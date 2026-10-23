@@ -8,6 +8,7 @@
     "${modulesPath}/installer/scan/not-detected.nix"
 
     # (tailscale {isServer = true;})
+    ./qbittorrent.nix
 
     ./hardware.nix
   ];
