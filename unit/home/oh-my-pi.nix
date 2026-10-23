@@ -80,6 +80,18 @@ let
     # would ask again after the classifier already approved an action.
     tools.approvalMode = "yolo";
   };
+  lspFile = (pkgs.formats.json { }).generate "omp-lsp.json" {
+    servers.tinymist = {
+      command = lib.getExe pkgs.tinymist;
+      args = [ "lsp" ];
+      fileTypes = [ ".typ" ];
+      languageId = "typst";
+      rootMarkers = [
+        "typst.toml"
+        "*.typ"
+      ];
+    };
+  };
   syncConfig = pkgs.writeShellApplication {
     name = "sync-omp-config";
     runtimeInputs = [
@@ -196,6 +208,7 @@ in
   # OMP writes runtime settings to this file. Keep it outside Home Manager's
   # read-only store links, and merge new Nix defaults underneath runtime edits.
   home.file.".omp/agent/config.yml".enable = false;
+  home.file.".omp/agent/lsp.json".source = lspFile;
 
   home.activation.syncOmpConfig = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     $DRY_RUN_CMD ${syncConfig}/bin/sync-omp-config "$HOME/.omp/agent/config.yml"
