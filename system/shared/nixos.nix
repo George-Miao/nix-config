@@ -48,6 +48,7 @@
       dates = [ "03:45" ];
     };
   };
+  systemd.services.nix-daemon.serviceConfig.Nice = 5;
   environment = {
     localBinInPath = true;
     systemPackages = with pkgs; [
