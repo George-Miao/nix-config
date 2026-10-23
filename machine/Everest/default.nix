@@ -24,13 +24,6 @@
           "/dev/nvme0"
         ];
       };
-      vector = unit.sys.vector {
-        hostname = "Everest";
-        include_units = [
-          "home-manager-pop"
-          "netbird"
-        ];
-      };
     in
     with unit.sys;
     [
@@ -49,7 +42,6 @@
 
       niri
       scrutiny
-      vector
 
       ./hardware.nix
       ./samba.nix

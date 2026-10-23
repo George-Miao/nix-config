@@ -139,7 +139,6 @@ rec {
           unrar
           devenv
           cargo-feature
-          vector
           discord
           nix-search-cli
           espup

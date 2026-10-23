@@ -5,46 +5,23 @@
   ...
 }:
 {
-  imports =
-    with unit.sys;
-    let
-      vec = vector {
-        hostname = "YUL";
-        include_units = [ "zurg_rclone" ];
-        extra_inputs = [ "docker_with_labels" ];
-        extra_groups = [ "docker" ];
-        extra_settings = {
-          sources.docker = {
-            type = "docker_logs";
-          };
-          transforms.docker_with_labels = {
-            type = "remap";
-            inputs = [ "docker" ];
-            source = ''
-              .service, err = replace(.container_name, r'^(?<service>.*?)\.\d+\..*', "$$service")
-            '';
-          };
-        };
-      };
-    in
-    [
-      inputs.disko.nixosModules.disko
+  imports = with unit.sys; [
+    inputs.disko.nixosModules.disko
 
-      "${modulesPath}/installer/scan/not-detected.nix"
+    "${modulesPath}/installer/scan/not-detected.nix"
 
-      vec
-      caprover
-      # (tailscale {isServer = true;})
-      (scrutiny {
-        devices = [
-          "/dev/nvme0"
-          "/dev/nvme1"
-        ];
-      })
-      (zurg_rclone "/data/zurg")
+    caprover
+    # (tailscale {isServer = true;})
+    (scrutiny {
+      devices = [
+        "/dev/nvme0"
+        "/dev/nvme1"
+      ];
+    })
+    (zurg_rclone "/data/zurg")
 
-      ./disk.nix
-    ];
+    ./disk.nix
+  ];
 
   home-manager.users.pop.imports = [ ];
 
