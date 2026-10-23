@@ -5,7 +5,25 @@
   ...
 }:
 let
-  ompPackage = pkgs.omp;
+  ompPackage = pkgs.omp.overrideAttrs (
+    finalAttrs: previousAttrs: {
+      version = "18.4.4";
+      src = pkgs.fetchFromGitHub {
+        owner = "can1357";
+        repo = "oh-my-pi";
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-S8Oz/xYEJCIc36S9u2UWXqYYQhjFxKMMzgFiB9PRVcY=";
+      };
+      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+        inherit (finalAttrs) src;
+        hash = "sha256-8iLC2HfeYFWF8QJJGxPeveogLP5k+Tyik/ozgzZpXXo=";
+      };
+      node_modules = previousAttrs.node_modules.overrideAttrs (_: {
+        inherit (finalAttrs) version src;
+        outputHash = "sha256-w9p8e0KlfTiqcxz0jMnIcnJI3zQiE8qIDAjjLRDodWo=";
+      });
+    }
+  );
   linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
       pkgs.alsa-lib
