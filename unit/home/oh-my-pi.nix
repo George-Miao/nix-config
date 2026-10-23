@@ -225,7 +225,7 @@ in
 
   # pi-automode deliberately reads Pi-owned configuration even under OMP.
   # Per-project, uncommitted overrides belong in .pi/automode.local.json.
-  home.file.".pi/agent/automode.json".source = automodeConfig;
+  home.file.".pi/agent/extensions/pi-automode/config.json".source = automodeConfig;
 
   home.activation.installOmpPlugins = lib.hm.dag.entryAfter [ "syncOmpConfig" ] ''
     ${lib.concatMapStringsSep "\n" (
