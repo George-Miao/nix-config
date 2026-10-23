@@ -7,7 +7,7 @@ let
     install -Dm644 ${
       pkgs.fetchurl {
         url = "https://probe.rs/files/69-probe-rs.rules";
-        hash = "sha256-lOvfpkZ16jIYso6OrlMRdCrfVug0eP8vGkvAQqknX9w=";
+        hash = "sha256-CfLqWaVzR2h2ZxhN/NETb2Zj38D/3BHrjrjZjzHatF0=";
       }
     } $out/lib/udev/rules.d/69-probe-rs.rules
   '';
