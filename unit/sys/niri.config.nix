@@ -97,6 +97,14 @@
       }
   }
   window-rule {
+      match app-id="^[Ww]aydroid"
+      // Waydroid requests maximized-to-edges mode at startup.
+      open-maximized-to-edges false
+      default-column-width {
+          proportion 0.33333
+      }
+  }
+  window-rule {
       match app-id="^zen" title="^Picture-in-Picture$"
       open-floating true
       default-column-width {
