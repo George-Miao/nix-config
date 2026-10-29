@@ -135,7 +135,7 @@ let
   automodeConfig = (pkgs.formats.json { }).generate "omp-automode.json" {
     autoMode = {
       enabled = true;
-      classifierModel = "openai-codex/gpt-5.5";
+      classifierModel = "openai-codex/gpt-6-luna";
       classifierReasoningLevel = "low";
       allowInsideWorkingDirectory = true;
       deniedPaths = [
