@@ -23,7 +23,7 @@
           patches = (old.patches or [ ]) ++ [
             (prev.fetchpatch {
               url = "https://github.com/google/mozc/commit/29c082a64b577b661694148760a2ae19817beb57.patch";
-              hash = "sha256-TcuMPd3E4ZPhU4tmeVD7OMY4tWFJGjiiSXZSh3gn384=";
+              hash = "sha256-Gft1mnLPSMexDMg/PVhwjUVl9D9g1cVGvVNgFmpK168=";
             })
           ];
         });
