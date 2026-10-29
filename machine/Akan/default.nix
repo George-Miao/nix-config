@@ -113,8 +113,17 @@
   networking.networkmanager.enable = true;
 
   hardware.bluetooth.enable = true;
+  hardware.framework.enableKmod = false;
 
   boot = {
+    extraModprobeConfig = ''
+      options cros_charge_control probe_with_fwk_charge_control=1
+    '';
+    kernelModules = [
+      "cros_ec"
+      "cros_ec_lpcs"
+      "cros_charge_control"
+    ];
     kernel.sysctl."vm.swappiness" = 100;
     zswap.enable = true;
     loader = {
@@ -131,6 +140,18 @@
   };
 
   time.timeZone = lib.mkDefault "America/New_York";
+
+  systemd.services.framework-charge-thresholds = {
+    description = "Set Framework battery charge thresholds";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" ];
+    unitConfig.ConditionPathExists = "/sys/class/power_supply/BAT1/charge_control_start_threshold";
+    serviceConfig.Type = "oneshot";
+    script = ''
+      echo 75 > /sys/class/power_supply/BAT1/charge_control_start_threshold
+      echo 80 > /sys/class/power_supply/BAT1/charge_control_end_threshold
+    '';
+  };
 
   systemd.services.btintel-pcie-hibernate = {
     description = "Unload Intel Bluetooth before hibernation";
