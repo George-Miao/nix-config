@@ -17,6 +17,7 @@
 
     overlays = with inputs; [
       rust-overlay.overlays.default
+      ts3-noweb.overlays.default
       # Temporary backport of google/mozc@29c082a for Qt uic.
       (_: prev: {
         mozc = prev.mozc.overrideAttrs (old: {

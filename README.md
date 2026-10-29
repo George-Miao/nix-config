@@ -14,6 +14,7 @@ This configuration uses a modular architecture built on top of `flake-parts`:
   - `/unit/home/*`: Home-manager units for user-space configuration.
   - `/unit/sys/*`: System-level units (NixOS or nix-darwin).
   - `/unit/preset`: Predefined collections of units (bare, core, local, server, gui).
+  - TeamSpeak 3 uses the `Jokler/ts3client-noweb-nix` overlay. The package keeps the `teamspeak3` name but uses a QtWebEngine stub. The Addons "Browse Online" page is empty.
 - **`/system`**: OS-specific system configurations.
   - `/system/shared`: Shared configuration across all systems.
   - `/system/darwin`: macOS-specific configuration.

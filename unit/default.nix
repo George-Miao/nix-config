@@ -192,7 +192,7 @@ rec {
           mpv
           qbittorrent
           # bottles-unwrapped
-          # teamspeak3
+          teamspeak3
           kicad
           horizon-eda
           # freecad-wayland
