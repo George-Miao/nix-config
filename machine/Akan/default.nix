@@ -97,6 +97,7 @@
         output.backlight = [
           {
             name = "eDP-1";
+            capturer = "none";
             path = "/sys/class/backlight/intel_backlight";
           }
         ];
