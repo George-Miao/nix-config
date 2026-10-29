@@ -5,25 +5,6 @@
   ...
 }:
 let
-  ompPackage = pkgs.omp.overrideAttrs (
-    finalAttrs: previousAttrs: {
-      version = "18.4.4";
-      src = pkgs.fetchFromGitHub {
-        owner = "can1357";
-        repo = "oh-my-pi";
-        tag = "v${finalAttrs.version}";
-        hash = "sha256-S8Oz/xYEJCIc36S9u2UWXqYYQhjFxKMMzgFiB9PRVcY=";
-      };
-      cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-        inherit (finalAttrs) src;
-        hash = "sha256-8iLC2HfeYFWF8QJJGxPeveogLP5k+Tyik/ozgzZpXXo=";
-      };
-      node_modules = previousAttrs.node_modules.overrideAttrs (_: {
-        inherit (finalAttrs) version src;
-        outputHash = "sha256-w9p8e0KlfTiqcxz0jMnIcnJI3zQiE8qIDAjjLRDodWo=";
-      });
-    }
-  );
   linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
       pkgs.alsa-lib
@@ -182,7 +163,7 @@ let
       ''}
       case "''${1-}" in
         plugin | completions | --help | -h | --version | -V)
-          exec ${ompPackage}/bin/omp "$@"
+          exec ${pkgs.omp}/bin/omp "$@"
           ;;
       esac
 
@@ -192,13 +173,13 @@ let
         exit 1
       fi
 
-      if ! ${ompPackage}/bin/omp plugin doctor --json >/dev/null; then
+      if ! ${pkgs.omp}/bin/omp plugin doctor --json >/dev/null; then
         echo "omp: refusing to start because an OMP plugin failed validation" >&2
         echo "omp: run 'omp plugin doctor' for details" >&2
         exit 1
       fi
 
-      exec ${ompPackage}/bin/omp "$@"
+      exec ${pkgs.omp}/bin/omp "$@"
     '';
   };
 in
