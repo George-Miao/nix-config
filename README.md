@@ -15,6 +15,8 @@ This configuration uses a modular architecture built on top of `flake-parts`:
   - `/unit/sys/*`: System-level units (NixOS or nix-darwin).
   - `/unit/preset`: Predefined collections of units (bare, core, local, server, gui).
   - TeamSpeak 3 uses the `Jokler/ts3client-noweb-nix` overlay. The package keeps the `teamspeak3` name but uses a QtWebEngine stub. The Addons "Browse Online" page is empty.
+  - OMP uses computer-use-linux 0.7.23 through MCP on Linux. Home Manager installs the three release binaries, enables toolkit accessibility, and writes `~/.omp/agent/mcp.json`. Shell execution and saved desktop permissions stay off. OMP must use the `niri-screenshot` skill for screenshots in niri, not computer-use screenshot tools. Run `computer-use-linux doctor` to check the session.
+  - NixOS desktops import `unit/sys/ydotool.nix`. This unit enables `ydotoold` and adds `pop` to its access group. The MCP wrapper includes `ydotool` and sets its default socket to `/run/ydotoold/socket`. Log out and log in after the first activation to apply group access.
 - **`/system`**: OS-specific system configurations.
   - `/system/shared`: Shared configuration across all systems.
   - `/system/darwin`: macOS-specific configuration.

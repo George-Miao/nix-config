@@ -46,6 +46,7 @@ in
     docker
     pipewire
     keyring
+    ydotool
     kdeconnect
   ];
 
