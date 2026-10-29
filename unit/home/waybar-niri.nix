@@ -1,9 +1,58 @@
 {
   battery ? false,
+  bluetooth ? false,
   brightness ? false,
 }:
 { lib, pkgs, ... }:
 let
+  bluetoothManagerSidebar = pkgs.stdenv.mkDerivation (finalAttrs: {
+    pname = "bluetooth-manager-sidebar";
+    version = "0.2.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "Relz";
+      repo = "bluetooth-manager-sidebar";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-KQuH6tLpwZMLwGgQpAnEp5/ENxLWvDiwMUKmgVK6mQE=";
+    };
+
+    strictDeps = true;
+
+    nativeBuildInputs = with pkgs; [
+      meson
+      ninja
+      pkg-config
+      wrapGAppsHook4
+    ];
+
+    buildInputs = with pkgs; [
+      glib
+      gtk4
+      libadwaita
+      json-glib
+      gtk4-layer-shell
+    ];
+
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --prefix PATH : ${
+          lib.makeBinPath [
+            pkgs.pulseaudio
+            pkgs.util-linux
+          ]
+        }
+      )
+    '';
+
+    meta = {
+      description = "GTK Bluetooth sidebar for Wayland desktops";
+      homepage = "https://github.com/Relz/bluetooth-manager-sidebar";
+      license = lib.licenses.gpl3Plus;
+      mainProgram = "bm-sidebar";
+      platforms = lib.platforms.linux;
+    };
+  });
+
   codexUsage = pkgs.writeShellApplication {
     name = "waybar-codex-usage";
     runtimeInputs = with pkgs; [
@@ -87,6 +136,8 @@ let
   };
 in
 {
+  home.packages = lib.optional bluetooth bluetoothManagerSidebar;
+
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -119,6 +170,7 @@ in
           "wireplumber#sink"
         ]
         ++ lib.optional brightness "backlight"
+        ++ lib.optional bluetooth "bluetooth"
         ++ [
           "network"
           "group/session"
@@ -268,6 +320,17 @@ in
             "󰁹"
           ];
         };
+        bluetooth = {
+          format = "";
+          format-disabled = "";
+          format-off = "";
+          format-on = "";
+          format-connected = " {num_connections}";
+          tooltip-format = "{controller_alias}\t{controller_address}";
+          tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{device_enumerate}";
+          tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
+          on-click = "bm-sidebar --toggle";
+        };
         network = {
           format-wifi = "󰖩 {essid} ({signalStrength}%)";
           format-ethernet = "󰈀 {ifname}";
@@ -358,6 +421,7 @@ in
       @define-color battery-critical-color @red;
       @define-color network-color @blue;
       @define-color network-disconnected-color @red;
+      @define-color bluetooth-color @blue;
       @define-color pulseaudio-color @orange;
       @define-color pulseaudio-muted-color @red;
       @define-color wireplumber-color @orange;
@@ -398,6 +462,7 @@ in
       #temperature,
       #battery,
       #network,
+      #bluetooth,
       #pulseaudio,
       #wireplumber,
       #backlight,
@@ -528,6 +593,11 @@ in
           color: @network-disconnected-color;
           border-bottom-color: @network-disconnected-color;
       }
+      #bluetooth {
+          color: @bluetooth-color;
+          border-bottom-color: @bluetooth-color;
+      }
+
 
       #pulseaudio {
           color: @pulseaudio-color;

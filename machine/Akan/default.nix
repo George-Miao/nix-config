@@ -11,6 +11,7 @@
     let
       niri = unit.sys.niri {
         battery = true;
+        bluetooth = true;
         brightness = true;
         display = ''
           output "China Star Optoelectronics Technology Co., Ltd MND508ZB1-1 Unknown" {
@@ -109,6 +110,8 @@
 
   networking.hostName = "Akan";
   networking.networkmanager.enable = true;
+
+  hardware.bluetooth.enable = true;
 
   boot = {
     kernel.sysctl."vm.swappiness" = 100;

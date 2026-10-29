@@ -1,5 +1,6 @@
 {
   battery ? false,
+  bluetooth ? false,
   brightness ? false,
   display ? "",
   extraKeybinds ? "",
@@ -78,7 +79,13 @@ in
     };
 
     imports = with unit.home; [
-      (waybar-niri { inherit battery brightness; })
+      (waybar-niri {
+        inherit
+          battery
+          bluetooth
+          brightness
+          ;
+      })
       fuzzel
       swaync
       wpaperd
