@@ -37,6 +37,7 @@ in
     ratbag
     fwupd
     adb
+    waydroid
     (unit.sys."usb-automount")
     spacenav
     probe-rs
