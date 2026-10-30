@@ -95,6 +95,16 @@
       }
   }
   window-rule {
+      match app-id="^zen" title="^Picture-in-Picture$"
+      open-floating true
+      default-column-width {
+          fixed 480
+      }
+      default-window-height {
+          fixed 270
+      }
+  }
+  window-rule {
       match app-id="^[Ww]aydroid"
       // Waydroid requests maximized-to-edges mode at startup.
       open-maximized-to-edges false
@@ -103,13 +113,9 @@
       }
   }
   window-rule {
-      match app-id="^zen" title="^Picture-in-Picture$"
-      open-floating true
+      match app-id="^waydroid[.]eu[.]kanade[.]tachiyomi([.]|$)"
       default-column-width {
-          fixed 480
-      }
-      default-window-height {
-          fixed 270
+          proportion 0.66667
       }
   }
   window-rule {
