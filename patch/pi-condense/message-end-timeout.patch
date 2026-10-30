@@ -1,0 +1,19 @@
+--- a/index.ts
++++ b/index.ts
+@@ -795,8 +795,15 @@
+   // before awaiting summarization so print-mode shutdown cannot invalidate the
+   // persistence path while the summarizer model is running.
+   pi.on("message_end", async (event, ctx) => {
+     if (!currentConfig.value.enabled) return;
+     if (currentConfig.value.pruneOn !== "agent-message") return;
+     if (!isFinalAssistantMessage(event.message)) return;
+-    await flushPending(ctx, { delivery: "session", closingMessage: event.message });
++    const timeoutController = new AbortController();
++    const timeoutId = setTimeout(() => timeoutController.abort(), 25_000);
++    timeoutId.unref?.();
++    try {
++      await flushPending(ctx, { delivery: "session", closingMessage: event.message, signal: timeoutController.signal });
++    } finally {
++      clearTimeout(timeoutId);
++    }
+   });

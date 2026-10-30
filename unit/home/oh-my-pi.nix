@@ -29,13 +29,13 @@ let
     inherit (pkgs.computer-use-linux) meta;
   };
   plugins = [
-    # 0.18.0+ imports resizeImage, which OMP's legacy coding-agent shim does not expose.
+    # 0.46.0 still needs the missing resizeImage export for direct image fetching.
     {
       name = "pi-web-access";
       version = "0.17.1";
     }
     { name = "@juicesharp/rpiv-ask-user-question"; }
-    # 2.4.1+ requires the upstream Pi ModelRegistry.getProviderAuth API, which OMP does not expose.
+    # 2.13.1 needs ModelRegistry.streamSimple, which OMP does not expose.
     {
       name = "pi-condense";
       version = "2.4.0";
@@ -44,27 +44,7 @@ let
   ];
   # OMP stops message_end handlers after 30 seconds. Cancel automatic
   # summarization first so pi-condense restores the pending batches for retry.
-  piCondensePatch = pkgs.writeText "pi-condense-message-end-timeout.patch" ''
-    --- a/index.ts
-    +++ b/index.ts
-    @@ -795,8 +795,15 @@
-       // before awaiting summarization so print-mode shutdown cannot invalidate the
-       // persistence path while the summarizer model is running.
-       pi.on("message_end", async (event, ctx) => {
-         if (!currentConfig.value.enabled) return;
-         if (currentConfig.value.pruneOn !== "agent-message") return;
-         if (!isFinalAssistantMessage(event.message)) return;
-    -    await flushPending(ctx, { delivery: "session", closingMessage: event.message });
-    +    const timeoutController = new AbortController();
-    +    const timeoutId = setTimeout(() => timeoutController.abort(), 25_000);
-    +    timeoutId.unref?.();
-    +    try {
-    +      await flushPending(ctx, { delivery: "session", closingMessage: event.message, signal: timeoutController.signal });
-    +    } finally {
-    +      clearTimeout(timeoutId);
-    +    }
-       });
-  '';
+  piCondensePatch = ../../patch/pi-condense/message-end-timeout.patch;
   configFile = (pkgs.formats.yaml { }).generate "omp-config.yml" {
     advisor.enabled = true;
     modelRoles = {
