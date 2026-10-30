@@ -12,67 +12,22 @@ let
     ]
   );
   # Use MCP because the native Pi plugin requires a newer Pi API than OMP.
-  computerUseLinux = pkgs.stdenv.mkDerivation (
-    let
-      version = "0.7.23";
-      hashes = {
-        x86_64-linux = {
-          computer-use-linux = "16773c60978f6327f0e586f73e83442014bafe55e713df699a76f5cf80be9cff";
-          computer-use-linux-cosmic = "c125c1dd2c7e7afca4c6ea01febdc0d7cf2f52887afd04ec1df6b13e93da3589";
-          computer-use-linux-indicator = "a69e6707ad8887b93cc69f1a25cfc3913460fd145470303791b249bcb4e271f1";
-        };
-        aarch64-linux = {
-          computer-use-linux = "87412936360c65d7754415a37e4167b86c467c2f3d6307eb471a39a17731b213";
-          computer-use-linux-cosmic = "acc9af8ca71623caf75e53c7a20c1969705d284865e68676a5391994c92fc052";
-          computer-use-linux-indicator = "0afc51276b0f8b32eeb0aa8307672f52e4c5573377168d82e3efbe777e0429d3";
-        };
-      };
-      binaries = lib.mapAttrs (
-        name: sha256:
-        pkgs.fetchurl {
-          url = "https://github.com/agent-sh/computer-use-linux/releases/download/v${version}/${name}-${pkgs.stdenv.hostPlatform.parsed.cpu.name}-unknown-linux-gnu";
-          inherit sha256;
+  computerUseLinux = pkgs.symlinkJoin {
+    name = "${pkgs.computer-use-linux.name}-omp";
+    paths = [ pkgs.computer-use-linux ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram "$out/bin/computer-use-linux" \
+        --set-default YDOTOOL_SOCKET /run/ydotoold/socket \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            pkgs.ydotool
+            pkgs.glib
+          ]
         }
-      ) hashes.${pkgs.stdenv.hostPlatform.system};
-    in
-    {
-      pname = "computer-use-linux";
-      inherit version;
-      dontUnpack = true;
-      nativeBuildInputs = [
-        pkgs.autoPatchelfHook
-        pkgs.makeWrapper
-      ];
-      buildInputs = [ pkgs.stdenv.cc.cc.lib ];
-      installPhase = ''
-        runHook preInstall
-        mkdir -p "$out/bin"
-        ${lib.concatMapStringsSep "\n" (name: ''install -m755 ${binaries.${name}} "$out/bin/${name}"'') (
-          builtins.attrNames binaries
-        )}
-        wrapProgram "$out/bin/computer-use-linux" \
-          --set-default YDOTOOL_SOCKET /run/ydotoold/socket \
-          --prefix PATH : ${
-            lib.makeBinPath [
-              pkgs.wtype
-              pkgs.ydotool
-              pkgs.xdotool
-              pkgs.wmctrl
-              pkgs.xprop
-              pkgs.glib
-            ]
-          }
-        runHook postInstall
-      '';
-      meta = {
-        description = "Linux desktop control through MCP";
-        homepage = "https://github.com/agent-sh/computer-use-linux";
-        license = lib.licenses.mit;
-        platforms = builtins.attrNames hashes;
-        mainProgram = "computer-use-linux";
-      };
-    }
-  );
+    '';
+    inherit (pkgs.computer-use-linux) meta;
+  };
   plugins = [
     # 0.18.0+ imports resizeImage, which OMP's legacy coding-agent shim does not expose.
     {
