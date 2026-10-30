@@ -74,9 +74,7 @@
 
   prefer-no-csd
   screenshot-path "~/Pictures/Screenshots/Screenshot-%Y-%m-%d %H-%M-%S.png"
-  animations {
 
-  }
   window-rule {
       geometry-corner-radius ${if radius == "" then "10" else radius}
       clip-to-geometry true
@@ -134,7 +132,7 @@
 
   }
   binds {
-  ${extraKeybinds}
+      ${extraKeybinds}
       Mod+Shift+Slash {
           show-hotkey-overlay
       }
