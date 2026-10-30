@@ -5,6 +5,13 @@
   ...
 }:
 let
+  models = {
+    default = "openai-codex/gpt-6.1-sol";
+    advisor = "openai-codex/gpt-6.1-sol";
+    summarizer = "openai-codex/gpt-6-luna";
+    classifier = "openai-codex/gpt-6-luna";
+  };
+
   linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
       pkgs.alsa-lib
@@ -48,8 +55,7 @@ let
   configFile = (pkgs.formats.yaml { }).generate "omp-config.yml" {
     advisor.enabled = true;
     modelRoles = {
-      default = "openai-codex/gpt-6-astra";
-      advisor = "openai-codex/gpt-5.6-luna";
+      inherit (models) default advisor;
     };
     setupVersion = 1;
     symbolPreset = "nerd";
@@ -86,7 +92,7 @@ let
 
       if [[ -e "$configPath" || -L "$configPath" ]]; then
         yq eval-all --prettyPrint \
-          ". as \$item ireduce ({}; . * \$item)" \
+          ". as \$item ireduce ({}; . * \$item) | .modelRoles.default = load(\"${configFile}\").modelRoles.default | .modelRoles.advisor = load(\"${configFile}\").modelRoles.advisor" \
           ${configFile} "$configPath" > "$tempPath"
       else
         cp ${configFile} "$tempPath"
@@ -99,7 +105,7 @@ let
   };
   settingsFile = (pkgs.formats.json { }).generate "omp-settings.json" {
     contextPrune = {
-      summarizerModel = "openai-codex/gpt-5.6-luna";
+      summarizerModel = models.summarizer;
       # The automatic flush deadline above cancels first and retries silently.
       summarizerIdleTimeoutMs = 45000;
     };
@@ -132,7 +138,7 @@ let
   automodeConfig = (pkgs.formats.json { }).generate "omp-automode.json" {
     autoMode = {
       enabled = true;
-      classifierModel = "openai-codex/gpt-6-luna";
+      classifierModel = models.classifier;
       classifierReasoningLevel = "low";
       allowInsideWorkingDirectory = true;
       deniedPaths = [
@@ -187,7 +193,7 @@ in
   };
 
   # OMP writes runtime settings to this file. Keep it outside Home Manager's
-  # read-only store links, and merge new Nix defaults underneath runtime edits.
+  # read-only store links. Keep runtime edits except the Nix-owned default/advisor roles.
   home.file.".omp/agent/config.yml".enable = false;
   home.file.".omp/agent/lsp.json".source = lspFile;
   home.file.".omp/agent/mcp.json" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
