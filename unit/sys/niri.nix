@@ -21,19 +21,6 @@
 let
   cursorName = "BreezeX-Light";
   cursorSize = 24;
-  cursorPackage =
-    pkgs.runCommand "breezex-cursor-2.0.1"
-      {
-        src = pkgs.fetchzip {
-          url = "https://github.com/ful1e5/BreezeX_Cursor/releases/download/v2.0.1/BreezeX-Light.tar.xz";
-          hash = "sha256-tpWVWrfNJ8xFgvwcDWSEVGmL7kGcRfJyQ+yg5sSgsHg=";
-          stripRoot = false;
-        };
-      }
-      ''
-        mkdir -p "$out/share/icons/${cursorName}"
-        cp -r "$src/${cursorName}"/. "$out/share/icons/${cursorName}/"
-      '';
   niri = pkgs.niri.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
       ../../patch/niri/three-finger-drag.patch
@@ -73,7 +60,7 @@ in
     home.pointerCursor = {
       enable = true;
       gtk.enable = true;
-      package = cursorPackage;
+      package = pkgs.breezex-cursor;
       name = cursorName;
       size = cursorSize;
     };

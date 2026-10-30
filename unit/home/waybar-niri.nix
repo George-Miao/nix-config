@@ -5,54 +5,6 @@
 }:
 { lib, pkgs, ... }:
 let
-  bluetoothManagerSidebar = pkgs.stdenv.mkDerivation (finalAttrs: {
-    pname = "bluetooth-manager-sidebar";
-    version = "0.2.0";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "Relz";
-      repo = "bluetooth-manager-sidebar";
-      tag = "v${finalAttrs.version}";
-      hash = "sha256-KQuH6tLpwZMLwGgQpAnEp5/ENxLWvDiwMUKmgVK6mQE=";
-    };
-
-    strictDeps = true;
-
-    nativeBuildInputs = with pkgs; [
-      meson
-      ninja
-      pkg-config
-      wrapGAppsHook4
-    ];
-
-    buildInputs = with pkgs; [
-      glib
-      gtk4
-      libadwaita
-      json-glib
-      gtk4-layer-shell
-    ];
-
-    preFixup = ''
-      gappsWrapperArgs+=(
-        --prefix PATH : ${
-          lib.makeBinPath [
-            pkgs.pulseaudio
-            pkgs.util-linux
-          ]
-        }
-      )
-    '';
-
-    meta = {
-      description = "GTK Bluetooth sidebar for Wayland desktops";
-      homepage = "https://github.com/Relz/bluetooth-manager-sidebar";
-      license = lib.licenses.gpl3Plus;
-      mainProgram = "bm-sidebar";
-      platforms = lib.platforms.linux;
-    };
-  });
-
   codexUsage = pkgs.writeShellApplication {
     name = "waybar-codex-usage";
     runtimeInputs = with pkgs; [
@@ -136,7 +88,7 @@ let
   };
 in
 {
-  home.packages = lib.optional bluetooth bluetoothManagerSidebar;
+  home.packages = lib.optional bluetooth pkgs.bluetooth-manager-sidebar;
 
   programs.waybar = {
     enable = true;
