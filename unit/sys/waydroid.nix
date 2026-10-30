@@ -1,8 +1,44 @@
-{ config, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  nvidiaEnabled = builtins.elem "nvidia" config.services.xserver.videoDrivers;
+  nvidiaPackage =
+    inputs.waydroid-nvidia.packages.${pkgs.stdenv.hostPlatform.system}.waydroid-nvidia-full;
+in
 {
   virtualisation.waydroid = {
     enable = true;
-    package = pkgs.waydroid-nftables;
+    package = if nvidiaEnabled then nvidiaPackage else pkgs.waydroid-nftables;
+  };
+
+  boot.kernelModules = lib.mkIf nvidiaEnabled [ "udmabuf" ];
+
+  assertions = lib.optionals nvidiaEnabled [
+    {
+      assertion = config.hardware.nvidia.open && config.hardware.nvidia.modesetting.enable;
+      message = "Waydroid NVIDIA needs open NVIDIA kernel modules and DRM modesetting.";
+    }
+  ];
+
+  services.udev.packages = lib.mkIf nvidiaEnabled [ nvidiaPackage ];
+  systemd.tmpfiles.packages = lib.mkIf nvidiaEnabled [ nvidiaPackage ];
+  systemd.user.services.wd-venus = lib.mkIf nvidiaEnabled {
+    description = "Waydroid NVIDIA Venus render server";
+    wantedBy = [ "default.target" ];
+    serviceConfig = {
+      ExecStart = "${nvidiaPackage}/lib/waydroid-nvidia/virgl_test_server --venus --multi-clients --socket-path /run/waydroid-venus/venus.sock";
+      Environment = [
+        "RENDER_SERVER_EXEC_PATH=${nvidiaPackage}/lib/waydroid-nvidia/virgl_render_server"
+        "LD_LIBRARY_PATH=${nvidiaPackage}/lib/waydroid-nvidia:${pkgs.vulkan-loader}/lib"
+      ];
+      Restart = "on-failure";
+      RestartSec = 1;
+    };
   };
 
   environment.systemPackages = [

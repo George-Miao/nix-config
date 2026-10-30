@@ -86,6 +86,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    waydroid-nvidia = {
+      url = "github:yigexuanmu/waydroid-nvidia-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     crane.url = "github:ipetkov/crane";
     community-lib.url = "github:nix-community/nixpkgs.lib";
     flake-utils.url = "github:numtide/flake-utils";
