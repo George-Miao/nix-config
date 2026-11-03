@@ -1,24 +1,10 @@
 {
   pkgs,
-  config,
   ...
 }:
 {
-  gtk = rec {
+  gtk = {
     enable = true;
-
-    theme = {
-      name = "Catppuccin-Macchiato-Compact-Pink";
-      package = pkgs.catppuccin-gtk.override {
-        accents = [ "pink" ];
-        size = "compact";
-        tweaks = [
-          "rimless"
-          "normal"
-        ];
-        variant = "macchiato";
-      };
-    };
 
     iconTheme = {
       package = pkgs.adwaita-icon-theme;
@@ -37,8 +23,6 @@
     };
 
     gtk4 = {
-      inherit theme;
-
       extraConfig = {
         gtk-im-module = "fcitx";
       };
@@ -46,13 +30,4 @@
   };
 
   home.packages = [ pkgs.dconf ];
-
-  xdg.configFile = {
-    "gtk-4.0/assets".source =
-      "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/assets";
-    "gtk-4.0/gtk.css".source =
-      "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk.css";
-    "gtk-4.0/gtk-dark.css".source =
-      "${config.gtk.theme.package}/share/themes/${config.gtk.theme.name}/gtk-4.0/gtk-dark.css";
-  };
 }
