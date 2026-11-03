@@ -13,22 +13,13 @@
       allowUnfree = true;
       nvidia.acceptLicense = true;
       allowInsecurePredicate = _: true;
+      # Home Manager still needs GTK 2 to build its input-method cache.
+      problems.handlers."gtk+".broken = "warn";
     };
 
     overlays = with inputs; [
       rust-overlay.overlays.default
       ts3-noweb.overlays.default
-      # Temporary backport of google/mozc@29c082a for Qt uic.
-      (_: prev: {
-        mozc = prev.mozc.overrideAttrs (old: {
-          patches = (old.patches or [ ]) ++ [
-            (prev.fetchpatch {
-              url = "https://github.com/google/mozc/commit/29c082a64b577b661694148760a2ae19817beb57.patch";
-              hash = "sha256-Gft1mnLPSMexDMg/PVhwjUVl9D9g1cVGvVNgFmpK168=";
-            })
-          ];
-        });
-      })
     ];
   };
 }
