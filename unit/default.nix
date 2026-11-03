@@ -176,6 +176,7 @@ rec {
           chromium
           bambu-studio
           mailspring
+          kooha
           spotifast
           zen-browser
           # wine
@@ -203,7 +204,6 @@ rec {
           # chromium
           zotero
           libreoffice
-          kooha
           telegram-desktop
           firefox
           pavucontrol
