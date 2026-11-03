@@ -73,6 +73,7 @@ in
       preset.local
       preset.gui
       home.dropbox
+      home.plex
     ];
 
     home = {
@@ -80,10 +81,6 @@ in
         nautilus
         pciutils
         glibc
-        # Native Wayland falls back to llvmpipe on NVIDIA.
-        (plex-desktop.override {
-          extraEnv.WAYLAND_DISPLAY = "";
-        })
         usbutils
         grub2
         evince
