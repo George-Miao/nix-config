@@ -6,7 +6,7 @@
   hardware = {
     graphics.enable = true;
     nvidia = {
-      branch = "beta";
+      branch = "stable";
       open = true;
       nvidiaSettings = true;
       modesetting.enable = true;
