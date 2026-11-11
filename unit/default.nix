@@ -141,7 +141,10 @@ rec {
           cargo-feature
           discord
           nix-search-cli
-          espup
+          # espup 0.19.0 needs the system AWS-LC library.
+          (espup.overrideAttrs (old: {
+            buildInputs = old.buildInputs ++ [ aws-lc ];
+          }))
           arp-scan
           deploy-rs
           flyctl
