@@ -12,6 +12,14 @@ let
     classifier = "openai-codex/gpt-6-luna";
   };
 
+  # OMP 18.16.0 omits these native build dependencies.
+  ompPackage = pkgs.omp.overrideAttrs (old: {
+    buildInputs = old.buildInputs ++ [
+      pkgs.oniguruma
+      pkgs.zstd
+    ];
+  });
+
   linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
       pkgs.alsa-lib
@@ -166,7 +174,7 @@ let
       ''}
       case "''${1-}" in
         plugin | completions | --help | -h | --version | -V)
-          exec ${pkgs.omp}/bin/omp "$@"
+          exec ${ompPackage}/bin/omp "$@"
           ;;
       esac
 
@@ -176,13 +184,13 @@ let
         exit 1
       fi
 
-      if ! ${pkgs.omp}/bin/omp plugin doctor --json >/dev/null; then
+      if ! ${ompPackage}/bin/omp plugin doctor --json >/dev/null; then
         echo "omp: refusing to start because an OMP plugin failed validation" >&2
         echo "omp: run 'omp plugin doctor' for details" >&2
         exit 1
       fi
 
-      exec ${pkgs.omp}/bin/omp "$@"
+      exec ${ompPackage}/bin/omp "$@"
     '';
   };
 in
