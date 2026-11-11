@@ -8,7 +8,7 @@ let
     lib.filterAttrs (_: type: type == "directory") (builtins.readDir ../../skills)
   );
   remote = lib.mapAttrs (_: skill: "${skill}") (
-    lib.mergeAttrsList (with pkgs.skills; [ mattpocock.skills ])
+    lib.mergeAttrsList (with pkgs.agent-skills.github; [ mattpocock.skills ])
   );
   skills = remote // local;
   skillsDirectory = pkgs.linkFarm "agent-skills" (
