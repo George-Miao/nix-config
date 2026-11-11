@@ -4,6 +4,8 @@ let
     toolchain:
     toolchain.default.override {
       extensions = [ "rust-src" ];
+      # Zed builds development extensions for this target.
+      targets = [ "wasm32-wasip2" ];
     }
   );
 in
