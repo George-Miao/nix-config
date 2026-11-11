@@ -13,8 +13,6 @@
       allowUnfree = true;
       nvidia.acceptLicense = true;
       allowInsecurePredicate = _: true;
-      # Home Manager still needs GTK 2 to build its input-method cache.
-      problems.handlers."gtk+".broken = "warn";
     };
 
     overlays = with inputs; [
