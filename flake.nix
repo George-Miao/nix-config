@@ -147,7 +147,11 @@
               };
 
               nixpkgs.overlays = [
-                flakes.overlays.default
+                # Bind flake recipes to the package set before this overlay.
+                (
+                  final: prev:
+                  flakes.overlays.default final (prev // { callPackage = prev.lib.callPackageWith prev; })
+                )
                 nix-skills.overlays.default
               ];
             }
