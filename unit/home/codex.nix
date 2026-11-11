@@ -8,6 +8,15 @@
 {
   programs.codex = {
     enable = true;
+    # Codex 0.167.0 omits these native build dependencies.
+    package = pkgs.codex.overrideAttrs (old: {
+      buildInputs = old.buildInputs ++ [
+        pkgs.zstd
+        pkgs.aws-lc
+        pkgs.oniguruma
+        pkgs.sqlite
+      ];
+    });
     context = config.agent.context;
     settings = {
       default_permissions = "git-workspace";
