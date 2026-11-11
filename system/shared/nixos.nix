@@ -38,6 +38,8 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     libcap
+    # The downloaded WASI SDK compiler needs libtinfo.
+    ncurses
     openssl
     zlib
   ];
