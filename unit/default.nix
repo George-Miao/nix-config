@@ -178,6 +178,7 @@ rec {
           vscode
           chromium
           bambu-studio
+          jlcone
           mailspring
           kooha
           spotifast
