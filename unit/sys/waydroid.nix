@@ -27,6 +27,12 @@ in
 
   services.udev.packages = lib.mkIf nvidiaEnabled [ nvidiaPackage ];
   systemd.tmpfiles.packages = lib.mkIf nvidiaEnabled [ nvidiaPackage ];
+
+  # The NVIDIA fork needs these tools in the container service.
+  systemd.services.waydroid-container = lib.mkIf nvidiaEnabled {
+    path = nvidiaPackage.runtimePath ++ [ config.system.path ];
+  };
+
   systemd.user.services.wd-venus = lib.mkIf nvidiaEnabled {
     description = "Waydroid NVIDIA Venus render server";
     wantedBy = [ "default.target" ];
