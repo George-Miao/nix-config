@@ -38,7 +38,7 @@ in
     fwupd
     adb
     waydroid
-    (unit.sys."usb-automount")
+    # (unit.sys."usb-automount")
     spacenav
     probe-rs
     flipper
