@@ -3,21 +3,26 @@
   lib,
   unit,
   consts,
+  inputs,
   ...
 }:
 {
   imports =
     let
+      kdl = inputs.nix-kdl.kdl;
       niri = unit.sys.niri {
-        display = ''
-          output "LG Electronics LG TV SSCR2 0x01010101" {
-            mode "3840x2160@119.880"
-            scale 1.3
-            transform "normal"
-            position x=0 y=0
-            focus-at-startup
-          }
-        '';
+        display = with kdl.dsl; [
+          (n "output" "LG Electronics LG TV SSCR2 0x01010101" [
+            (n "mode" "3840x2160@119.880")
+            (n "scale" 1.3)
+            (n "transform" "normal")
+            (n "position" {
+              x = 0;
+              y = 0;
+            })
+            (n "focus-at-startup")
+          ])
+        ];
       };
       scrutiny = unit.sys.scrutiny {
         devices = [

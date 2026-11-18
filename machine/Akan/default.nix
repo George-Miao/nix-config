@@ -9,43 +9,56 @@
 {
   imports =
     let
+      kdl = inputs.nix-kdl.kdl;
       niri = unit.sys.niri {
         battery = true;
         bluetooth = true;
         brightness = true;
-        display = ''
-          output "China Star Optoelectronics Technology Co., Ltd MND508ZB1-1 Unknown" {
-            scale 1.7
-          }
-        '';
-        extraKeybinds = ''
-          Mod+L hotkey-overlay-title="Lock the Computer" repeat=false {
-              spawn "${lib.getExe pkgs.swaylock-effects}" "--screenshots" "--effect-blur" "10x10"
-          }
-          XF86AudioPrev allow-when-locked=true {
-              spawn "${lib.getExe pkgs.playerctl}" "previous"
-          }
-          XF86AudioPlay allow-when-locked=true {
-              spawn "${lib.getExe pkgs.playerctl}" "play-pause"
-          }
-          XF86AudioNext allow-when-locked=true {
-              spawn "${lib.getExe pkgs.playerctl}" "next"
-          }
-          XF86MonBrightnessDown allow-when-locked=true {
-              spawn "${lib.getExe pkgs.brightnessctl}" "--class=backlight" "set" "5%-"
-          }
-          XF86MonBrightnessUp allow-when-locked=true {
-              spawn "${lib.getExe pkgs.brightnessctl}" "--class=backlight" "set" "+5%"
-          }
-          XF86RFKill allow-when-locked=true repeat=false {
-              spawn "${lib.getExe' pkgs.util-linux "rfkill"}" "toggle" "all"
-          }
-          XF86AudioMedia repeat=false {
-              spawn "${lib.getExe pkgs.playerctl}" "play-pause"
-          }
-        '';
-        gestureSwipeFingers = "4";
-        gaps = "5";
+        display = with kdl.dsl; [
+          (n "output" "China Star Optoelectronics Technology Co., Ltd MND508ZB1-1 Unknown" [
+            (n "scale" 1.7)
+          ])
+        ];
+        extraKeybinds = with kdl.dsl; [
+          (n "Mod+L"
+            {
+              hotkey-overlay-title = "Lock the Computer";
+              repeat = false;
+            }
+            [
+              (n "spawn" (lib.getExe pkgs.swaylock-effects) "--screenshots" "--effect-blur" "10x10")
+            ]
+          )
+          (n "XF86AudioPrev" { allow-when-locked = true; } [
+            (n "spawn" (lib.getExe pkgs.playerctl) "previous")
+          ])
+          (n "XF86AudioPlay" { allow-when-locked = true; } [
+            (n "spawn" (lib.getExe pkgs.playerctl) "play-pause")
+          ])
+          (n "XF86AudioNext" { allow-when-locked = true; } [
+            (n "spawn" (lib.getExe pkgs.playerctl) "next")
+          ])
+          (n "XF86MonBrightnessDown" { allow-when-locked = true; } [
+            (n "spawn" (lib.getExe pkgs.brightnessctl) "--class=backlight" "set" "5%-")
+          ])
+          (n "XF86MonBrightnessUp" { allow-when-locked = true; } [
+            (n "spawn" (lib.getExe pkgs.brightnessctl) "--class=backlight" "set" "+5%")
+          ])
+          (n "XF86RFKill"
+            {
+              allow-when-locked = true;
+              repeat = false;
+            }
+            [
+              (n "spawn" (lib.getExe' pkgs.util-linux "rfkill") "toggle" "all")
+            ]
+          )
+          (n "XF86AudioMedia" { repeat = false; } [
+            (n "spawn" (lib.getExe pkgs.playerctl) "play-pause")
+          ])
+        ];
+        gestureSwipeFingers = 4;
+        gaps = 5;
         swapCaps = true;
         threeFingerDrag = true;
       };

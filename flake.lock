@@ -290,6 +290,21 @@
         "type": "github"
       }
     },
+    "nix-kdl": {
+      "locked": {
+        "lastModified": 1791014130,
+        "narHash": "sha256-bK8zm1QxroMbnhOYJAMrDa85mQqaRug1J6NdHiUR2rs=",
+        "owner": "Lhcfl",
+        "repo": "nix-kdl",
+        "rev": "f53cdd251e281a7f2d3d0aed6ee2747f55721475",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Lhcfl",
+        "repo": "nix-kdl",
+        "type": "github"
+      }
+    },
     "nix-skills": {
       "inputs": {
         "nixpkgs": [
@@ -414,6 +429,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-index-database": "nix-index-database",
+        "nix-kdl": "nix-kdl",
         "nix-skills": "nix-skills",
         "nixos-generators": "nixos-generators",
         "nixos-hardware": "nixos-hardware",
