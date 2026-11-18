@@ -63,9 +63,10 @@ among common Rust libraries.
 - Organize by domain concept, not by generic technical layer. Split a concept into
   a directory when it gains distinct runtime, state, error, handle, or platform
   responsibilities.
-- Map source files to logical modules and use `mod.rs` for directory modules. Split
-  large files when they contain distinct components, such as types and impls that
-  are not closely coupled.
+- Map source files to logical modules. For directory modules, prefer `foo/mod.rs`
+  over `foo.rs` beside a `foo/` directory.
+- Split large files when they contain distinct components, such as types and impls
+  that are not closely coupled.
 - Never use `include!` to split handwritten source files. Declare a module instead;
   reserve `include!` for generated source.
 - Keep implementation modules private by default. Make visibility no wider than
