@@ -12,13 +12,37 @@ let
     classifier = "openai-codex/gpt-6-luna";
   };
 
-  # OMP 18.16.0 omits these native build dependencies.
-  ompPackage = pkgs.omp.overrideAttrs (old: {
-    buildInputs = old.buildInputs ++ [
-      pkgs.oniguruma
-      pkgs.zstd
-    ];
-  });
+  # Pin the official binaries until the package inputs provide this release.
+  ompVersion = "18.22.1";
+  ompPlatform =
+    {
+      aarch64-darwin = {
+        name = "darwin-arm64";
+        hash = "sha256-a/eEoa4dOBURYBk3KvJ765GS4ZYuk5vjVkP2cS0lfFs=";
+      };
+      x86_64-darwin = {
+        name = "darwin-x64";
+        hash = "sha256-svBCaKA2cYv/R1qV+8r7Ng87SLr9zECzNRqq6zbvYqI=";
+      };
+      aarch64-linux = {
+        name = "linux-arm64";
+        hash = "sha256-xl3VlLoz79UydPo7dmvTH2fAcHF/rBL55gTStbVGm/k=";
+      };
+      x86_64-linux = {
+        name = "linux-x64";
+        hash = "sha256-ui04C8VKbxdaMUtJ0vRegtReRpJ0Nilpr7rfLWVCP9Y=";
+      };
+    }
+    .${pkgs.stdenv.hostPlatform.system};
+  ompPackage = pkgs.oh-my-pi.overrideAttrs {
+    version = ompVersion;
+    # Stripping removes the embedded Bun application.
+    dontStrip = true;
+    src = pkgs.fetchurl {
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v${ompVersion}/omp-${ompPlatform.name}";
+      inherit (ompPlatform) hash;
+    };
+  };
 
   linuxAudioLibraryPath = lib.optionalString pkgs.stdenv.hostPlatform.isLinux (
     lib.makeLibraryPath [
