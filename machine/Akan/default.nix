@@ -155,6 +155,8 @@
 
   time.timeZone = lib.mkDefault "America/New_York";
 
+  systemd.sleep.settings.Sleep.HibernateDelaySec = "1h";
+
   systemd.services.framework-charge-thresholds = {
     description = "Set Framework battery charge thresholds";
     wantedBy = [ "multi-user.target" ];
@@ -185,6 +187,7 @@
   };
 
   services = {
+    logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
     automatic-timezoned.enable = true;
     fprintd.tod.enable = lib.mkForce false;
   };
