@@ -128,6 +128,8 @@
   hardware.framework.enableKmod = false;
 
   boot = {
+    # Read the RTC before systemd restores the saved clock.
+    initrd.kernelModules = [ "rtc_cmos" ];
     extraModprobeConfig = ''
       options cros_charge_control probe_with_fwk_charge_control=1
     '';
